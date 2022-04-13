@@ -7,7 +7,7 @@ include 'dbconnect.php';
 <!DOCTYPE html>
 <html>
 <head>
-<title>TOKOPEKITA</title>
+<title>WOODEN</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -90,7 +90,7 @@ include 'dbconnect.php';
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.php">TOKOPEKITA</a></h1>
+				<h1><a href="index.php">WOODEN</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="search.php" method="post">
@@ -262,7 +262,7 @@ include 'dbconnect.php';
 					<h3>Hubungi Kami</h3>
 
 					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Richard's Lab, DKI Jakarta.</li>
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Wooden Furniture, Jember</li>
 						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">info@email</a></li>
 						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+62 8113 2322</li>
 					</ul>

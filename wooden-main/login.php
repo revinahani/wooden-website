@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['log'])){
-
+	
 } else {
 	header('location:index.php');
 };
@@ -13,182 +13,235 @@ $timenow = date("j-F-Y-h:i:s A");
 
 	if(isset($_POST['login']))
 	{
-	$email = mysqli_real_escape_string($conn,$_POST['email']);
-	$pass = mysqli_real_escape_string($conn,$_POST['pass']);
-	$queryuser = mysqli_query($conn,"SELECT * FROM user WHERE email='$email'");
+	$username = mysqli_real_escape_string($conn,$_POST['username']);
+	$password = mysqli_real_escape_string($conn,$_POST['password']);
+	$queryuser = mysqli_query($conn,"SELECT * FROM customer WHERE username='$usernam'");
 	$cariuser = mysqli_fetch_assoc($queryuser);
-
-		if( password_verify($pass, $cariuser['password']) ) {
-			$_SESSION['id'] = $cariuser['userid'];
-			$_SESSION['role'] = $cariuser['role'];
-			$_SESSION['notelp'] = $cariuser['notelp'];
-			$_SESSION['name'] = $cariuser['namalengkap'];
+		
+		if( password_verify($password, $cariuser['password']) ) {
+			$_SESSION['idCustomer'] = $cariuser['idcustomer'];
+			$_SESSION['gambar'] = $cariuser['gambar'];
+			$_SESSION['namaCustomer'] = $cariuser['namaCustomer'];
+			$_SESSION['tanggalLahir'] = $cariuser['tanggalLahir'];
+			$_SESSION['jenisKelamin'] = $cariuser['jenisKelamin'];
+			$_SESSION['telepon'] = $cariuser['telepon'];
+			$_SESSION['email'] = $cariuser['email'];
+			$_SESSION['jalan'] = $cariuser['jalan'];
+			$_SESSION['idKabupaten'] = $cariuser['idKabupaten'];
+			$_SESSION['usernamer'] = $cariuser['username'];
 			$_SESSION['log'] = "Logged";
 			header('location:index.php');
 		} else {
 			echo 'Username atau password salah';
 			header("location:login.php");
-		}
+		}		
 	}
 
 ?>
 
-!<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.css">
-    <title></title>
-    <style media="screen">
-    h1 {
-      margin-bottom: 50px;
-      }
-      body{
-      background-color:#a99066;
-      }
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wooden - Masuk</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Wooden, Rambipuji" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+</head>
+	
+<body>
+<!-- header -->
+	<div class="agileits_header">
+		<div class="container">
+			<div class="w3l_offers">
+				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.php">BELANJA SEKARANG!</a></p>
+			</div>
+			<div class="agile-login">
+				<ul>
+					<li><a href="registered.php"> Daftar</a></li>
+					<li><a href="login.php">Masuk</a></li>
+					
+				</ul>
+			</div>
+			<div class="product_list_header">  
+					<form action="#" method="post" class="last"> 
+						<input type="hidden" name="cmd" value="_cart">
+						<input type="hidden" name="display" value="1">
+						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+					</form>  
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
 
-      .signup-page {
-        height: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        overflow: hidden;
-      }
+	<div class="logo_products">
+		<div class="container">
+		<div class="w3ls_logo_products_left1">
+				<ul class="phone_email">
+					<li><i class="fa fa-phone" aria-hidden="true"></i>Hubungi Kami : (+6281) 222 333</li>
+				</ul>
+			</div>
+			<div class="w3ls_logo_products_left">
+				<h1><a href="index.php">Wooden</a></h1>
+			</div>
+		<div class="w3l_search">
+			<form action="#" method="post">
+				<input type="search" name="Search" placeholder="Cari produk..." required="">
+				<button type="submit" class="btn btn-default search" aria-label="Left Align">
+					<i class="fa fa-search" aria-hidden="true"> </i>
+				</button>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+			
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+<!-- //header -->
+<!-- navigation -->
+	<div class="navigation-agileits">
+		<nav class="navbar navbar-default">
+			<!-- Brand and toggle get grouped for better mobile display -->
+              <!-- breadcrumbs -->
+	            <div class="breadcrumbs">
+                <div class="container">
+                <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                  <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+                  <li class="active">Halaman Login</li>
+			          </ol>
+				</div>
+			</div>
+        </nav>
+	</div>
+</div>
+		
+<!-- //navigation -->
+<!-- login -->
+	<div class="login">
+		<div class="container">
+			<h2>Masuk</h2>
+		
+			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+				<form method="post">
+					<input type="text" name="username" placeholder="Username" required>
+					<input type="password" name="password" placeholder="Password" required>
+					<input type="submit" name="login" value="Masuk">
+				</form>
+			</div>
+			<h4>Belum terdaftar?</h4>
+			<p><a href="registered.php">Daftar Sekarang</a></p>
+		</div>
+	</div>
+<!-- //login -->
+<!-- //footer -->
+<div class="footer">
+		<div class="container">
+			<div class="w3_footer_grids">
+				<div class="col-md-4 w3_footer_grid">
+					<h3>Hubungi Kami</h3>
+					
+					<ul class="address">
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Richard's Lab, DKI Jakarta.</li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">info@email</a></li>
+						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+62 8113 2322</li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Tentang Kami</h3>
+					<ul class="info"> 
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">How To</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		
+		<div class="footer-copy">
+			
+			<div class="container">
+				<p>© 2020 Richard's Lab. All rights reserved</p>
+			</div>
+		</div>
+		
+	</div>	
+	<div class="footer-botm">
+			<div class="container">
+				<div class="w3layouts-foot">
+					<ul>
+						<li><a href="#" class="w3_agile_instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+				<div class="payment-w3ls">	
+					<img src="images/card.png" alt=" " class="img-responsive">
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+<!-- //footer -->	
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 
-      .signup-left {
-      height: 100%;
-      background-color: rgba(255, 255, 255, 1);
-      color: #434245;
-      width: 50%;
-      min-width: 486px;
-      float: left;
-      z-index: 1;
-      overflow-y: auto;
-      }
-      .signup-right{
-        height: 100%;
-        width:50%;
-        background-color: #a99066 !important;
-        min-width: 486px;
-          float: right;
-          z-index: 1;
-					background:url('')
-      }
+<!-- top-header and slider -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 4000,
+				easingType: 'linear' 
+				};
+			
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
 
-      @media(max-width: 769px) {
-      .signup-left {
-      background-color: rgba(255, 255, 255, 0.2);
-      }
-      }
-
-        .header {
-        width: 100%;
-        z-index: 2px;
-      }
-
-      #logo {
-        margin: 10px 30px;
-        height: 30px;
-        height: 60px;
-      }
-
-      .create-account {
-        margin-top: 30%;
-        padding: 0 60px;
-        position: relative;
-        align-self: center;
-        max-width: 100%;
-      }
-
-      form {
-        margin-top: 20px;
-      }
-
-      .btn {
-        margin-top: 25%;
-        font-size: 20px;
-        height: 55px;
-        width: 150px;
-        background-color: #00aeff;
-
-        &:hover {
-          background-color: #008bcc;
-        }
-      }
-
-      @media (max-height: 900px) {
-
-      h1 {
-          font-size: 25px;
-          margin-bottom: 15px;
-        }
-
-      .create-account {
-            margin-top: 15%;
-          }
-          .btn {
-          margin-top: 5%;
-        }
-      }
-
-      @media (max-width: 767px) {
-
-        h1 {
-          font-size: 30px;
-          margin-bottom: 0;
-        }
-          .signup-left {
-              height: 100%;
-              width: 100%;
-              overflow-x: auto;
-          }
-
-          .create-account {
-            margin-top: 0;
-            padding: 0 30px;
-            position: absolute;
-            width: 100%;
-          }
-
-        .btn {
-          margin-top: 5%;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="signup-page">
-       <div class="signup-left">
-         <div class="header">
-            <h2 id="logo"> <a href="index.php">WOODEN</a> </h2>
-         </div>
-
-         <div class="create-account">
-           <h1>Login</h1>
-           <form role="form" method="post">
-             <div class="tog1">
-             <div class="form-group">
-               <label for="username">username:</label>
-               <input type="text" name="email"  class="form-control input-md" id="email">
-             </div>
-             </div>
-             <div class="tog">
-             <div class="form-group">
-               <label for="pwd">Password:</label>
-               <input type="password" name="pass" placeholder="Password" required class="form-control input-md" id="pwd">
-             </div>
-             </div>
-
-             <button type="submit" name="login" value="Masuk" class="center-block btn  btn-default">Continue  <i class="glyphicon glyphicon-chevron-right"> </i> </button>
-           </form>
-       </div>
-       </div>
-       <div class="signup-right" >
-
-       </div>
-      </div>
-  </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" charset="utf-8"></script>
+<!-- main slider-banner -->
+<script src="js/skdslider.min.js"></script>
+<link href="css/skdslider.css" rel="stylesheet">
+<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
+						
+			jQuery('#responsive').change(function(){
+			  $('#responsive_wrapper').width(jQuery(this).val());
+			});
+			
+		});
+</script>	
+<!-- //main slider-banner --> 
+</body>
 </html>
