@@ -9,7 +9,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Pelanggan - Tokopekita</title>
+    <title>Kelola customer - Wooden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
                             </li>
-							<li class="active"><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
+							<li class="active"><a href="customer.php"><span>Kelola customer</span></a></li>
 							<li><a href="user.php"><span>Kelola Staff</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
@@ -131,13 +131,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Pelanggan</h2>
+									<h2>Daftar customer</h2>
 								</div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
 												<th>No</th>
-												<th>Nama Pelanggan</th>
+												<th>Nama customer</th>
 												<th>No. Telepon</th>
 												<th>Alamat</th>
 												<th>Email</th>

@@ -3,13 +3,21 @@
 	session_start();
 	include '../dbconnect.php';
 		
-	if(isset($_POST['adduser']))
+	if(isset($_POST['addKaryawan']))
 	{
-		$username = $_POST['uname'];
-		$password = password_hash($_POST['upass'], PASSWORD_DEFAULT); 
+		$namaKaryawan = $_POST['namaKaryawan'];
+        $gambar = $_POST['gambar'];
+        $tanggalLahirKaryawan = $_POST['tanggalLahirKaryawan'];
+        $idAsal = $_POST['idAsal'];
+        $teleponKaryawan = $_POST['teleponKaryawan'];
+        $tanggalMasukKaryawan = $_POST['tanggalMasukKaryawan'];
+        $statusKaryawan = $_POST['statusKaryawan'];
+        $usernameKaryawan = $_POST['usernameKaryawan'];
+		$passwordKaryawan = password_hash($_POST['passwordKaryawan'], PASSWORD_DEFAULT); 
 			  
-		$tambahuser = mysqli_query($conn,"insert into login values('','$username','$password')");
-		if ($tambahuser){
+		$tambahKaryawan = mysqli_query($conn,"insert into karyawan_adminitrasi (namaKaryawan, gambar, tanggalLahirKaryawan, idAsal, teleponKaryawan, tanggalMasukKaryawan, statusKaryawan, keterangan, usernameKaryawan, passwordKaryawan)
+        values('$namaKaryawan','$gambar','$tanggalLahirKaryawan','$idAsal', '$teleponKaryawan','$tanggalMasukKaryawan','$statusKaryawan','$keterangan','$usernameKaryawan','$passwordKaryawan')");
+		if ($tambahKaryawan){
 		echo " <div class='alert alert-success'>
 			Berhasil menambahkan staff baru.
 		  </div>
@@ -32,7 +40,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Staff - Tokopekita</title>
+    <title>Kelola Karyawan - Wooden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -153,30 +161,46 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Staff</h2>
+									<h2>Daftar Karyawan</h2>
+                                    <button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Karyawan</button>
 									</div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
 												<th>No.</th>
 												<th>Nama</th>
-												<th>Email</th>
-												<th>Telepon</th>
+												<th>Foto Profil</th>
+												<th>Tanggal Lahir</th>
 												<th>Alamat</th>
+                                                <th>No Telepon</th>
+                                                <th>Tanggal Masuk</th>
+                                                <th>Status Karyawan</th>
+                                                <th>Keterangan</th>
+                                                <th>Username</th>
+                                                <th>Password</th>
+
 											</tr></thead><tbody>
 											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from login where role='Admin' order by userid ASC");
+											$brgs=mysqli_query($conn,"SELECT * from karyawan_adminitrasi order by idKaryawan ASC");
 											$no=1;
 											while($p=mysqli_fetch_array($brgs)){
+                                                $id = $p['idKaryawan'];
 
 												?>
 												
 												<tr>
 													<td><?php echo $no++ ?></td>
-													<td><?php echo $p['namalengkap'] ?></td>
-													<td><?php echo $p['email'] ?></td>
-													<td><?php echo $p['notelp'] ?></td>
-													<td><?php echo $p['alamat'] ?></td>
+													<td><?php echo $p['namaKaryawan'] ?></td>
+													<td><?php echo $p['gambar'] ?></td>
+													<td><?php echo $p['tanggalLahirKaryawan'] ?></td>
+													<td><?php echo $p['idAsal'] ?></td>
+                                                    <td><?php echo $p['teleponKaryawan'] ?></td>
+                                                    <td><?php echo $p['tanggalMasukKaryawan'] ?></td>
+                                                    <td><?php echo $p['statusKaryawan'] ?></td>
+                                                    <td><?php echo $p['keterangan'] ?></td>
+                                                    <td><?php echo $p['usernameKaryawan'] ?></td>
+                                                    <td><?php echo $p['passwordKaryawan'] ?></td>
+                                                
 													
 												</tr>		
 												
@@ -202,41 +226,75 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>By Richard's Lab</p>
+                <p>By Wooden Furniture</p>
             </div>
         </footer>
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
 	
-	<!-- modal input 
 			<div id="myModal" class="modal fade">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Tambah User Baru</h4>
+							<h4 class="modal-title">Tambah Karyawan Baru</h4>
 						</div>
 						<div class="modal-body">
 							<form method="post">
 								<div class="form-group">
-									<label>Username</label>
-									<input name="uname" type="text" class="form-control" placeholder="Username" required autofocus>
+									<label>Nama</label>
+									<input name="namaKaryawan" type="text" class="form-control" placeholder="Nama" required autofocus>
 								</div>
 								<div class="form-group">
+									<label>Foto Karyawan</label>
+									<input name="gambar" type="file" class="form-control" placeholder="Foto Karyawan">
+								</div>
+                                <div class="form-group">
+									<label>Tanggal Lahir</label>
+									<input name="tanggalLahirKaryawan" type="date" class="form-control" placeholder="Tanggal lahir" required autofocus>
+								</div>
+                                <div class="form-group">
+									<label>Asal</label>
+									<input name="idAsal" type="text" class="form-control" placeholder="Asal Tinggal" required autofocus>
+								</div>
+                                <div class="form-group">
+									<label>No Telepon</label>
+									<input name="teleponKaryawan" type="text" class="form-control" placeholder="No Telepon" required autofocus>
+								</div>
+                                <div class="form-group">
+									<label>Tanggal Masuk Karyawan</label>
+									<input name="tanggalMasukKaryawan" type="date" class="form-control" placeholder="Tanggal Masuk Karyawan" required autofocus>
+								</div>
+                                <div class="form-group">
+									<label>Status Karyawan</label>
+                                        <select id="statusKaryawan" name="statusKaryawan">
+    						                <option value="Aktif">Aktif</option>
+    						                <option value="Cuti">Cuti</option>
+                                            <option value="Pensiun">Pensiun</option>
+						                </select>
+								</div>
+                                <div class="form-group">
+									<label>Keterangan</label>
+									<input name="keterangan" type="text" class="form-control" placeholder="Keterangan" required autofocus>
+								</div>
+                                <div class="form-group">
+									<label>Username</label>
+									<input name="usernameKaryawan" type="text" class="form-control" placeholder="Username Karyawan" required autofocus>
+								</div>
+                                <div class="form-group">
 									<label>Password</label>
-									<input name="upass" type="password" class="form-control" placeholder="Password">
+									<input name="passwordKaryawan" type="password" class="form-control" placeholder="Password" required autofocus>
 								</div>
 
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-								<input name="adduser" type="submit" class="btn btn-primary" value="Simpan">
+								<input name="addKaryawan" type="submit" class="btn btn-primary" value="Simpan">
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-	-->
 	<script>
 	$(document).ready(function() {
     $('#dataTable3').DataTable( {
