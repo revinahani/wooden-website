@@ -45,35 +45,35 @@ include 'dbconnect.php';
 		<div class="container">
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
-			</div>
-			<div class="agile-login">
-				<ul>
-				<?php
-				if(!isset($_SESSION['log'])){
-					echo '
-					<li><a href="registered.php"> Daftar</a></li>
-					<li><a href="login.php">Masuk</a></li>
-					';
-				} else {
+				</div>	
+					<div class="agile-login ms-auto">
+						<ul>
+						<?php
+						if(!isset($_SESSION['log'])){
+							echo '
+							<li><a href="registered.php"><button type="button" class="btn btn-default" aria-label="True">Daftar</button></a>
+							<li><a href="login.php"><button type="button" class="btn btn-primary" aria-label="Right Align">Masuk</button></a>
+							';
+						} else {
 
-					if($_SESSION['role']=='Member'){
-					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
-					<li><a href="logout.php">Keluar?</a></li>
-					';
-					} else {
-					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
-					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
-					';
-					};
+							if($_SESSION['role']=='Member'){
+							echo '
+							<li style="color:white">Halo, '.$_SESSION["name"].'
+							<li><a href="logout.php">Keluar?</a></li>
+							';
+							} else {
+							echo '
+							<li style="color:white">Halo, '.$_SESSION["name"].'
+							<li><a href="admin">Admin Panel</a></li>
+							<li><a href="logout.php">Keluar?</a></li>
+							';
+							};
 
-				}
-				?>
+						}
+						?>
 
-				</ul>
-			</div>
+						</ul>
+				</div>
 			<div class="product_list_header">
 					<a href="cart.php"><button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
 					 </a>
@@ -159,14 +159,14 @@ include 'dbconnect.php';
 	<!-- main-slider -->
 		<ul id="demo1">
 			<li>
-				<img src="images/slide1.jpg" alt="" />
+				<img src="produk/home 1.jpg" alt="" />
 			</li>
 			<li>
-				<img src="images/slide2.jpg" alt="" />
+				<img src="produk/home 2.jpg" alt="" />
 			</li>
 
 			<li>
-				<img src="images/slide3.jpg" alt="" />
+				<img src="produk/home 3.jpg" alt="" />
 			</li>
 		</ul>
 	<!-- //main-slider -->

@@ -70,6 +70,7 @@ $timenow = date("j-F-Y-h:i:s A");
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -124,14 +125,14 @@ $timenow = date("j-F-Y-h:i:s A");
 	</div>
 <!-- //header -->
 <!-- navigation -->
-	<div class="navigation-agileits">
-		<nav class="navbar navbar-default">
+<div class="navigation-agileits">
+			<nav class="navbar navbar-default">
 			<!-- Brand and toggle get grouped for better mobile display -->
               <!-- breadcrumbs -->
 	            <div class="breadcrumbs">
                 <div class="container">
                 <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-                  <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+                  <li><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
                   <li class="active">Halaman Login</li>
 			          </ol>
 				</div>
@@ -150,7 +151,7 @@ $timenow = date("j-F-Y-h:i:s A");
 				<form method="post">
 					<input type="text" name="username" placeholder="Username" required>
 					<input type="password" name="password" placeholder="Password" required>
-					<input type="submit" name="login" value="Masuk">
+					<input type="submit" name="customer" value="Masuk">
 				</form>
 			</div>
 			<h4>Belum terdaftar?</h4>
