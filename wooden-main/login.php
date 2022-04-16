@@ -13,22 +13,16 @@ $timenow = date("j-F-Y-h:i:s A");
 
 	if(isset($_POST['login']))
 	{
-	$username = mysqli_real_escape_string($conn,$_POST['username']);
-	$password = mysqli_real_escape_string($conn,$_POST['password']);
-	$queryuser = mysqli_query($conn,"SELECT * FROM customer WHERE username='$usernam'");
+	$email = mysqli_real_escape_string($conn,$_POST['email']);
+	$pass = mysqli_real_escape_string($conn,$_POST['pass']);
+	$queryuser = mysqli_query($conn,"SELECT * FROM login WHERE email='$email'");
 	$cariuser = mysqli_fetch_assoc($queryuser);
 		
-		if( password_verify($password, $cariuser['password']) ) {
-			$_SESSION['idCustomer'] = $cariuser['idcustomer'];
-			$_SESSION['gambar'] = $cariuser['gambar'];
-			$_SESSION['namaCustomer'] = $cariuser['namaCustomer'];
-			$_SESSION['tanggalLahir'] = $cariuser['tanggalLahir'];
-			$_SESSION['jenisKelamin'] = $cariuser['jenisKelamin'];
-			$_SESSION['telepon'] = $cariuser['telepon'];
-			$_SESSION['email'] = $cariuser['email'];
-			$_SESSION['jalan'] = $cariuser['jalan'];
-			$_SESSION['idKabupaten'] = $cariuser['idKabupaten'];
-			$_SESSION['usernamer'] = $cariuser['username'];
+		if( password_verify($pass, $cariuser['password']) ) {
+			$_SESSION['id'] = $cariuser['userid'];
+			$_SESSION['role'] = $cariuser['role'];
+			$_SESSION['notelp'] = $cariuser['notelp'];
+			$_SESSION['name'] = $cariuser['namalengkap'];
 			$_SESSION['log'] = "Logged";
 			header('location:index.php');
 		} else {
@@ -46,7 +40,7 @@ $timenow = date("j-F-Y-h:i:s A");
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Wooden, Rambipuji" />
+<meta name="keywords" content="Wooden, Richard's Lab" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -70,7 +64,6 @@ $timenow = date("j-F-Y-h:i:s A");
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
-
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -108,11 +101,11 @@ $timenow = date("j-F-Y-h:i:s A");
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.php">Wooden</a></h1>
+				<h1><a href="index.php">WOODEN</a></h1>
 			</div>
 		<div class="w3l_search">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="Cari produk..." required="">
+			<form action="search.php" method="post">
+				<input type="search" name="Search" placeholder="Cari produk...">
 				<button type="submit" class="btn btn-default search" aria-label="Left Align">
 					<i class="fa fa-search" aria-hidden="true"> </i>
 				</button>
@@ -125,7 +118,7 @@ $timenow = date("j-F-Y-h:i:s A");
 	</div>
 <!-- //header -->
 <!-- navigation -->
-<div class="navigation-agileits">
+	<div class="navigation-agileits">
 		<div class="container">
 			<nav class="navbar navbar-default">
 							<!-- Brand and toggle get grouped for better mobile display -->
@@ -150,11 +143,11 @@ $timenow = date("j-F-Y-h:i:s A");
 														<h6>Kategori</h6>
 														
 														<?php 
-														$kat=mysqli_query($conn,"SELECT * from bahan order by idBahan ASC");
+														$kat=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
 														while($p=mysqli_fetch_array($kat)){
 
 															?>
-														<li><a href="kategori.php?idkategori=<?php echo $p['idBahan'] ?>"><?php echo $p['bahan'] ?></a></li>
+														<li><a href="kategori.php?idkategori=<?php echo $p['idkategori'] ?>"><?php echo $p['namakategori'] ?></a></li>
 																				
 														<?php
 																	}
@@ -172,6 +165,16 @@ $timenow = date("j-F-Y-h:i:s A");
 		</div>
 		
 <!-- //navigation -->
+<!-- breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">Halaman Login</li>
+			</ol>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
 <!-- login -->
 	<div class="login">
 		<div class="container">
@@ -179,13 +182,13 @@ $timenow = date("j-F-Y-h:i:s A");
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				<form method="post">
-					<input type="text" name="username" placeholder="Username" required>
-					<input type="password" name="password" placeholder="Password" required>
-					<input type="submit" name="customer" value="Masuk">
+					<input type="text" name="email" placeholder="Email" required>
+					<input type="password" name="pass" placeholder="Password" required>
+					<input type="submit" name="login" value="Masuk">
 				</form>
 			</div>
-			<h4>Don't have account?</h4>
-			<p><a href="registered.php">Sign Up</a></p>
+			<h4>Belum terdaftar?</h4>
+			<p><a href="registered.php">Daftar Sekarang</a></p>
 		</div>
 	</div>
 <!-- //login -->
@@ -195,16 +198,16 @@ $timenow = date("j-F-Y-h:i:s A");
 			<div class="w3_footer_grids">
 				<div class="col-md-4 w3_footer_grid">
 					<h3>Hubungi Kami</h3>
-					
+
 					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Richard's Lab, DKI Jakarta.</li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">info@email</a></li>
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Wooden Furniture, Jember</li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">woodenjember@gmail.com</a></li>
 						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+62 8113 2322</li>
 					</ul>
 				</div>
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Tentang Kami</h3>
-					<ul class="info"> 
+					<ul class="info">
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">How To</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">FAQ</a></li>

@@ -2,45 +2,12 @@
 session_start();
 include 'dbconnect.php';
 
-if(!isset($_SESSION['log'])){
-	header('location:login.php');
-} else {
-	
-};
-	
-	$uid = $_SESSION['id'];
-	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
-	$fetc = mysqli_fetch_array($caricart);
-	$orderidd = $fetc['orderid'];
-	$itungtrans = mysqli_query($conn,"select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
-	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
-	$itungtrans3 = $itungtrans2['jumlahtrans'];
-	
-if(isset($_POST["update"])){
-	$kode = $_POST['idproduknya'];
-	$jumlah = $_POST['jumlah'];
-	$q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
-	if($q1){
-		echo "Berhasil Update Cart
-		<meta http-equiv='refresh' content='1; url= cart.php'/>";
-	} else {
-		echo "Gagal update cart
-		<meta http-equiv='refresh' content='1; url= cart.php'/>";
-	}
-} else if(isset($_POST["hapus"])){
-	$kode = $_POST['idproduknya'];
-	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
-	if($q2){
-		echo "Berhasil Hapus";
-	} else {
-		echo "Gagal Hapus";
-	}
-}
+$s = $_POST['Search'];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wooden - Keranjang Saya</title>
+<title>Wooden - Pencarian</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -75,9 +42,9 @@ if(isset($_POST["update"])){
 <body>
 <!-- header -->
 	<div class="agileits_header">
-		<div class="container"> 
+		<div class="container">
 			<div class="w3l_offers">
-				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.html">BELANJA SEKARANG!</a></p>
+				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
 			<div class="agile-login">
 				<ul>
@@ -123,7 +90,7 @@ if(isset($_POST["update"])){
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.php">WOODEN</a></h1>
+				<h1><a href="index.php">Wooden</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="search.php" method="post">
@@ -134,10 +101,6 @@ if(isset($_POST["update"])){
 				<div class="clearfix"></div>
 			</form>
 		</div>
-			
-			<div class="clearfix"> </div>
-		</div>
-	</div>
 			
 			<div class="clearfix"> </div>
 		</div>
@@ -185,7 +148,7 @@ if(isset($_POST["update"])){
 										</ul>
 									</li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
-									<li><a href="daftarorder.php">Daftar Order</a></li>
+									<li><a href="konfirmasi.php">Daftar Order</a></li>
 								</ul>
 							</div>
 							</nav>
@@ -196,118 +159,87 @@ if(isset($_POST["update"])){
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
-			<ol class="breadcrumb breadcrumb1">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Checkout</li>
+				<li class="active">Kategori</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- checkout -->
-	<div class="checkout">
+<!--- beverages --->
+	<div class="products">
 		<div class="container">
-			<h2>Dalam keranjangmu ada : <span><?php echo $itungtrans3 ?> barang</span></h2>
-			<div class="checkout-right">
-				<table class="timetable_sub">
-					<thead>
-						<tr>
-							<th>No.</th>	
-							<th>Produk</th>
-							<th>Nama Produk</th>
-							<th>Jumlah</th>
-							
+			<div class="col-md-4 products-left">
+				<div class="categories">
+					<h2>Categories</h2>
+					<ul class="cate">
 						
-							<th>Harga Satuan</th>
-							<th>Hapus</th>
-						</tr>
-					</thead>
-					
-					<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						while($b=mysqli_fetch_array($brg)){
+						
+						<?php 
+														$kat=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
+														while($p=mysqli_fetch_array($kat)){
 
+															?>
+														<li><a href="kategori.php?idkategori=<?php echo $p['idkategori'] ?>"><i class="fa fa-arrow-right" aria-hidden="true"></i><?php echo $p['namakategori'] ?></a></li>
+																				
+														<?php
+																	}
+														?>
+							
+					</ul>
+				</div>																																												
+			</div>
+			<div class="col-md-8 products-right">
+				<div class="agile_top_brands_grids">
+				
+				
+				<?php 
+					$brgs=mysqli_query($conn,"SELECT * from produk where namaproduk like '%$s%' or deskripsi like '%$s%' order by idproduk ASC");
+					$x = mysqli_num_rows($brgs);
+					
+					if($x>0){
+					while($p=mysqli_fetch_array($brgs)){
 					?>
-					<tr class="rem1"><form method="post">
-						<td class="invert"><?php echo $no++ ?></td>
-						<td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
-						<td class="invert"><?php echo $b['namaproduk'] ?></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                     
-									<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
+						
+						<div class="col-md-4 top_brand_left">
+						<div class="hover14 column">
+							<div class="agile_top_brand_left_grid">
+								<div class="agile_top_brand_left_grid_pos">
+									<img src="images/offer.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="agile_top_brand_left_grid1">
+									<figure>
+										<div class="snipcart-item block">
+											<div class="snipcart-thumb">
+												<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><img src="<?php echo $p['gambar']?>" width="200px" height="200px"></a>		
+												<p><?php echo $p['namaproduk'] ?></p>
+												<h4>Rp<?php echo number_format($p['hargaafter']) ?> <span>Rp<?php echo number_format($p['hargabefore']) ?></span></h4>
+											</div>
+											<div class="snipcart-details top_brand_home_details">
+												<fieldset>
+													<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><input type="submit" class="button" value="Lihat Produk" /></a>
+												</fieldset>
+											</div>
+										</div>
+									</figure>
 								</div>
 							</div>
-						</td>
-				
-						<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
-						<td class="invert">
-							<div class="rem">
-							
-								<input type="submit" name="update" class="form-control" value="Update" \>
-								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
-							</form>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<?php
-						}
-					?>
-					
-								<!--quantity-->
-									<script>
-									$('.value-plus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-										divUpd.text(newVal);
-									});
-
-									$('.value-minus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-										if(newVal>=1) divUpd.text(newVal);
-									});
-									</script>
-								<!--quantity-->
-				</table>
-			</div>
-			<div class="checkout-left">	
-				<div class="checkout-left-basket">
-					<h4>Total Harga</h4>
-					<ul>
-						<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						$subtotal = 10000;
-						while($b=mysqli_fetch_array($brg)){
-						$hrg = $b['hargaafter'];
-						$qtyy = $b['qty'];
-						$totalharga = $hrg * $qtyy;
-						$subtotal += $totalharga
-						?>
-						<li><?php echo $b['namaproduk']?><i> - </i> <span>Rp<?php echo number_format($totalharga) ?> </span></li>
+						</div>
+					</div>
 						<?php
-						}
+							}
+					} else {
+						echo "Data tidak ditemukan, coba kata kunci lainnya";
+					}
 						?>
-						<li>Total (inc. 10k Ongkir)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
-					</ul>
+					
+						<div class="clearfix"> </div>
 				</div>
-				<div class="checkout-right-basket">
-					<a href="index.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
-					<a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a>
-				</div>
-				<div class="clearfix"> </div>
 			</div>
+			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- //checkout -->
+<!--- beverages --->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">

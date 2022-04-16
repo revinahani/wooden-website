@@ -9,20 +9,14 @@ include 'dbconnect.php';
 
 if(isset($_POST['adduser']))
 	{
-		$idCustomer = $_POST['idCustomer'];
-		$gambar = $_POST['gambar'];
-		$namaCustomer = $_POST['namaCustomer'];
-		$tanggalLahir = $_POST['tanggalLahir'];
-		$jenisKelamin = $_POST['jenisKelamin'];
-		$telepon = $_POST['telepon'];
+		$nama = $_POST['nama'];
+		$telp = $_POST['telp'];
+		$alamat = $_POST['alamat'];
 		$email = $_POST['email'];
-		$jalan = $_POST['jalan'];
-		$idKabupaten = $_POST['idKabupaten'];
-		$username = $_POST['username'];
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
+		$pass = password_hash($_POST['pass'], PASSWORD_DEFAULT); 
 			  
-		$tambahuser = mysqli_query($conn,"insert into customer (idCustomer, gambar, namaCustomer, username, password, tanggalLahir, jenisKelamin, telepon, email, jalan, idKabupaten) 
-		values('$idCustomer','$gambar','$namaCustomer','$username','$password', '$tanggalLahir', '$jeniKelamin', '$telepon', '$email', '$jalan', '$idKabupaten')");
+		$tambahuser = mysqli_query($conn,"insert into login (namalengkap, email, password, notelp, alamat) 
+		values('$nama','$email','$pass','$telp','$alamat')");
 		if ($tambahuser){
 		echo " <div class='alert alert-success'>
 			Berhasil mendaftar, silakan masuk.
@@ -177,23 +171,14 @@ if(isset($_POST['adduser']))
 			<div class="login-form-grids">
 				<h5>Informasi Pribadi</h5>
 				<form method="post">
-					<input type="text" name="idCustomer" placeholder="Id Customer" required>
-					<input type="file" name="gambar" placeholder="Foto Profil" required maxlength="13">
-					<input type="text" name="namaCustomer" placeholder="Nama Lengkap" required>
-					<input type="date" name="tanggalLahir" placeholder="Tanggal Lahir" required>	
-						<select id="jenisKelamin" name="JenisKelamin">
-    						<option value="Laki-Laki">Laki-Laki</option>
-    						<option value="Perempuan">Perempuan</option>	
-						</select>
-					<input type="text" name="telepon" placeholder="No telepon" required>
-					<input type="email" name="email" placeholder="Email" required>
-					<input type="text" name="jalan" placeholder="Alamat" required>
-					<input type="text" name="idKabupaten" placeholder="id Kabupaten" required>
-					
+					<input type="text" name="nama" placeholder="Nama Lengkap" required>
+					<input type="text" name="telp" placeholder="Nomor Telepon" required maxlength="13">
+					<input type="text" name="alamat" placeholder="Alamat Lengkap" required>
+				
 				<h6>Informasi Login</h6>
 					
-					<input type="text" name="username" placeholder="username" required>
-					<input type="password" name="password" placeholder="Password" required>
+					<input type="email" name="email" placeholder="Email" required="@">
+					<input type="password" name="pass" placeholder="Password" required>
 					<input type="submit" name="adduser" value="Daftar">
 				</form>
 			</div>
@@ -210,16 +195,16 @@ if(isset($_POST['adduser']))
 			<div class="w3_footer_grids">
 				<div class="col-md-4 w3_footer_grid">
 					<h3>Hubungi Kami</h3>
-					
+
 					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Richard's Lab, DKI Jakarta.</li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">info@email</a></li>
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Wooden Furniture, Jember</li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">woodenjember@gmail.com</a></li>
 						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+62 8113 2322</li>
 					</ul>
 				</div>
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Tentang Kami</h3>
-					<ul class="info"> 
+					<ul class="info">
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">How To</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">FAQ</a></li>

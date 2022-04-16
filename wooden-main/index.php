@@ -61,12 +61,19 @@ include 'dbconnect.php';
 					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
-					} else {
-					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
-					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
-					';
+					} 
+					if($_SESSION['role']=='Pemilik'){
+						echo '
+						<li style="color:white">Halo, '.$_SESSION["name"].'
+						<li><a href="pemilik">Admin Panel</a></li>
+						<li><a href="logout.php">Keluar?</a></li>
+						';
+					}else {
+						echo '
+						<li style="color:white">Halo, '.$_SESSION["name"].'
+						<li><a href="admin">Admin Panel</a></li>
+						<li><a href="logout.php">Keluar?</a></li>
+						';
 					};
 						
 				}
@@ -147,6 +154,7 @@ include 'dbconnect.php';
 											</div>
 										</ul>
 									</li>
+									<li><a href="profil.php">Profil</a></li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
 									<li><a href="daftarorder.php">Daftar Order</a></li>
 								</ul>

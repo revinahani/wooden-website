@@ -42,11 +42,11 @@ if(isset($_POST["update"])){
 <!DOCTYPE html>
 <html>
 <head>
-<title>Tokopekita - Keranjang Saya</title>
+<title>Wooden - Keranjang Saya</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Tokopekita, Richard's Lab" />
+<meta name="keywords" content="Wooden, Richard's Lab" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -125,7 +125,7 @@ if(isset($_POST["update"])){
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.php">Tokopekita</a></h1>
+				<h1><a href="index.php">WOODEN</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="search.php" method="post">
@@ -295,16 +295,16 @@ if(isset($_POST["update"])){
 			<div class="w3_footer_grids">
 				<div class="col-md-4 w3_footer_grid">
 					<h3>Hubungi Kami</h3>
-					
+
 					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Richard's Lab, DKI Jakarta.</li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">info@email</a></li>
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Wooden Furniture, Jember</li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">woodenjember@gmail.com</a></li>
 						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+62 8113 2322</li>
 					</ul>
 				</div>
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Tentang Kami</h3>
-					<ul class="info"> 
+					<ul class="info">
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">How To</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">FAQ</a></li>

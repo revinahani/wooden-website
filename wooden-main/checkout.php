@@ -7,7 +7,6 @@ if(!isset($_SESSION['log'])){
 } else {
 	
 };
-	
 	$uid = $_SESSION['id'];
 	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
 	$fetc = mysqli_fetch_array($caricart);
@@ -16,35 +15,28 @@ if(!isset($_SESSION['log'])){
 	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
 	$itungtrans3 = $itungtrans2['jumlahtrans'];
 	
-if(isset($_POST["update"])){
-	$kode = $_POST['idproduknya'];
-	$jumlah = $_POST['jumlah'];
-	$q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
-	if($q1){
-		echo "Berhasil Update Cart
-		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+if(isset($_POST["checkout"])){
+	
+	$q3 = mysqli_query($conn, "update cart set status='Payment' where orderid='$orderidd'");
+	if($q3){
+		echo "Berhasil Check Out
+		<meta http-equiv='refresh' content='1; url= index.php'/>";
 	} else {
-		echo "Gagal update cart
-		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+		echo "Gagal Check Out
+		<meta http-equiv='refresh' content='1; url= index.php'/>";
 	}
-} else if(isset($_POST["hapus"])){
-	$kode = $_POST['idproduknya'];
-	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
-	if($q2){
-		echo "Berhasil Hapus";
-	} else {
-		echo "Gagal Hapus";
-	}
+} else {
+	
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wooden - Keranjang Saya</title>
+<title>Wooden - Checkout</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Wooden, Richard's Lab" />
+<meta name="keywords" content="Tokopekita, Richard's Lab" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -75,9 +67,9 @@ if(isset($_POST["update"])){
 <body>
 <!-- header -->
 	<div class="agileits_header">
-		<div class="container"> 
+		<div class="container">
 			<div class="w3l_offers">
-				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.html">BELANJA SEKARANG!</a></p>
+				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
 			<div class="agile-login">
 				<ul>
@@ -134,10 +126,6 @@ if(isset($_POST["update"])){
 				<div class="clearfix"></div>
 			</form>
 		</div>
-			
-			<div class="clearfix"> </div>
-		</div>
-	</div>
 			
 			<div class="clearfix"> </div>
 		</div>
@@ -206,7 +194,7 @@ if(isset($_POST["update"])){
 <!-- checkout -->
 	<div class="checkout">
 		<div class="container">
-			<h2>Dalam keranjangmu ada : <span><?php echo $itungtrans3 ?> barang</span></h2>
+			<h1>Terima kasih, <?=$_SESSION['name']?> telah membeli <?php echo $itungtrans3 ?> barang di Tokopekita</span></h1>
 			<div class="checkout-right">
 				<table class="timetable_sub">
 					<thead>
@@ -217,7 +205,7 @@ if(isset($_POST["update"])){
 							<th>Jumlah</th>
 							
 						
-							<th>Harga Satuan</th>
+							<th>Sub Total</th>
 							<th>Hapus</th>
 						</tr>
 					</thead>
@@ -235,12 +223,12 @@ if(isset($_POST["update"])){
 						<td class="invert">
 							 <div class="quantity"> 
 								<div class="quantity-select">                     
-									<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
+									<h4><?php echo $b['qty'] ?></h4>
 								</div>
 							</div>
 						</td>
 				
-						<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
+						<td class="invert">Rp<?php echo number_format($b['hargaafter']*$b['qty']) ?></td>
 						<td class="invert">
 							<div class="rem">
 							
@@ -280,31 +268,70 @@ if(isset($_POST["update"])){
 			</div>
 			<div class="checkout-left">	
 				<div class="checkout-left-basket">
-					<h4>Total Harga</h4>
+					<h4>Total Harga yang harus dibayar saat ini</h4>
 					<ul>
 						<?php 
 						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
 						$no=1;
-						$subtotal = 10000;
+						$subtotal = 0;
 						while($b=mysqli_fetch_array($brg)){
 						$hrg = $b['hargaafter'];
 						$qtyy = $b['qty'];
 						$totalharga = $hrg * $qtyy;
-						$subtotal += $totalharga
-						?>
-						<li><?php echo $b['namaproduk']?><i> - </i> <span>Rp<?php echo number_format($totalharga) ?> </span></li>
-						<?php
+						$subtotal += $totalharga;
 						}
 						?>
-						<li>Total (inc. 10k Ongkir)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
+						
+						<h1><input type="text" value="Rp<?php echo number_format($subtotal) ?>" disabled \></h1>
 					</ul>
 				</div>
-				<div class="checkout-right-basket">
-					<a href="index.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
-					<a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a>
+				<br>
+				<div class="checkout-left-basket" style="width:80%;margin-top:60px;">
+					<div class="checkout-left-basket">
+					<h4>Kode Order Anda</h4>
+					<h1><input type="text" value="<?php echo $orderidd ?>" disabled \></h1>
 				</div>
+				</div>
+				
 				<div class="clearfix"> </div>
 			</div>
+			
+			
+			<br>
+			<hr>
+			<br><center>
+			<h2>Total harga yang tertera di atas sudah termasuk ongkos kirim sebesar Rp10.000</h2>
+			<h2>Bila telah melakukan pembayaran, harap konfirmasikan pembayaran Anda.</h2>
+			<br>
+			
+			
+			<?php 
+			$metode = mysqli_query($conn,"select * from pembayaran");
+			
+			while($p=mysqli_fetch_array($metode)){
+				
+			?>
+			
+			<img src="<?php echo $p['logo'] ?>" width="300px" height="200px"><br>
+        <h4><?php echo $p['metode'] ?> - <?php echo $p['norek'] ?><br>
+        a/n. <?php echo $p['an'] ?></h4><br>
+        <br>
+		 <hr>
+			
+			<?php
+			}
+		?>
+		
+		<br>
+        <br>
+        <p>Orderan anda Akan Segera kami proses 1x24 Jam Setelah Anda Melakukan Pembayaran ke ATM kami dan menyertakan informasi pribadi yang melakukan pembayaran seperti Nama Pemilik Rekening / Sumber Dana, Tanggal Pembayaran, Metode Pembayaran dan Jumlah Bayar.</p>
+      
+		<br>
+		<form method="post">
+		<input type="submit" class="form-control btn btn-success" name="checkout" value="I Agree and Check Out" \>
+		</form>
+	  
+	  </center>
 		</div>
 	</div>
 <!-- //checkout -->

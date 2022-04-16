@@ -12,7 +12,7 @@ if(!isset($_SESSION['log'])){
 	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
 	$fetc = mysqli_fetch_array($caricart);
 	$orderidd = $fetc['orderid'];
-	$itungtrans = mysqli_query($conn,"select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
+	$itungtrans = mysqli_query($conn,"select count(orderid) as jumlahtrans from cart where userid='$uid' and status!='Cart'");
 	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
 	$itungtrans3 = $itungtrans2['jumlahtrans'];
 	
@@ -40,7 +40,7 @@ if(isset($_POST["update"])){
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wooden - Keranjang Saya</title>
+<title>Wooden - Daftar Belanja</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -75,9 +75,9 @@ if(isset($_POST["update"])){
 <body>
 <!-- header -->
 	<div class="agileits_header">
-		<div class="container"> 
+		<div class="container">
 			<div class="w3l_offers">
-				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.html">BELANJA SEKARANG!</a></p>
+				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
 			<div class="agile-login">
 				<ul>
@@ -134,10 +134,6 @@ if(isset($_POST["update"])){
 				<div class="clearfix"></div>
 			</form>
 		</div>
-			
-			<div class="clearfix"> </div>
-		</div>
-	</div>
 			
 			<div class="clearfix"> </div>
 		</div>
@@ -206,47 +202,70 @@ if(isset($_POST["update"])){
 <!-- checkout -->
 	<div class="checkout">
 		<div class="container">
-			<h2>Dalam keranjangmu ada : <span><?php echo $itungtrans3 ?> barang</span></h2>
+			<h2>Kamu memiliki <span><?php echo $itungtrans3 ?> transaksi</span></h2>
 			<div class="checkout-right">
 				<table class="timetable_sub">
 					<thead>
 						<tr>
 							<th>No.</th>	
-							<th>Produk</th>
-							<th>Nama Produk</th>
-							<th>Jumlah</th>
-							
-						
-							<th>Harga Satuan</th>
-							<th>Hapus</th>
+							<th>Kode Order</th>
+							<th>Tanggal Order</th>
+							<th>Total</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					
 					<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
+					
+						$brg=mysqli_query($conn,"SELECT DISTINCT(idcart), c.orderid, tglorder, status from cart c, detailorder d where c.userid='$uid' and d.orderid=c.orderid and status!='Cart' order by tglorder DESC");
 						$no=1;
 						while($b=mysqli_fetch_array($brg)){
 
 					?>
 					<tr class="rem1"><form method="post">
 						<td class="invert"><?php echo $no++ ?></td>
-						<td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
-						<td class="invert"><?php echo $b['namaproduk'] ?></td>
+						<td class="invert"><a href="order.php?id=<?php echo $b['orderid'] ?>"><?php echo $b['orderid'] ?></a></td>
+						
+						<td class="invert"><?php echo $b['tglorder'] ?></td>
 						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                     
-									<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
-								</div>
-							</div>
+						
+						Rp<?php 				$ongkir = 10000;
+												$ordid = $b['orderid'];
+												$result1 = mysqli_query($conn,"SELECT SUM(qty*hargaafter)+$ongkir AS count FROM detailorder d, produk p where d.orderid='$ordid' and p.idproduk=d.idproduk order by d.idproduk ASC");
+												$cekrow = mysqli_num_rows($result1);
+												$row1 = mysqli_fetch_assoc($result1);
+												$count = $row1['count'];
+												if($cekrow > 0){
+													echo number_format($count);
+													} else {
+														echo 'No data';
+													}?>
+						
 						</td>
 				
-						<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
 						<td class="invert">
 							<div class="rem">
-							
-								<input type="submit" name="update" class="form-control" value="Update" \>
-								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
+								<?php
+								if($b['status']=='Payment'){
+								echo '
+								<a href="konfirmasi.php?id='.$b['orderid'].'" class="form-control btn-primary">
+								Konfirmasi Pembayaran
+								</a>
+								';}
+								else if($b['status']=='Diproses'){
+								echo 'Pesanan Diproses (Pembayaran Diterima)';
+								}
+								else if($b['status']=='Dikirim'){
+									echo 'Pesanan Dikirim';
+								} else if($b['status']=='Selesai'){
+									echo 'Pesanan Selesai';
+								} else if($b['status']=='Dibatalkan'){
+									echo 'Pesanan Dibatalkan';
+								} else {
+									echo 'Konfirmasi diterima';
+								}
+								
+								?>
 							</form>
 							</div>
 							<script>$(document).ready(function(c) {
@@ -277,33 +296,6 @@ if(isset($_POST["update"])){
 									</script>
 								<!--quantity-->
 				</table>
-			</div>
-			<div class="checkout-left">	
-				<div class="checkout-left-basket">
-					<h4>Total Harga</h4>
-					<ul>
-						<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						$subtotal = 10000;
-						while($b=mysqli_fetch_array($brg)){
-						$hrg = $b['hargaafter'];
-						$qtyy = $b['qty'];
-						$totalharga = $hrg * $qtyy;
-						$subtotal += $totalharga
-						?>
-						<li><?php echo $b['namaproduk']?><i> - </i> <span>Rp<?php echo number_format($totalharga) ?> </span></li>
-						<?php
-						}
-						?>
-						<li>Total (inc. 10k Ongkir)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
-					</ul>
-				</div>
-				<div class="checkout-right-basket">
-					<a href="index.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
-					<a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a>
-				</div>
-				<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>

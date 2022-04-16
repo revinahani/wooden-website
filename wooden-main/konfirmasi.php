@@ -1,46 +1,60 @@
 <?php
 session_start();
-include 'dbconnect.php';
-
 if(!isset($_SESSION['log'])){
 	header('location:login.php');
 } else {
 	
 };
-	
-	$uid = $_SESSION['id'];
-	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
-	$fetc = mysqli_fetch_array($caricart);
-	$orderidd = $fetc['orderid'];
-	$itungtrans = mysqli_query($conn,"select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
-	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
-	$itungtrans3 = $itungtrans2['jumlahtrans'];
-	
-if(isset($_POST["update"])){
-	$kode = $_POST['idproduknya'];
-	$jumlah = $_POST['jumlah'];
-	$q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
-	if($q1){
-		echo "Berhasil Update Cart
-		<meta http-equiv='refresh' content='1; url= cart.php'/>";
-	} else {
-		echo "Gagal update cart
-		<meta http-equiv='refresh' content='1; url= cart.php'/>";
-	}
-} else if(isset($_POST["hapus"])){
-	$kode = $_POST['idproduknya'];
-	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
-	if($q2){
-		echo "Berhasil Hapus";
-	} else {
-		echo "Gagal Hapus";
-	}
-}
+
+$idorder = $_GET['id'];
+
+include 'dbconnect.php';
+
+if(isset($_POST['confirm']))
+	{
+		
+		$userid = $_SESSION['id'];
+		$veriforderid = mysqli_query($conn,"select * from cart where orderid='$idorder'");
+		$fetch = mysqli_fetch_array($veriforderid);
+		$liat = mysqli_num_rows($veriforderid);
+		
+		if($fetch>0){
+		$nama = $_POST['nama'];
+		$metode = $_POST['metode'];
+		$tanggal = $_POST['tanggal'];
+			  
+		$kon = mysqli_query($conn,"insert into konfirmasi (orderid, userid, payment, namarekening, tglbayar) 
+		values('$idorder','$userid','$metode','$nama','$tanggal')");
+		if ($kon){
+		
+		$up = mysqli_query($conn,"update cart set status='Confirmed' where orderid='$idorder'");
+		
+		echo " <div class='alert alert-success'>
+			Terima kasih telah melakukan konfirmasi, team kami akan melakukan verifikasi.
+			Informasi selanjutnya akan dikirim via Email
+		  </div>
+		<meta http-equiv='refresh' content='7; url= index.php'/>  ";
+		} else { echo "<div class='alert alert-warning'>
+			Gagal Submit, silakan ulangi lagi.
+		  </div>
+		 <meta http-equiv='refresh' content='3; url= konfirmasi.php'/> ";
+		}
+		} else {
+			echo "<div class='alert alert-danger'>
+			Kode Order tidak ditemukan, harap masukkan kembali dengan benar
+		  </div>
+		 <meta http-equiv='refresh' content='4; url= konfirmasi.php'/> ";
+		}
+		
+		
+	};
+
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wooden - Keranjang Saya</title>
+<title>Wooden - Konfirmasi Pembayaran</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -75,9 +89,9 @@ if(isset($_POST["update"])){
 <body>
 <!-- header -->
 	<div class="agileits_header">
-		<div class="container"> 
+		<div class="container">
 			<div class="w3l_offers">
-				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.html">BELANJA SEKARANG!</a></p>
+				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
 			<div class="agile-login">
 				<ul>
@@ -138,10 +152,6 @@ if(isset($_POST["update"])){
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-			
-			<div class="clearfix"> </div>
-		</div>
-	</div>
 <!-- //header -->
 <!-- navigation -->
 	<div class="navigation-agileits">
@@ -196,118 +206,53 @@ if(isset($_POST["update"])){
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
-			<ol class="breadcrumb breadcrumb1">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Checkout</li>
+				<li class="active">Konfirmasi</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- checkout -->
-	<div class="checkout">
+<!-- register -->
+	<div class="register">
 		<div class="container">
-			<h2>Dalam keranjangmu ada : <span><?php echo $itungtrans3 ?> barang</span></h2>
-			<div class="checkout-right">
-				<table class="timetable_sub">
-					<thead>
-						<tr>
-							<th>No.</th>	
-							<th>Produk</th>
-							<th>Nama Produk</th>
-							<th>Jumlah</th>
-							
+			<h2>Konfirmasi</h2>
+			<div class="login-form-grids">
+				<h3>Kode Order</h3>
+				<form method="post">
+				<strong>
+					<input type="text" name="orderid" value="<?php echo $idorder ?>" disabled>
+				</strong>
+				<h6>Informasi Pembayaran</h6>
+					
+					<input type="text" name="nama" placeholder="Nama Pemilik Rekening / Sumber Dana" required>
+					<br>
+					<h6>Rekening Tujuan</h6>
+					<select name="metode" class="form-control">
 						
-							<th>Harga Satuan</th>
-							<th>Hapus</th>
-						</tr>
-					</thead>
-					
-					<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						while($b=mysqli_fetch_array($brg)){
-
-					?>
-					<tr class="rem1"><form method="post">
-						<td class="invert"><?php echo $no++ ?></td>
-						<td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
-						<td class="invert"><?php echo $b['namaproduk'] ?></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                     
-									<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
-								</div>
-							</div>
-						</td>
-				
-						<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
-						<td class="invert">
-							<div class="rem">
-							
-								<input type="submit" name="update" class="form-control" value="Update" \>
-								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
-							</form>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<?php
-						}
-					?>
-					
-								<!--quantity-->
-									<script>
-									$('.value-plus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-										divUpd.text(newVal);
-									});
-
-									$('.value-minus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-										if(newVal>=1) divUpd.text(newVal);
-									});
-									</script>
-								<!--quantity-->
-				</table>
-			</div>
-			<div class="checkout-left">	
-				<div class="checkout-left-basket">
-					<h4>Total Harga</h4>
-					<ul>
-						<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						$subtotal = 10000;
-						while($b=mysqli_fetch_array($brg)){
-						$hrg = $b['hargaafter'];
-						$qtyy = $b['qty'];
-						$totalharga = $hrg * $qtyy;
-						$subtotal += $totalharga
-						?>
-						<li><?php echo $b['namaproduk']?><i> - </i> <span>Rp<?php echo number_format($totalharga) ?> </span></li>
 						<?php
-						}
+						$metode = mysqli_query($conn,"select * from pembayaran");
+						
+						while($a=mysqli_fetch_array($metode)){
 						?>
-						<li>Total (inc. 10k Ongkir)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
-					</ul>
-				</div>
-				<div class="checkout-right-basket">
-					<a href="index.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
-					<a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a>
-				</div>
-				<div class="clearfix"> </div>
+							<option value="<?php echo $a['metode'] ?>"><?php echo $a['metode'] ?> | <?php echo $a['norek'] ?></option>
+							<?php
+						};
+						?>
+						
+					</select>
+					<br>
+					<h6>Tanggal Bayar</h6>
+					<input type="date" class="form-control" name="tanggal">
+					<input type="submit" name="confirm" value="Kirim">
+				</form>
+			</div>
+			<div class="register-home">
+				<a href="index.php">Batal</a>
 			</div>
 		</div>
 	</div>
-<!-- //checkout -->
+<!-- //register -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
