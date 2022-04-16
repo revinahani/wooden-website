@@ -17,6 +17,7 @@ include 'dbconnect.php';
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <!-- font-awesome icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome icons -->
@@ -46,31 +47,31 @@ include 'dbconnect.php';
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
-			<div class="agile-login">
+			<div class="agile-login" style="text-align: right; float:right">
 				<ul>
 				<?php
 				if(!isset($_SESSION['log'])){
 					echo '
-					<li><a href="registered.php"> Daftar</a></li>
-					<li><a href="login.php">Masuk</a></li>
+					<li><a href="registered.php" style="color: black"> Daftar</a></li>
+					<li><a href="login.php" style="color: black">Masuk</a></li>
 					';
 				} else {
 						
-					if($_SESSION['role']=='Member'){
+					if($_SESSION['role']=='customer'){
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
+					<li style="color:white">Halo, '.$_SESSION["namaCustomer"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} 
-					if($_SESSION['role']=='Pemilik'){
+					else if($_SESSION['role']=='pemilik usaha'){
 						echo '
-						<li style="color:white">Halo, '.$_SESSION["name"].'
+						<li style="color:white">Halo, '.$_SESSION["namaPemilikUsaha"].'
 						<li><a href="pemilik">Admin Panel</a></li>
 						<li><a href="logout.php">Keluar?</a></li>
 						';
-					}else {
+					}else if ($_SESSION['role']=='karyawan_adminitrasi'){
 						echo '
-						<li style="color:white">Halo, '.$_SESSION["name"].'
+						<li style="color:white">Halo, '.$_SESSION["namaKaryawan"].'
 						<li><a href="admin">Admin Panel</a></li>
 						<li><a href="logout.php">Keluar?</a></li>
 						';
@@ -81,10 +82,10 @@ include 'dbconnect.php';
 					
 				</ul>
 			</div>
-			<div class="product_list_header">  
+			<!-- <div class="product_list_header">  
 					<a href="cart.php"><button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
 				 </a>
-			</div>
+			</div> -->
 			<div class="clearfix"> </div>
 		</div>
 	</div>
@@ -154,9 +155,11 @@ include 'dbconnect.php';
 											</div>
 										</ul>
 									</li>
-									<li><a href="profil.php">Profil</a></li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
 									<li><a href="daftarorder.php">Daftar Order</a></li>
+								</ul>
+								<ul class="nav navbar-nav" style="float:right">
+								<li><a href="profil.php"><i class="bi bi-person-circle"></i> Profil</a></li>
 								</ul>
 							</div>
 							</nav>

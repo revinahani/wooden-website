@@ -15,7 +15,8 @@ $timenow = date("j-F-Y-h:i:s A");
 	{
 	$email = mysqli_real_escape_string($conn,$_POST['email']);
 	$pass = mysqli_real_escape_string($conn,$_POST['pass']);
-	$queryuser = mysqli_query($conn,"SELECT * FROM login WHERE email='$email'");
+	$role = mysqli_real_escape_string($conn,$_POST['role']); // member, karyawan, pemilik
+	$queryuser = mysqli_query($conn,"SELECT * FROM $role WHERE email='$email'");
 	$cariuser = mysqli_fetch_assoc($queryuser);
 		
 		if( password_verify($pass, $cariuser['password']) ) {
@@ -182,6 +183,11 @@ $timenow = date("j-F-Y-h:i:s A");
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				<form method="post">
+					<select name="role" id="role">
+							<option value="pemilik usaha">Pemilik</option>
+							<option value="karyawan_adminitrasi">Karyawan</option>
+							<option value="customer">Customer</option>
+					</select>
 					<input type="text" name="email" placeholder="Email" required>
 					<input type="password" name="pass" placeholder="Password" required>
 					<input type="submit" name="login" value="Masuk">
