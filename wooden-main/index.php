@@ -57,19 +57,19 @@ include 'dbconnect.php';
 					';
 				} else {
 						
-					if($_SESSION['role']=='customer'){
+					if($_SESSION['level']=='customer'){
 					echo '
 					<li style="color:white">Halo, '.$_SESSION["namaCustomer"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} 
-					else if($_SESSION['role']=='pemilik usaha'){
+					else if($_SESSION['level']=='pemilik'){
 						echo '
 						<li style="color:white">Halo, '.$_SESSION["namaPemilikUsaha"].'
 						<li><a href="pemilik">Admin Panel</a></li>
 						<li><a href="logout.php">Keluar?</a></li>
 						';
-					}else if ($_SESSION['role']=='karyawan_adminitrasi'){
+					}else if ($_SESSION['level']=='admin'){
 						echo '
 						<li style="color:white">Halo, '.$_SESSION["namaKaryawan"].'
 						<li><a href="admin">Admin Panel</a></li>
