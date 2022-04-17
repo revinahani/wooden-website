@@ -5,18 +5,18 @@
 		
 	if(isset($_POST['addKaryawan']))
 	{
-		$namaKaryawan = $_POST['namaKaryawan'];
-        $gambar = $_POST['gambar'];
-        $tanggalLahirKaryawan = $_POST['tanggalLahirKaryawan'];
-        $idAsal = $_POST['idAsal'];
-        $teleponKaryawan = $_POST['teleponKaryawan'];
-        $tanggalMasukKaryawan = $_POST['tanggalMasukKaryawan'];
-        $statusKaryawan = $_POST['statusKaryawan'];
-        $usernameKaryawan = $_POST['usernameKaryawan'];
-		$passwordKaryawan = password_hash($_POST['passwordKaryawan'], PASSWORD_DEFAULT); 
+		$namaKaryawan = $_POST['namalengkap'];
+        // $gambar = $_POST['gambar'];
+        $email = $_POST['email'];
+        $notelp = $_POST['notelp'];
+        $alamat = $_POST['alamat'];
+        // $tanggalMasukKaryawan = $_POST['tanggalMasukKaryawan'];
+        // $statusKaryawan = $_POST['statusKaryawan'];
+        // $usernameKaryawan = $_POST['usernameKaryawan'];
+		$password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
 			  
-		$tambahKaryawan = mysqli_query($conn,"insert into karyawan_adminitrasi (namaKaryawan, gambar, tanggalLahirKaryawan, idAsal, teleponKaryawan, tanggalMasukKaryawan, statusKaryawan, keterangan, usernameKaryawan, passwordKaryawan)
-        values('$namaKaryawan','$gambar','$tanggalLahirKaryawan','$idAsal', '$teleponKaryawan','$tanggalMasukKaryawan','$statusKaryawan','$keterangan','$usernameKaryawan','$passwordKaryawan')");
+		$tambahKaryawan = mysqli_query($conn,"insert into login (namalengkap, email, notelp, alamat)
+        values('$namalengkap','$email','$notelp','$alamat')");
 		if ($tambahKaryawan){
 		echo " <div class='alert alert-success'>
 			Berhasil menambahkan staff baru.
@@ -167,6 +167,7 @@
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
+                                                <th>No</th>
 												<th>Nama Karyawan</th>
 												<th>email</th>
 												<th>No. Telepon</th>
@@ -180,10 +181,10 @@
 
 											</tr></thead><tbody>
 											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from karyawan_adminitrasi order by idKaryawan ASC");
+											$brgs=mysqli_query($conn,"SELECT * from login where role='admin' order by userid ASC");
 											$no=1;
 											while($p=mysqli_fetch_array($brgs)){
-                                                $id = $p['idKaryawan'];
+                                                $id = $p['userid'];
 
 												?>
 												
@@ -234,26 +235,30 @@
 						<div class="modal-body">
 							<form method="post">
 								<div class="form-group">
-									<label>Nama</label>
-									<input name="namaKaryawan" type="text" class="form-control" placeholder="Nama" required autofocus>
+									<label>Nama Karyawan</label>
+									<input name="namalengkap" type="text" class="form-control" placeholder="Nama" required autofocus>
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label>Foto Karyawan</label>
 									<input name="gambar" type="file" class="form-control" placeholder="Foto Karyawan">
+								</div> -->
+                                <div class="form-group">
+									<label>Email</label>
+									<input name="email" type="text" class="form-control" placeholder="email" required autofocus>
 								</div>
                                 <div class="form-group">
-									<label>Tanggal Lahir</label>
-									<input name="tanggalLahirKaryawan" type="date" class="form-control" placeholder="Tanggal lahir" required autofocus>
+									<label>No. Telepon</label>
+									<input name="notelp" type="text" class="form-control" placeholder="No Telepon" required autofocus>
 								</div>
                                 <div class="form-group">
-									<label>Asal</label>
-									<input name="idAsal" type="text" class="form-control" placeholder="Asal Tinggal" required autofocus>
+									<label>Alamat</label>
+									<input name="alamat" type="text" class="form-control" placeholder="Alamat" required autofocus>
 								</div>
                                 <div class="form-group">
-									<label>No Telepon</label>
-									<input name="teleponKaryawan" type="text" class="form-control" placeholder="No Telepon" required autofocus>
+									<label>Password</label>
+									<input name="passwordKaryawan" type="password" class="form-control" placeholder="Password" required autofocus>
 								</div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
 									<label>Tanggal Masuk Karyawan</label>
 									<input name="tanggalMasukKaryawan" type="date" class="form-control" placeholder="Tanggal Masuk Karyawan" required autofocus>
 								</div>
@@ -276,7 +281,7 @@
                                 <div class="form-group">
 									<label>Password</label>
 									<input name="passwordKaryawan" type="password" class="form-control" placeholder="Password" required autofocus>
-								</div>
+								</div> -->
 
 							</div>
 							<div class="modal-footer">

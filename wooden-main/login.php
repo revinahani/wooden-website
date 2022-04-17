@@ -11,97 +11,87 @@ include 'dbconnect.php';
 date_default_timezone_set("Asia/Bangkok");
 $timenow = date("j-F-Y-h:i:s A");
 
-// if(isset($_POST['login']))
-	// {
-	// $email = mysqli_real_escape_string($conn,$_POST['email']);
-	// $password = mysqli_real_escape_string($conn,$_POST['password']);
-	// $role = mysqli_real_escape_string($conn,$_POST['role']); // member, karyawan, pemilik
-	// $queryuser = mysqli_query($conn,"SELECT * FROM $role WHERE email='$email'");
-	// $cariuser = mysqli_fetch_assoc($queryuser);
+	// $q = mysql_query("select * from customer where email='$email' and password='$password'");
+	// $r = mysql_fetch_array ($q);
+	// $q2 = mysql_query("select * from karyawan_adminitrasi where email='$email' and password='$password'");
+	// $ro = mysql_fetch_array ($q2);
+	// $q3 = mysql_query("select * from pemilik usaha where email='$email' and password='$password'");
+	// $row = mysql_fetch_array ($q3);
+
+	if(isset($_POST['login']))
+	{
 	$email = mysqli_real_escape_string($conn,$_POST['email']);
 	$password = mysqli_real_escape_string($conn,$_POST['password']);
-	$role = mysqli_real_escape_string($conn,$_POST['role'])
-	// $email = $_POST['email'];
-	// $password = $_POST['password'];
-	$q = mysql_query("select * from customer where email='$email' and password='$password'");
-	$r = mysql_fetch_array ($q);
-	$q2 = mysql_query("select * from karyawan_adminitrasi where email='$email' and password='$password'");
-	$ro = mysql_fetch_array ($q2);
-	$q3 = mysql_query("select * from pemilik usaha where email='$email' and password='$password'");
-	$row = mysql_fetch_array ($q3);
-
-	// if(isset($_POST['login']))
-	// {
-	// $email = mysqli_real_escape_string($conn,$_POST['email']);
-	// $password = mysqli_real_escape_string($conn,$_POST['password']);
-	// $role = mysqli_real_escape_string($conn,$_POST['role']); // member, karyawan, pemilik
-	// $queryuser = mysqli_query($conn,"SELECT * FROM $role WHERE email='$email'");
-	// $cariuser = mysqli_fetch_assoc($queryuser);
+	// $role = ($_POST['role']); // member, karyawan, pemilik
+	$queryuser = mysqli_query($conn,"SELECT * FROM login WHERE email='$email'");
+	$cariuser = mysqli_fetch_assoc($queryuser);
 		
-	// 	if( password_verify($password, $cariuser['password']) ) {
-	// 		$_SESSION['id'] = $cariuser['userid'];
-	// 		$_SESSION['role'] = $cariuser['role'];
-	// 		$_SESSION['notelp'] = $cariuser['notelp'];
-	// 		$_SESSION['name'] = $cariuser['namalengkap'];
-	// 		$_SESSION['log'] = "Logged";
-	// 		header('location:index.php');
-	// 	} else {
-	// 		echo 'Username atau password salah';
-	// 		header("location:login.php");
-	// 	}		
+		if( password_verify($password, $cariuser['password']) ) {
+			$_SESSION['id'] = $cariuser['userid'];
+			$_SESSION['role'] = $cariuser['role'];
+			$_SESSION['notelp'] = $cariuser['notelp'];
+			$_SESSION['name'] = $cariuser['namalengkap'];
+			$_SESSION['log'] = "Logged";
+			header('location:index.php');
+		} else {
+			echo 'Username atau password salah';
+			header("location:login.php");
+		}		
+	}
+	// if (password_verify($password, $cariuser['password'])) {
+	// 	$_SESSION['idCustomer'] = $cariuser['idCustomer'];
+	// 	$_SESSION['gambar'] = $cariuser['gambar'];
+	// 	$_SESSION['namaCustomer'] = $cariuser['namaCustomer'];
+	// 	$_SESSION['username'] = $cariuser['username'];
+	// 	$_SESSION['password'] = $cariuser['password'];
+	// 	$_SESSION['tanggalLahir'] = $cariuser['tanggalLahir'];
+	// 	$_SESSION['jenisKelamin'] = $cariuser['jenisKelamin'];
+	// 	$_SESSION['telepon'] = $cariuser['telepon'];
+	// 	$_SESSION['email'] = $cariuser['email'];
+	// 	$_SESSION['jalan'] = $cariuser['jalan'];
+	// 	$_SESSION['idKabupaten'] = $cariuser['idKabupaten'];
+	// 	$_SESSION['role'] = 'customer';
+	// 	header("location:login.php");
 	// }
-	if (mysql_num_rows($q) == 1) {
-		$_SESSION['idCustomer'] = $r['idCustomer'];
-		$_SESSION['gambar'] = $r['gambar'];
-		$_SESSION['namaCustomer'] = $r['namaCustomer'];
-		$_SESSION['username'] = $r['username'];
-		$_SESSION['password'] = $r['password'];
-		$_SESSION['tanggalLahir'] = $r['tanggalLahir'];
-		$_SESSION['jenisKelamin'] = $r['jenisKelamin'];
-		$_SESSION['telepon'] = $r['telepon'];
-		$_SESSION['email'] = $r['email'];
-		$_SESSION['jalan'] = $r['jalan'];
-		$_SESSION['idKabupaten'] = $r['idKabupaten'];
-		$_SESSION['level'] = 'customer';
-		header("location:login.php");
-	}
-	elseif (mysql_num_rows($q2) == 1) {
-		$_SESSION['idKaryawan'] = $ro['idKaryawan'];
-		$_SESSION['gambar'] = $ro['gambar'];
-		$_SESSION['namaKaryawan'] = $ro['namaKaryawan'];
-		$_SESSION['tanggalLahirKaryawan'] = $ro['tanggalLahirKaryawan'];
-		$_SESSION['idAsal'] = $ro['idAsal'];
-		$_SESSION['teleponKaryawan'] = $ro['teleponKaryawan'];
-		$_SESSION['tanggalMasukKaryawan'] = $ro['tanggalMasukKaryawan'];
-		$_SESSION['statusKaryawan'] = $ro['statusKaryawan'];
-		$_SESSION['keterangan'] = $ro['keterangan'];
-		$_SESSION['email'] = $ro['email'];
-		$_SESSION['password'] = $ro['password'];
-		$_SESSION['level'] = 'admin';
-		header("location:login.php");
-	}
-	elseif (mysql_num_rows($q3) == 1) {
-		$_SESSION['idPemilikUsaha'] = $row['idPemilikUsaha'];
-		$_SESSION['gambar'] = $row['gambar'];
-		$_SESSION['namaUsaha'] = $row['namaUsaha'];
-		$_SESSION['jenisUsaha'] = $row['jenisUsaha'];
-		$_SESSION['tahunBerdiri'] = $row['tahunBerdiri'];
-		$_SESSION['keterangan'] = $row['keterangan'];
-		$_SESSION['teleponPerusahaan'] = $row['teleponPerusahaan'];
-		$_SESSION['namaPemilikUsaha'] = $row['namaPemilikUsaha'];
-		$_SESSION['tempatLahir'] = $row['tempatLahir'];
-		$_SESSION['tanggalLahir'] = $row['tanggalLahir'];
-		$_SESSION['jalan'] = $row['jalan'];
-		$_SESSION['idKabupaten'] = $row['idKabupaten'];
-		$_SESSION['email'] = $row['email'];
-		$_SESSION['pasword'] = $row['password'];
-		$_SESSION['level'] = 'pemilik';
-		header("location:login.php");
+	// elseif (password_verify($password, $cariuser['password']) ) {
+	// 	$_SESSION['idKaryawan'] = $cariuser['idKaryawan'];
+	// 	$_SESSION['gambar'] = $cariuser['gambar'];
+	// 	$_SESSION['namaKaryawan'] = $cariuser['namaKaryawan'];
+	// 	$_SESSION['tanggalLahirKaryawan'] = $cariuser['tanggalLahirKaryawan'];
+	// 	$_SESSION['idAsal'] = $cariuser['idAsal'];
+	// 	$_SESSION['teleponKaryawan'] = $cariuser['teleponKaryawan'];
+	// 	$_SESSION['tanggalMasukKaryawan'] = $cariuser['tanggalMasukKaryawan'];
+	// 	$_SESSION['statusKaryawan'] = $cariuser['statusKaryawan'];
+	// 	$_SESSION['keterangan'] = $cariuser['keterangan'];
+	// 	$_SESSION['email'] = $cariuser['email'];
+	// 	$_SESSION['password'] = $cariuser['password'];
+	// 	$_SESSION['role'] = 'admin';
+	// 	header("location:login.php");
+	// }
+	// elseif (password_verify($password, $cariuser['password']) ) {
+	// 	$_SESSION['idPemilikUsaha'] = $cariuser['idPemilikUsaha'];
+	// 	$_SESSION['gambar'] = $cariuser['gambar'];
+	// 	$_SESSION['namaUsaha'] = $cariuser['namaUsaha'];
+	// 	$_SESSION['jenisUsaha'] = $cariuser['jenisUsaha'];
+	// 	$_SESSION['tahunBerdiri'] = $cariuser['tahunBerdiri'];
+	// 	$_SESSION['keterangan'] = $cariuser['keterangan'];
+	// 	$_SESSION['teleponPerusahaan'] = $cariuser['teleponPerusahaan'];
+	// 	$_SESSION['namaPemilikUsaha'] = $cariuser['namaPemilikUsaha'];
+	// 	$_SESSION['tempatLahir'] = $cariuser['tempatLahir'];
+	// 	$_SESSION['tanggalLahir'] = $cariuser['tanggalLahir'];
+	// 	$_SESSION['jalan'] = $cariuser['jalan'];
+	// 	$_SESSION['idKabupaten'] = $cariuser['idKabupaten'];
+	// 	$_SESSION['email'] = $cariuser['email'];
+	// 	$_SESSION['pasword'] = $cariuser['password'];
+	// 	$_SESSION['role'] = 'pemilik';
+	// 	header("location:login.php");
 
-	} else {
-		echo 'Username atau password salah';
-		header("location:login.php");
-	}
+	// } else {
+	// 	echo 'Username atau password salah';
+	// 	header("location:login.php");
+	// }
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -253,11 +243,11 @@ $timenow = date("j-F-Y-h:i:s A");
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				<form method="post">
-					<select name="role" id="role">
+					<!-- <select name="role" id="role">
 							<option value="pemilik usaha">Pemilik</option>
 							<option value="karyawan_adminitrasi">Karyawan</option>
 							<option value="customer">Customer</option>
-					</select>
+					</select> -->
 					<input type="text" name="email" placeholder="Email" required>
 					<input type="password" name="password" placeholder="Password" required>
 					<input type="submit" name="login" value="Masuk">

@@ -57,21 +57,21 @@ include 'dbconnect.php';
 					';
 				} else {
 						
-					if($_SESSION['level']=='customer'){
+					if($_SESSION['role']=='Member'){
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["namaCustomer"].'
+					<li style="color:white">Halo, '.$_SESSION["namalengkap"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} 
-					else if($_SESSION['level']=='pemilik'){
+					else if($_SESSION['role']=='pemilik'){
 						echo '
-						<li style="color:white">Halo, '.$_SESSION["namaPemilikUsaha"].'
+						<li style="color:white">Halo, '.$_SESSION["namalengkap"].'
 						<li><a href="pemilik">Admin Panel</a></li>
 						<li><a href="logout.php">Keluar?</a></li>
 						';
-					}else if ($_SESSION['level']=='admin'){
+					}else if ($_SESSION['role']=='admin'){
 						echo '
-						<li style="color:white">Halo, '.$_SESSION["namaKaryawan"].'
+						<li style="color:white">Halo, '.$_SESSION["namalengkap"].'
 						<li><a href="admin">Admin Panel</a></li>
 						<li><a href="logout.php">Keluar?</a></li>
 						';

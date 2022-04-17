@@ -1,36 +1,50 @@
-
 <?php 
-	session_start();
-	include '../dbconnect.php';
-		
-	if(isset($_POST['addKaryawan']))
+session_start();
+include '../dbconnect.php';
+$orderids = $_GET['orderid'];
+$liatcust = mysqli_query($conn,"select * from login l, cart c where orderid='$orderids' and l.userid=c.userid");
+$checkdb = mysqli_fetch_array($liatcust);
+date_default_timezone_set("Asia/Bangkok");
+
+if(isset($_POST['kirim']))
 	{
-		$namaKaryawan = $_POST['namaKaryawan'];
-        $gambar = $_POST['gambar'];
-        $tanggalLahirKaryawan = $_POST['tanggalLahirKaryawan'];
-        $idAsal = $_POST['idAsal'];
-        $teleponKaryawan = $_POST['teleponKaryawan'];
-        $tanggalMasukKaryawan = $_POST['tanggalMasukKaryawan'];
-        $statusKaryawan = $_POST['statusKaryawan'];
-        $usernameKaryawan = $_POST['usernameKaryawan'];
-		$passwordKaryawan = password_hash($_POST['passwordKaryawan'], PASSWORD_DEFAULT); 
-			  
-		$tambahKaryawan = mysqli_query($conn,"insert into karyawan_adminitrasi (namaKaryawan, gambar, tanggalLahirKaryawan, idAsal, teleponKaryawan, tanggalMasukKaryawan, statusKaryawan, keterangan, usernameKaryawan, passwordKaryawan)
-        values('$namaKaryawan','$gambar','$tanggalLahirKaryawan','$idAsal', '$teleponKaryawan','$tanggalMasukKaryawan','$statusKaryawan','$keterangan','$usernameKaryawan','$passwordKaryawan')");
-		if ($tambahKaryawan){
-		echo " <div class='alert alert-success'>
-			Berhasil menambahkan staff baru.
+		$updatestatus = mysqli_query($conn,"update cart set status='Pengiriman' where orderid='$orderids'");
+		$del =  mysqli_query($conn,"delete from konfirmasi where orderid='$orderids'");
+		
+		if($updatestatus&&$del){
+			echo " <div class='alert alert-success'>
+			<center>Pesanan dikirim.</center>
 		  </div>
-		<meta http-equiv='refresh' content='1; url= user.php'/>  ";
-		} else { echo "<div class='alert alert-warning'>
-			Gagal menambahkan staff baru.
+		<meta http-equiv='refresh' content='1; url= manageorder.php'/>  ";
+		} else {
+			echo "<div class='alert alert-warning'>
+			Gagal Submit, silakan coba lagi
 		  </div>
-		 <meta http-equiv='refresh' content='1; url= user.php'/> ";
+		 <meta http-equiv='refresh' content='1; url= manageorder.php'/> ";
 		}
 		
 	};
-	?>
 
+if(isset($_POST['selesai']))
+	{
+		$updatestatus = mysqli_query($conn,"update cart set status='Selesai' where orderid='$orderids'");
+		
+		if($updatestatus){
+			echo " <div class='alert alert-success'>
+			<center>Transaksi diselesaikan.</center>
+		  </div>
+		<meta http-equiv='refresh' content='1; url= manageorder.php'/>  ";
+		} else {
+			echo "<div class='alert alert-warning'>
+			Gagal Submit, silakan coba lagi
+		  </div>
+		 <meta http-equiv='refresh' content='1; url= manageorder.php'/> ";
+		}
+		
+	};
+
+?>
+ 
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -40,7 +54,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Karyawan - Wooden</title>
+    <title>Tokopekita - Pesanan <?php echo $checkdb['namalengkap']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -67,6 +81,9 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+	
+	
+	
 </head>
 
 <body>
@@ -88,7 +105,7 @@
                         <ul class="metismenu" id="menu">
 							<li><a href="index.php"><span>Home</span></a></li>
 							<li><a href="../"><span>Kembali ke Toko</span></a></li>
-							<li>
+							<li class="active">
                                 <a href="manageorder.php"><i class="ti-dashboard"></i><span>Kelola Pesanan</span></a>
                             </li>
 							<li>
@@ -101,7 +118,7 @@
                                 </ul>
                             </li>
 							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
-							<li class="active"><a href="user.php"><span>Kelola Staff</span></a></li>
+							<li><a href="user.php"><span>Kelola Staff</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
                                 
@@ -150,8 +167,9 @@
                     </div>
                 </div>
             </div>
-            
-            
+            <!-- header area end -->
+			
+			
             <!-- page title area end -->
             <div class="main-content-inner">
                
@@ -161,54 +179,121 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Karyawan</h2>
-                                    <button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Karyawan</button>
-									</div>
-                                    <div class="data-tables datatable-dark">
+									<h3>Order id : #<?php echo $orderids ?></h3>
+									
+								</div>
+                                   <p><?php echo $checkdb['namalengkap']; ?> (<?php echo $checkdb['alamat']; ?>)</p>
+								<p>Waktu order : <?php echo $checkdb['tglorder']; ?></p>
+									
+									<?php
+									?>
+								   <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
-												<th>Nama Karyawan</th>
-												<th>email</th>
-												<th>No. Telepon</th>
-												<th>Alamat</th>
-                                                <!-- <th>No Telepon</th>
-                                                <th>Tanggal Masuk</th>
-                                                <th>Status Karyawan</th>
-                                                <th>Keterangan</th>
-                                                <th>Username</th>
-                                                <th>Password</th> -->
-
+												<th>No</th>
+												<th>Produk</th>
+												<th>Jumlah</th>
+												<th>Harga</th>
+												<th>Total</th>
+												
 											</tr></thead><tbody>
 											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from karyawan_adminitrasi order by idKaryawan ASC");
+											$brgs=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderids' and d.idproduk=p.idproduk order by d.idproduk ASC");
 											$no=1;
 											while($p=mysqli_fetch_array($brgs)){
-                                                $id = $p['idKaryawan'];
-
+												$total = $p['qty']*$p['hargaafter'];
+												
+												$result = mysqli_query($conn,"SELECT SUM(d.qty*p.hargaafter) AS count FROM detailorder d, produk p where orderid='$orderids' and d.idproduk=p.idproduk order by d.idproduk ASC");
+												$row = mysqli_fetch_assoc($result);
+												$cekrow = mysqli_num_rows($result);
+												$count = $row['count'];
+												
 												?>
 												
 												<tr>
 													<td><?php echo $no++ ?></td>
-													<td><?php echo $p['namalengkap'] ?></td>
-													<td><?php echo $p['email'] ?></td>
-													<td><?php echo $p['notelp'] ?></td>
-													<td><?php echo $p['alamat'] ?></td>
-                                            
-												</tr>		
+													<td><?php echo $p['namaproduk'] ?></td>
+													<td><?php echo $p['qty'] ?></td>
+													<td>Rp<?php echo number_format($p['hargaafter']) ?></td>
+													<td>Rp<?php echo number_format($total) ?></td>
+													
+												</tr>
 												
 												
 												<?php 
 											}
-													
 											?>
 										</tbody>
+										<tfoot>
+											<tr>
+												<th colspan="4" style="text-align:right">Total:</th>
+												<th>Rp<?php 
+												
+												$result1 = mysqli_query($conn,"SELECT SUM(d.qty*p.hargaafter) AS count FROM detailorder d, produk p where orderid='$orderids' and d.idproduk=p.idproduk order by d.idproduk ASC");
+												$cekrow = mysqli_num_rows($result1);
+												$row1 = mysqli_fetch_assoc($result1);
+												$count = $row1['count'];
+												if($cekrow > 0){
+													echo number_format($count);
+													} else {
+														echo 'No data';
+													}?></th>
+											</tr>
+										</tfoot>
 										</table>
+										
                                     </div>
-								 </div>
+									<br>
+									<?php
+									
+									if($checkdb['status']=='Confirmed'){
+										$ambilinfo = mysqli_query($conn,"select * from konfirmasi where orderid='$orderids'");
+										while($tarik=mysqli_fetch_array($ambilinfo)){		
+										$met = $tarik['payment'];
+										$namarek = $tarik['namarekening'];
+										$tglb = $tarik['tglbayar'];
+										echo '
+										Informasi Pembayaran
+									<div class="data-tables datatable-dark">
+									<table id="dataTable2" class="display" style="width:100%"><thead class="thead-dark">
+											<tr>
+												<th>Metode</th>
+												<th>Pemilik Rekening</th>
+												<th>Tanggal Pembayaran</th>
+												
+											</tr></thead><tbody>
+											<tr>
+											<td>'.$met.'</td>
+											<td>'.$namarek.'</td>
+											<td>'.$tglb.'</td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+									<br><br>
+									<form method="post">
+									<input type="submit" name="kirim" class="form-control btn btn-success" value="Kirim" \>
+									</form>
+									';
+									}
+									;
+									} else {
+										echo '
+									<form method="post">
+									<input type="submit" name="selesai" class="form-control btn btn-success" value="Selesaikan" \>
+									</form>
+									';
+									}
+									?>
+									<br>
+                                </div>
+						
                             </div>
                         </div>
                     </div>
-                </div>
+					
+					
+					
               
                 
                 <!-- row area start-->
@@ -218,78 +303,26 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>By Wooden Furniture</p>
+                <p>By Richard's Lab</p>
             </div>
         </footer>
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
 	
-			<div id="myModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Tambah Karyawan Baru</h4>
-						</div>
-						<div class="modal-body">
-							<form method="post">
-								<div class="form-group">
-									<label>Nama</label>
-									<input name="namaKaryawan" type="text" class="form-control" placeholder="Nama" required autofocus>
-								</div>
-								<div class="form-group">
-									<label>Foto Karyawan</label>
-									<input name="gambar" type="file" class="form-control" placeholder="Foto Karyawan">
-								</div>
-                                <div class="form-group">
-									<label>Tanggal Lahir</label>
-									<input name="tanggalLahirKaryawan" type="date" class="form-control" placeholder="Tanggal lahir" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Asal</label>
-									<input name="idAsal" type="text" class="form-control" placeholder="Asal Tinggal" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>No Telepon</label>
-									<input name="teleponKaryawan" type="text" class="form-control" placeholder="No Telepon" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Tanggal Masuk Karyawan</label>
-									<input name="tanggalMasukKaryawan" type="date" class="form-control" placeholder="Tanggal Masuk Karyawan" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Status Karyawan</label>
-                                        <select id="statusKaryawan" name="statusKaryawan">
-    						                <option value="Aktif">Aktif</option>
-    						                <option value="Cuti">Cuti</option>
-                                            <option value="Pensiun">Pensiun</option>
-						                </select>
-								</div>
-                                <div class="form-group">
-									<label>Keterangan</label>
-									<input name="keterangan" type="text" class="form-control" placeholder="Keterangan" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Username</label>
-									<input name="usernameKaryawan" type="text" class="form-control" placeholder="Username Karyawan" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Password</label>
-									<input name="passwordKaryawan" type="password" class="form-control" placeholder="Password" required autofocus>
-								</div>
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-								<input name="addKaryawan" type="submit" class="btn btn-primary" value="Simpan">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-	<script>
-	$(document).ready(function() {
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
     $('#dataTable3').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'print'
+        ]
+    } );
+	} );
+	$(document).ready(function() {
+    $('#dataTable2').DataTable( {
         dom: 'Bfrtip',
         buttons: [
             'print'
@@ -308,31 +341,20 @@
     <script src="assets/js/jquery.slimscroll.min.js"></script>
     <script src="assets/js/jquery.slicknav.min.js"></script>
 		<!-- Start datatable js -->
-	 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+	 <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>
-    <!-- all line chart activation -->
-    <script src="assets/js/line-chart.js"></script>
-    <!-- all pie chart -->
-    <script src="assets/js/pie-chart.js"></script>
+    
     <!-- others plugins -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
 	
+	
 </body>
+
 </html>

@@ -1,33 +1,58 @@
-
 <?php 
 	session_start();
 	include '../dbconnect.php';
+			
+	if(isset($_POST["addproduct"])) {
+		$namaproduk=$_POST['namaproduk'];
+		$idkategori=$_POST['idkategori'];
+		$deskripsi=$_POST['deskripsi'];
+		$rate=$_POST['rate'];
+		$hargabefore=$_POST['hargabefore'];
+		$hargaafter=$_POST['hargaafter'];
 		
-	if(isset($_POST['addKaryawan']))
-	{
-		$namaKaryawan = $_POST['namaKaryawan'];
-        $gambar = $_POST['gambar'];
-        $tanggalLahirKaryawan = $_POST['tanggalLahirKaryawan'];
-        $idAsal = $_POST['idAsal'];
-        $teleponKaryawan = $_POST['teleponKaryawan'];
-        $tanggalMasukKaryawan = $_POST['tanggalMasukKaryawan'];
-        $statusKaryawan = $_POST['statusKaryawan'];
-        $usernameKaryawan = $_POST['usernameKaryawan'];
-		$passwordKaryawan = password_hash($_POST['passwordKaryawan'], PASSWORD_DEFAULT); 
+		$nama_file = $_FILES['uploadgambar']['name'];
+		$ext = pathinfo($nama_file, PATHINFO_EXTENSION);
+		$random = crypt($nama_file, time());
+		$ukuran_file = $_FILES['uploadgambar']['size'];
+		$tipe_file = $_FILES['uploadgambar']['type'];
+		$tmp_file = $_FILES['uploadgambar']['tmp_name'];
+		$path = "../produk/".$random.'.'.$ext;
+		$pathdb = "produk/".$random.'.'.$ext;
+
+
+		if($tipe_file == "image/jpeg" || $tipe_file == "image/png"){
+		  if($ukuran_file <= 5000000){ 
+			if(move_uploaded_file($tmp_file, $path)){ 
+			
+			  $query = "insert into produk (idkategori, namaproduk, gambar, deskripsi, rate, hargabefore, hargaafter)
+			  values('$idkategori','$namaproduk','$pathdb','$deskripsi','$rate','$hargabefore','$hargaafter')";
+			  $sql = mysqli_query($conn, $query); // Eksekusi/ Jalankan query dari variabel $query
 			  
-		$tambahKaryawan = mysqli_query($conn,"insert into karyawan_adminitrasi (namaKaryawan, gambar, tanggalLahirKaryawan, idAsal, teleponKaryawan, tanggalMasukKaryawan, statusKaryawan, keterangan, usernameKaryawan, passwordKaryawan)
-        values('$namaKaryawan','$gambar','$tanggalLahirKaryawan','$idAsal', '$teleponKaryawan','$tanggalMasukKaryawan','$statusKaryawan','$keterangan','$usernameKaryawan','$passwordKaryawan')");
-		if ($tambahKaryawan){
-		echo " <div class='alert alert-success'>
-			Berhasil menambahkan staff baru.
-		  </div>
-		<meta http-equiv='refresh' content='1; url= user.php'/>  ";
-		} else { echo "<div class='alert alert-warning'>
-			Gagal menambahkan staff baru.
-		  </div>
-		 <meta http-equiv='refresh' content='1; url= user.php'/> ";
+			  if($sql){ 
+				
+				echo "<br><meta http-equiv='refresh' content='5; URL=produk.php'> You will be redirected to the form in 5 seconds";
+					
+			  }else{
+				// Jika Gagal, Lakukan :
+				echo "Sorry, there's a problem while submitting.";
+				echo "<br><meta http-equiv='refresh' content='5; URL=produk.php'> You will be redirected to the form in 5 seconds";
+			  }
+			}else{
+			  // Jika gambar gagal diupload, Lakukan :
+			  echo "Sorry, there's a problem while uploading the file.";
+			  echo "<br><meta http-equiv='refresh' content='5; URL=produk.php'> You will be redirected to the form in 5 seconds";
+			}
+		  }else{
+			// Jika ukuran file lebih dari 1MB, lakukan :
+			echo "Sorry, the file size is not allowed to more than 1mb";
+			echo "<br><meta http-equiv='refresh' content='5; URL=produk.php'> You will be redirected to the form in 5 seconds";
+		  }
+		}else{
+		  // Jika tipe file yang diupload bukan JPG / JPEG / PNG, lakukan :
+		  echo "Sorry, the image format should be JPG/PNG.";
+		  echo "<br><meta http-equiv='refresh' content='5; URL=produk.php'> You will be redirected to the form in 5 seconds";
 		}
-		
+	
 	};
 	?>
 
@@ -40,7 +65,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Karyawan - Wooden</title>
+    <title>Kelola Produk - Tokopekita</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -91,17 +116,17 @@
 							<li>
                                 <a href="manageorder.php"><i class="ti-dashboard"></i><span>Kelola Pesanan</span></a>
                             </li>
-							<li>
+							<li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout"></i><span>Kelola Toko
                                     </span></a>
                                 <ul class="collapse">
                                     <li><a href="kategori.php">Kategori</a></li>
-                                    <li><a href="produk.php">Produk</a></li>
+                                    <li class="active"><a href="produk.php">Produk</a></li>
 									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
                             </li>
 							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
-							<li class="active"><a href="user.php"><span>Kelola Staff</span></a></li>
+							<li><a href="user.php"><span>Kelola Staff</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
                                 
@@ -161,45 +186,48 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Karyawan</h2>
-                                    <button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Karyawan</button>
-									</div>
+									<h2>Daftar Produk</h2>
+									<button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Produk</button>
+                                </div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
-												<th>Nama Karyawan</th>
-												<th>email</th>
-												<th>No. Telepon</th>
-												<th>Alamat</th>
-                                                <!-- <th>No Telepon</th>
-                                                <th>Tanggal Masuk</th>
-                                                <th>Status Karyawan</th>
-                                                <th>Keterangan</th>
-                                                <th>Username</th>
-                                                <th>Password</th> -->
-
+												<th>No.</th>
+												<th>Gambar</th>
+												<th>Nama Produk</th>
+												<th>Kategori</th>
+												<th>Harga Diskon</th>
+												<th>Deskripsi</th>
+												<th>Rate</th>
+												<th>Harga Awal</th>
+												<th>Tanggal</th>
 											</tr></thead><tbody>
 											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from karyawan_adminitrasi order by idKaryawan ASC");
+											$brgs=mysqli_query($conn,"SELECT * from kategori k, produk p where k.idkategori=p.idkategori order by idproduk ASC");
 											$no=1;
 											while($p=mysqli_fetch_array($brgs)){
-                                                $id = $p['idKaryawan'];
 
 												?>
 												
 												<tr>
 													<td><?php echo $no++ ?></td>
-													<td><?php echo $p['namalengkap'] ?></td>
-													<td><?php echo $p['email'] ?></td>
-													<td><?php echo $p['notelp'] ?></td>
-													<td><?php echo $p['alamat'] ?></td>
-                                            
+													<td><img src="../<?php echo $p['gambar'] ?>" width="50%"\></td>
+													<td><?php echo $p['namaproduk'] ?></td>
+													<td><?php echo $p['namakategori'] ?></td>
+													<td><?php echo $p['hargaafter'] ?></td>
+													<td><?php echo $p['deskripsi'] ?></td>
+													<td><?php echo $p['rate'] ?></td>
+													<td><?php echo $p['hargabefore'] ?></td>
+													<td><?php echo $p['tgldibuat'] ?></td>
+													
 												</tr>		
-												
 												
 												<?php 
 											}
-													
+											
+												
+											
+		
 											?>
 										</tbody>
 										</table>
@@ -218,75 +246,73 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>By Wooden Furniture</p>
+                <p>By Richard's Lab</p>
             </div>
         </footer>
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
 	
+	<!-- modal input -->
 			<div id="myModal" class="modal fade">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Tambah Karyawan Baru</h4>
+							<h4 class="modal-title">Tambah Produk</h4>
 						</div>
+						
 						<div class="modal-body">
-							<form method="post">
+						<form action="produk.php" method="post" enctype="multipart/form-data" >
 								<div class="form-group">
-									<label>Nama</label>
-									<input name="namaKaryawan" type="text" class="form-control" placeholder="Nama" required autofocus>
+									<label>Nama Produk</label>
+									<input name="namaproduk" type="text" class="form-control" required autofocus>
 								</div>
 								<div class="form-group">
-									<label>Foto Karyawan</label>
-									<input name="gambar" type="file" class="form-control" placeholder="Foto Karyawan">
+									<label>Nama Kategori</label>
+									<select name="idkategori" class="form-control">
+									<option selected>Pilih Kategori</option>
+									<?php
+									$det=mysqli_query($conn,"select * from kategori order by namakategori ASC")or die(mysqli_error());
+									while($d=mysqli_fetch_array($det)){
+									?>
+										<option value="<?php echo $d['idkategori'] ?>"><?php echo $d['namakategori'] ?></option>
+										<?php
+								}
+								?>		
+									</select>
+									
 								</div>
-                                <div class="form-group">
-									<label>Tanggal Lahir</label>
-									<input name="tanggalLahirKaryawan" type="date" class="form-control" placeholder="Tanggal lahir" required autofocus>
+								<div class="form-group">
+									<label>Deskripsi</label>
+									<input name="deskripsi" type="text" class="form-control" required>
 								</div>
-                                <div class="form-group">
-									<label>Asal</label>
-									<input name="idAsal" type="text" class="form-control" placeholder="Asal Tinggal" required autofocus>
+								<div class="form-group">
+									<label>Rating (1-5)</label>
+									<input name="rate" type="number" class="form-control"  min="1" max="5" required>
 								</div>
-                                <div class="form-group">
-									<label>No Telepon</label>
-									<input name="teleponKaryawan" type="text" class="form-control" placeholder="No Telepon" required autofocus>
+								<div class="form-group">
+									<label>Harga Sebelum Diskon</label>
+									<input name="hargabefore" type="number" class="form-control">
 								</div>
-                                <div class="form-group">
-									<label>Tanggal Masuk Karyawan</label>
-									<input name="tanggalMasukKaryawan" type="date" class="form-control" placeholder="Tanggal Masuk Karyawan" required autofocus>
+								<div class="form-group">
+									<label>Harga Setelah Diskon</label>
+									<input name="hargaafter" type="number" class="form-control">
 								</div>
-                                <div class="form-group">
-									<label>Status Karyawan</label>
-                                        <select id="statusKaryawan" name="statusKaryawan">
-    						                <option value="Aktif">Aktif</option>
-    						                <option value="Cuti">Cuti</option>
-                                            <option value="Pensiun">Pensiun</option>
-						                </select>
-								</div>
-                                <div class="form-group">
-									<label>Keterangan</label>
-									<input name="keterangan" type="text" class="form-control" placeholder="Keterangan" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Username</label>
-									<input name="usernameKaryawan" type="text" class="form-control" placeholder="Username Karyawan" required autofocus>
-								</div>
-                                <div class="form-group">
-									<label>Password</label>
-									<input name="passwordKaryawan" type="password" class="form-control" placeholder="Password" required autofocus>
+								<div class="form-group">
+									<label>Gambar</label>
+									<input name="uploadgambar" type="file" class="form-control">
 								</div>
 
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-								<input name="addKaryawan" type="submit" class="btn btn-primary" value="Simpan">
+								<input name="addproduct" type="submit" class="btn btn-primary" value="Tambah">
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
+	
 	<script>
 	$(document).ready(function() {
     $('#dataTable3').DataTable( {
