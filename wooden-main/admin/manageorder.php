@@ -13,7 +13,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Pesanan - Tokopekita</title>
+    <title>Kelola Pesanan - Wooden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -136,6 +136,7 @@
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
 									<h2>Daftar Pesanan</h2>
+                                    <a href="pesananselesai.php" style="margin-bottom:20px" target="_blank" class="btn btn-info col-md-2">Pesanan Selesai</a>
 								</div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
@@ -195,7 +196,7 @@
 										</tbody>
 										</table>
                                     </div>
-									<a href="datapesanan.php" target="_blank" class="btn btn-info">Export Data</a>
+									<!-- <a href="datapesanan.php" target="_blank" class="btn btn-info">Export Data</a> -->
                                 </div>
                             </div>
                         </div>
@@ -210,7 +211,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>By Richard's Lab</p>
+                <p>By Wooden's Furniture</p>
             </div>
         </footer>
         <!-- footer area end-->

@@ -6,7 +6,6 @@
 		$namaproduk=$_POST['namaproduk'];
 		$idkategori=$_POST['idkategori'];
 		$deskripsi=$_POST['deskripsi'];
-		$rate=$_POST['rate'];
 		$hargabefore=$_POST['hargabefore'];
 		$hargaafter=$_POST['hargaafter'];
 		
@@ -24,8 +23,8 @@
 		  if($ukuran_file <= 5000000){ 
 			if(move_uploaded_file($tmp_file, $path)){ 
 			
-			  $query = "insert into produk (idkategori, namaproduk, gambar, deskripsi, rate, hargabefore, hargaafter)
-			  values('$idkategori','$namaproduk','$pathdb','$deskripsi','$rate','$hargabefore','$hargaafter')";
+			  $query = "insert into produk (idkategori, namaproduk, gambar, deskripsi, hargabefore, hargaafter)
+			  values('$idkategori','$namaproduk','$pathdb','$deskripsi','$hargabefore','$hargaafter')";
 			  $sql = mysqli_query($conn, $query); // Eksekusi/ Jalankan query dari variabel $query
 			  
 			  if($sql){ 
@@ -65,7 +64,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Produk - Tokopekita</title>
+    <title>Kelola Produk - Wooden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -198,9 +197,10 @@
 												<th>Kategori</th>
 												<th>Harga Diskon</th>
 												<th>Deskripsi</th>
-												<th>Rate</th>
 												<th>Harga Awal</th>
 												<th>Tanggal</th>
+												<th>Aksi</th>
+												
 											</tr></thead><tbody>
 											<?php 
 											$brgs=mysqli_query($conn,"SELECT * from kategori k, produk p where k.idkategori=p.idkategori order by idproduk ASC");
@@ -211,15 +211,14 @@
 												
 												<tr>
 													<td><?php echo $no++ ?></td>
-													<td><img src="../<?php echo $p['gambar'] ?>" width="50%"\></td>
+													<td><img src="../<?php echo $p['gambar'] ?>" width="40%"\></td>
 													<td><?php echo $p['namaproduk'] ?></td>
 													<td><?php echo $p['namakategori'] ?></td>
 													<td><?php echo $p['hargaafter'] ?></td>
 													<td><?php echo $p['deskripsi'] ?></td>
-													<td><?php echo $p['rate'] ?></td>
 													<td><?php echo $p['hargabefore'] ?></td>
 													<td><?php echo $p['tgldibuat'] ?></td>
-													
+
 												</tr>		
 												
 												<?php 
@@ -246,7 +245,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>By Richard's Lab</p>
+                <p>By Wooden's Furniture</p>
             </div>
         </footer>
         <!-- footer area end-->
@@ -285,10 +284,6 @@
 								<div class="form-group">
 									<label>Deskripsi</label>
 									<input name="deskripsi" type="text" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label>Rating (1-5)</label>
-									<input name="rate" type="number" class="form-control"  min="1" max="5" required>
 								</div>
 								<div class="form-group">
 									<label>Harga Sebelum Diskon</label>
