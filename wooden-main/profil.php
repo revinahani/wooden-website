@@ -1,6 +1,9 @@
 <?php
 ob_start();
 session_start();
+
+include 'dbconnect.php';
+
     $conn = mysqli_connect('localhost', 'root', '', 'wooden_db');
     $userid = '';
     $namalengkap = '';
@@ -9,8 +12,8 @@ session_start();
     $notelp = '';
     $alamat = '';
     // $data_table = $_GET['table'];
-    // $data_id = $_GET['id'];
-    $query = mysqli_query($conn, "SELECT * FROM login where userid = '$userid'");
+    $data_id = $_GET['id'];
+    $query = mysqli_query($conn, "SELECT * FROM login where userid = '$data_id'");
      while ($row = mysqli_fetch_object($query)) {
         $userid = $row->userid;
         $namalengkap = $row->namalengkap;
@@ -94,7 +97,7 @@ session_start();
     </style>
   </head>
   <body>
-        <!-- header -->
+    <!-- header -->
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
@@ -167,12 +170,21 @@ session_start();
 		</div>
 	</div>
 <!-- header -->
-    <div class="rounded-3 overflow-hidden p-3 m-3" style="background: rgb(115, 77, 38, 0.7)">
-        <h1 class="text-white">Pengaturan Profile</h1>
-        <div class="row h-50">
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">Halaman Profil</li>
+			</ol>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
+    <div class="breadcrumbs" style="background: white">
+        <div class="row h-50\">
             <div class="col col-md-4">
                 <center>
-                    <img class="rounded-circle overflow-hidden" src="img/<?= $image ?>" alt="" style="width: 250px; height:250px">
+                    <img class="rounded-circle overflow-hidden" src="images/sana.jpeg<?= $image ?>" alt="" style="width: 250px; height:250px">
                 </center>
             </div>
             <div class="col col-md-8">
@@ -202,6 +214,55 @@ session_start();
             </div>
     </div>
     </div>
+<!-- //footer -->
+<div class="footer">
+		<div class="container">
+			<div class="w3_footer_grids">
+				<div class="col-md-4 w3_footer_grid">
+					<h3>Hubungi Kami</h3>
+
+					<ul class="address">
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Wooden Furniture, Jember</li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@email">woodenjember@gmail.com</a></li>
+						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+62 8113 2322</li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Tentang Kami</h3>
+					<ul class="info">
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">How To</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+
+		<div class="footer-copy">
+
+			<div class="container">
+				<p>© 2022 Wooden's Furniture. All rights reserved</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="footer-botm">
+			<div class="container">
+				<div class="w3layouts-foot">
+					<ul>
+						<li><a href="#" class="w3_agile_instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+				<div class="payment-w3ls">
+					<img src="images/card.png" alt=" " class="img-responsive">
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+<!-- //footer -->
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

@@ -59,22 +59,19 @@ include 'dbconnect.php';
 						
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["namalengkap"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} 
-					else if($_SESSION['role']=='pemilik'){
-						echo '
-						<li style="color:white">Halo, '.$_SESSION["namalengkap"].'
-						<li><a href="pemilik">Admin Panel</a></li>
-						<li><a href="logout.php">Keluar?</a></li>
-						';
-					}else if ($_SESSION['role']=='admin'){
-						echo '
-						<li style="color:white">Halo, '.$_SESSION["namalengkap"].'
-						<li><a href="admin">Admin Panel</a></li>
-						<li><a href="logout.php">Keluar?</a></li>
-						';
+					elseif($_SESSION['role']=='pemilik'){
+					echo '
+					<li><a href="pemilik">Admin Panel</a></li>
+					<li><a href="logout.php">Keluar?</a></li>
+					';
+					}else {
+					echo '
+					<li><a href="admin">Admin Panel</a></li>
+					<li><a href="logout.php">Keluar?</a></li>
+					';
 					};
 						
 				}
