@@ -20,9 +20,18 @@ if(isset($_POST['addprod'])){
 							
 							//cek barang serupa
 							$cekbrg = mysqli_query($conn,"select * from detailorder where idproduk='$idproduk' and orderid='$orid'");
+							// $liatlg = mysqli_num_rows($cekbrg);
+							// while ($fetc = mysqli_fetch_array($caricart)) {
+							// 	# code...
+							// 	$orderidd = $fetc['orderid'];
+							// }
 							$liatlg = mysqli_num_rows($cekbrg);
-							$brpbanyak = mysqli_fetch_array($cekbrg);
-							$jmlh = $brpbanyak['qty'];
+							$jmlh = 0;
+							while ($brpbanyak = mysqli_fetch_array($cekbrg)) {
+								$jmlh += floatval($brpbanyak['qty']);
+								
+							}
+							// $jmlh = $brpbanyak['qty'];
 							
 							//kalo ternyata barangnya ud ada
 							if($liatlg>0){

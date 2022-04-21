@@ -30,13 +30,11 @@ if(isset($_POST["update"])){
 		echo "Gagal update cart
 		<meta http-equiv='refresh' content='1; url= cart.php'/>";
 	}
-} else if(isset($_POST["hapus"])){
-	$kode = $_POST['idproduknya'];
+} if(isset($_GET['idproduknya'])){
+	$kode = $_GET['idproduknya'];
 	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
-	if($q2){
-		echo "Berhasil Hapus";
-	} else {
-		echo "Gagal Hapus";
+	if ($q2) {
+		$_SESSION['alertSuccess'] = 'Hapus Barang Berhasil';
 	}
 }
 ?>
@@ -64,6 +62,7 @@ if(isset($_POST["update"])){
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -75,7 +74,17 @@ if(isset($_POST["update"])){
 <!-- start-smoth-scrolling -->
 </head>
 	
-<body>
+<?php
+if (!empty($_SESSION['alertSuccess'])) {
+	echo '<body onpageshow="alertSuccess()">';
+} elseif (!empty($_SESSION['alertInfo'])) {
+	echo '<body onpageshow="alertInfo()">';
+} elseif (!empty($_SESSION['alertError'])) {
+	echo '<body onpageshow="alertError()">';
+} else {
+	echo '<body>';
+}
+?>
 <!-- header -->
 	<div class="agileits_header">
 		<div class="container"> 
@@ -247,8 +256,8 @@ if(isset($_POST["update"])){
 							
 								<input type="submit" name="update" class="form-control" value="Update" \>
 								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
 							</form>
+							<button onclick="hapusBarang('<?= $b['idproduk'] ?>')">Hapus</button>
 							</div>
 							<script>$(document).ready(function(c) {
 								$('.close1').on('click', function(c){
@@ -392,7 +401,62 @@ if(isset($_POST["update"])){
 			});
 			
 		});
-</script>	
+		function hapusBarang(id) {
+            Swal.fire({
+                title: 'Hapus Barang',
+                background: '#f8fafc',
+                icon: 'warning',
+                text: 'Yakin Hapus Barang Ini ?',
+                confirmButtonText: 'Hapus',
+                confirmButtonColor: '#dc2626',
+            }).then(result => {
+                if(result.isConfirmed){
+                    window.location.href = 'cart.php?idproduknya='+id
+                }
+            })
+            return false;
+        }
+</script>
+<?php
+	echo "
+    <script>
+        function alertSuccess() {
+            Swal.fire({
+                width: 350,
+                icon: 'success',
+                title: 'Sukses',
+                text: '".$_SESSION['alertSuccess']."',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+        function alertInfo() {
+            Swal.fire({
+                width: 350,
+                icon: 'info',
+                title: 'Info',
+                text: '".$_SESSION['alertInfo']."',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+        function alertError() {
+            Swal.fire({
+                width: 350,
+                icon: 'error',
+                title: 'Gagal',
+                text: '".$_SESSION['alertError']."',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    </script>";
+?>
 <!-- //main slider-banner --> 
 </body>
 </html>
+<?php
+$_SESSION['alertSuccess'] = '';
+$_SESSION['alertInfo'] = '';
+$_SESSION['alertError'] = '';
+?>

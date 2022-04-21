@@ -5,8 +5,11 @@ if(!isset($_SESSION['log'])){
 } else {
 	
 };
-
-$idorder = $_GET['id'];
+$idorder = 0;
+if (isset($_GET['id'])) {
+	# code...
+	$idorder = $_GET['id'];
+}
 
 include 'dbconnect.php';
 
