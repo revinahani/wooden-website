@@ -79,7 +79,7 @@ if(isset($_POST["update"])){
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
-			<div class="agile-login">
+			<div class="agile-login" style="text-align: right; float:right">
 				<ul>
 				<?php
 				if(!isset($_SESSION['log'])){
@@ -91,12 +91,10 @@ if(isset($_POST["update"])){
 					
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} else {
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="admin">Admin Panel</a></li>
 					<li><a href="logout.php">Keluar?</a></li>
 					';
@@ -107,10 +105,10 @@ if(isset($_POST["update"])){
 					
 				</ul>
 			</div>
-			<div class="product_list_header">  
+			<!-- <div class="product_list_header">  
 					<a href="cart.php"><button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
 					 </a>
-			</div>
+			</div> -->
 			<div class="clearfix"> </div>
 		</div>
 	</div>
@@ -229,7 +227,7 @@ if(isset($_POST["update"])){
 						<td class="invert"><?php echo $b['tglorder'] ?></td>
 						<td class="invert">
 						
-						Rp<?php 				$ongkir = 10000;
+						Rp<?php 				$ongkir = 100000;
 												$ordid = $b['orderid'];
 												$result1 = mysqli_query($conn,"SELECT SUM(qty*hargaafter)+$ongkir AS count FROM detailorder d, produk p where d.orderid='$ordid' and p.idproduk=d.idproduk order by d.idproduk ASC");
 												$cekrow = mysqli_num_rows($result1);
@@ -328,7 +326,7 @@ if(isset($_POST["update"])){
 		<div class="footer-copy">
 			
 			<div class="container">
-				<p>© 2020 Richard's Lab. All rights reserved</p>
+				<p>© Wooden Furniture. All rights reserved</p>
 			</div>
 		</div>
 		

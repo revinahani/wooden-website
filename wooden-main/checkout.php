@@ -193,8 +193,8 @@ if(isset($_POST["checkout"])){
 <!-- //breadcrumbs -->
 <!-- checkout -->
 	<div class="checkout">
-		<div class="container">
-			<h1>Terima kasih, <?=$_SESSION['name']?> telah membeli <?php echo $itungtrans3 ?> barang di Tokopekita</span></h1>
+		<div class="container ">
+			<!-- <h1>Terima kasih, <?=$_SESSION['name']?> telah membeli <?php echo $itungtrans3 ?> barang di Wooden</span></h1> -->
 			<div class="checkout-right">
 				<table class="timetable_sub">
 					<thead>
@@ -266,8 +266,9 @@ if(isset($_POST["checkout"])){
 								<!--quantity-->
 				</table>
 			</div>
-			<div class="checkout-left">	
-				<div class="checkout-left-basket">
+	
+			<div class="checkout-left-basket" style="width:100%;margin-top:20px;">
+				<!-- <div class="checkout-left-basket" style="width:100%;margin-top:20px;"> -->
 					<h4>Total Harga yang harus dibayar saat ini</h4>
 					<ul>
 						<?php 
@@ -282,12 +283,13 @@ if(isset($_POST["checkout"])){
 						}
 						?>
 						
+						
 						<h1><input type="text" value="Rp<?php echo number_format($subtotal) ?>" disabled \></h1>
 					</ul>
 				</div>
 				<br>
-				<div class="checkout-left-basket" style="width:80%;margin-top:60px;">
-					<div class="checkout-left-basket">
+				<div class="checkout-left-basket" style="width:100%;margin-top:20px;">
+					<!-- <div class="checkout-left-basket"> -->
 					<h4>Kode Order Anda</h4>
 					<h1><input type="text" value="<?php echo $orderidd ?>" disabled \></h1>
 				</div>
@@ -296,14 +298,12 @@ if(isset($_POST["checkout"])){
 				<div class="clearfix"> </div>
 			</div>
 			
-			
-			<br>
 			<hr>
-			<br><center>
-			<h2>Total harga yang tertera di atas sudah termasuk ongkos kirim sebesar Rp10.000</h2>
-			<h2>Bila telah melakukan pembayaran, harap konfirmasikan pembayaran Anda.</h2>
+			<center>
+			<h4>Total harga yang tertera di atas sudah termasuk ongkos kirim sebesar Rp100.000 wilayah Jember</h4>
+			<h4>Bila telah melakukan pembayaran, harap konfirmasikan pembayaran Anda.</h4>
 			<br>
-			
+			<br>	
 			
 			<?php 
 			$metode = mysqli_query($conn,"select * from pembayaran");
@@ -312,7 +312,7 @@ if(isset($_POST["checkout"])){
 				
 			?>
 			
-			<img src="<?php echo $p['logo'] ?>" width="300px" height="200px"><br>
+			<img src="<?php echo $p['logo'] ?>" width="100px" height="60px"><br>
         <h4><?php echo $p['metode'] ?> - <?php echo $p['norek'] ?><br>
         a/n. <?php echo $p['an'] ?></h4><br>
         <br>
@@ -322,14 +322,13 @@ if(isset($_POST["checkout"])){
 			}
 		?>
 		
-		<br>
-        <br>
         <p>Orderan anda Akan Segera kami proses 1x24 Jam Setelah Anda Melakukan Pembayaran ke ATM kami dan menyertakan informasi pribadi yang melakukan pembayaran seperti Nama Pemilik Rekening / Sumber Dana, Tanggal Pembayaran, Metode Pembayaran dan Jumlah Bayar.</p>
       
 		<br>
 		<form method="post">
 		<input type="submit" class="form-control btn btn-success" name="checkout" value="I Agree and Check Out" \>
 		</form>
+		<br>
 	  
 	  </center>
 		</div>
@@ -363,7 +362,7 @@ if(isset($_POST["checkout"])){
 		<div class="footer-copy">
 			
 			<div class="container">
-				<p>© 2020 Richard's Lab. All rights reserved</p>
+				<p>© Wooden Furniture. All rights reserved</p>
 			</div>
 		</div>
 		

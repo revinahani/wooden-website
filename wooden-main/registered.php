@@ -74,7 +74,7 @@ if(isset($_POST['adduser']))
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.html">BELANJA SEKARANG!</a></p>
 			</div>
-			<div class="agile-login">
+			<div class="agile-login" style="text-align: right; float:right">
 				<ul>
 					<li><a href="registered.php"> Daftar</a></li>
 					<li><a href="login.php">Masuk</a></li>
@@ -142,11 +142,11 @@ if(isset($_POST['adduser']))
 														<h6>Kategori</h6>
 														
 														<?php 
-														$kat=mysqli_query($conn,"SELECT * from bahan order by idBahan ASC");
+														$kat=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
 														while($p=mysqli_fetch_array($kat)){
 
 															?>
-														<li><a href="kategori.php?idkategori=<?php echo $p['idBahan'] ?>"><?php echo $p['bahan'] ?></a></li>
+														<li><a href="kategori.php?idkategori=<?php echo $p['idkategori'] ?>"><?php echo $p['namakategori'] ?></a></li>
 																				
 														<?php
 																	}
@@ -217,7 +217,7 @@ if(isset($_POST['adduser']))
 		<div class="footer-copy">
 			
 			<div class="container">
-				<p>© 2020 Richard's Lab. All rights reserved</p>
+				<p>© Wooden's Furniture. All rights reserved</p>
 			</div>
 		</div>
 		

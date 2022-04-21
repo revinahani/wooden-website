@@ -138,12 +138,10 @@ if(isset($_POST['addprod'])){
 					
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} else {
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="admin">Admin Panel</a></li>
 					<li><a href="logout.php">Keluar?</a></li>
 					';

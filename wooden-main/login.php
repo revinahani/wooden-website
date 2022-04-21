@@ -136,7 +136,7 @@ $timenow = date("j-F-Y-h:i:s A");
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.php">BELANJA SEKARANG!</a></p>
 			</div>
-			<div class="agile-login">
+			<div class="agile-login" style="text-align: right; float:right">
 				<ul>
 					<li><a href="registered.php"> Daftar</a></li>
 					<li><a href="login.php">Masuk</a></li>
@@ -226,16 +226,6 @@ $timenow = date("j-F-Y-h:i:s A");
 		</div>
 		
 <!-- //navigation -->
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Halaman Login</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
 <!-- login -->
 	<div class="login">
 		<div class="container">

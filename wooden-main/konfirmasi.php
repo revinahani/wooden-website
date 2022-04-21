@@ -281,7 +281,7 @@ if(isset($_POST['confirm']))
 		<div class="footer-copy">
 			
 			<div class="container">
-				<p>© 2020 Richard's Lab. All rights reserved</p>
+				<p>© Wooden's Furniture. All rights reserved</p>
 			</div>
 		</div>
 		

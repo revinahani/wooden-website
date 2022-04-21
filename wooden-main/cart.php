@@ -79,7 +79,7 @@ if(isset($_POST["update"])){
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, <a href="products.html">BELANJA SEKARANG!</a></p>
 			</div>
-			<div class="agile-login">
+			<div class="agile-login" style="text-align: right; float:right">
 				<ul>
 				<?php
 				if(!isset($_SESSION['log'])){
@@ -91,12 +91,10 @@ if(isset($_POST["update"])){
 					
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="logout.php">Keluar?</a></li>
 					';
 					} else {
 					echo '
-					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="admin">Admin Panel</a></li>
 					<li><a href="logout.php">Keluar?</a></li>
 					';
@@ -285,7 +283,7 @@ if(isset($_POST["update"])){
 						<?php 
 						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
 						$no=1;
-						$subtotal = 10000;
+						$subtotal = 100000;
 						while($b=mysqli_fetch_array($brg)){
 						$hrg = $b['hargaafter'];
 						$qtyy = $b['qty'];
@@ -296,7 +294,7 @@ if(isset($_POST["update"])){
 						<?php
 						}
 						?>
-						<li>Total (inc. 10k Ongkir)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
+						<li>Total (Ongkir loc. Jember)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
 					</ul>
 				</div>
 				<div class="checkout-right-basket">

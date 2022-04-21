@@ -220,9 +220,9 @@
 									<h2>Selamat Datang</h2>
                                 </div>
                                 <div class="market-status-table mt-4">
-                                    Anda masuk sebagai Admin
+                                    Anda masuk sebagai Pemilik
 									<br>
-									<p>Pada halaman admin, Anda dapat menambah kategori produk, mengelola produk, 
+									<p>Pada halaman Pemilik, Anda dapat menambah kategori produk, mengelola produk, 
 									mengelola user dan admin, melihat konfirmasi pembayaran</p>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>by Richard's Lab</p>
+                <p>by Wooden Furniture</p>
             </div>
         </footer>
         <!-- footer area end-->
