@@ -284,14 +284,14 @@ if(isset($_POST["checkout"])){
 						?>
 						
 						
-						<h1><input type="text" value="Rp<?php echo number_format($subtotal) ?>" disabled \></h1>
+						<center><h3><?= 'Rp'.number_format($subtotal) ?></h3></center>
 					</ul>
 				</div>
 				<br>
 				<div class="checkout-left-basket" style="width:100%;margin-top:20px;">
 					<!-- <div class="checkout-left-basket"> -->
 					<h4>Kode Order Anda</h4>
-					<h1><input type="text" value="<?php echo $orderidd ?>" disabled \></h1>
+					<center><h3><?= $orderidd ?></h3></center>
 				</div>
 				</div>
 				

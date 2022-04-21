@@ -10,8 +10,11 @@ if(!isset($_SESSION['log'])){
 	
 	$uid = $_SESSION['id'];
 	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
-	$fetc = mysqli_fetch_array($caricart);
-	$orderidd = $fetc['orderid'];
+	while ($fetc = mysqli_fetch_array($caricart)) {
+		# code...
+		$orderidd = $fetc['orderid'];
+	}
+	// $fetc = mysqli_fetch_array($caricart);
 	$itungtrans = mysqli_query($conn,"select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
 	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
 	$itungtrans3 = $itungtrans2['jumlahtrans'];

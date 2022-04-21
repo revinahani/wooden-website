@@ -28,8 +28,11 @@ if (isset($_POST['login'])) {
 		$_SESSION['user'] = $cariuser;
 		$_SESSION['id'] = $cariuser['userid'];
 		$_SESSION['role'] = $cariuser['role'];
+		$_SESSION['image'] = $cariuser['image'];
 		$_SESSION['notelp'] = $cariuser['notelp'];
 		$_SESSION['name'] = $cariuser['namalengkap'];
+		$_SESSION['email'] = $cariuser['email'];
+		$_SESSION['alamat'] = $cariuser['alamat'];
 		$_SESSION['log'] = "Logged";
 		header('location:index.php');
 	} else {

@@ -8,51 +8,57 @@ include 'dbconnect.php';
 // print_r($_SESSION['user']);
 // echo "</pre>";
 // die;
-$iduser = $_SESSION['user']['userid'];
+// $userid = $_SESSION['user']['userid'];
 
-$userid = '';
-$namalengkap = '';
-$image = '';
-$email = '';
-$notelp = '';
-$alamat = '';
-// $data_table = $_GET['table'];
-// $data_id = $_SESSION['id'];
-$query = mysqli_query($conn, "SELECT * FROM login where userid = '$iduser'");
-// echo "<pre>";
-// print_r($query);
-// echo "</pre>";
-while ($row = mysqli_fetch_object($query)) {
-	$userid = $row->userid;
-	$namalengkap = $row->namalengkap;
-	$image = $row->image;
-	$email = $row->email;
-	$notelp = $row->notelp;
-	$alamat = $row->alamat;
-}
+// $userid = '';
+// $namalengkap = '';
+// $image = '';
+// $email = '';
+// $notelp = '';
+// $alamat = '';
+// // $data_table = $_GET['table'];
+// // $data_id = $_SESSION['id'];
+// $query = mysqli_query($conn, "SELECT * FROM login where userid = '$userid'");
+// // echo "<pre>";
+// // print_r($query);
+// // echo "</pre>";
+// while ($row = mysqli_fetch_object($query)) {
+// 	$userid = $row->userid;
+// 	$namalengkap = $row->namalengkap;
+// 	$image = $row->image;
+// 	$email = $row->email;
+// 	$notelp = $row->notelp;
+// 	$alamat = $row->alamat;
+// }
 if (isset($_POST['perbarui'])) {
-	$iduser = $_POST['userid'];
+	$userid = $_POST['userid'];
 	$namalengkap = $_POST['namalengkap'];
 	$email = $_POST['email'];
 	$notelp = $_POST['notelp'];
 	$alamat = $_POST['alamat'];
-	$Waktu = time();
-	$nama = $_FILES['file']['name'];
-	$x = explode('.', $nama);
+	// $Waktu = time();
+	$gambar = $_FILES['file']['name'];
+	$x = explode('.', $gambar);
 	$ekstensi = strtolower(end($x));
 	$file_tmp = $_FILES['file']['tmp_name'];
-	move_uploaded_file($file_tmp, 'img/' . $nama);
-	$query = mysqli_query($conn, "UPDATE login SET  namalengkap= '$namalengkap', image= '$nama', email= '$email' , notelp= '$notelp' , alamat= '$alamat' WHERE id = 'userid'");
+	move_uploaded_file($file_tmp, 'images/' . $gambar);
+	$query = mysqli_query($conn, "UPDATE `login` SET `namalengkap`='$namalengkap',`image`='$gambar',`email`='$email',`notelp`='$notelp',`alamat`='$alamat' WHERE `userid`='$userid'");
+	$_SESSION['image'] = $gambar;
+	$_SESSION['name'] = $_POST['namalengkap'];
+	$_SESSION['email'] = $_POST['email'];
+	$_SESSION['notelp'] = $_POST['notelp'];
+	$_SESSION['alamat'] = $_POST['alamat'];
 	// $query2 = mysqli_query($conn, "SELECT * FROM $data_table where userid = '$data_id'");
-	$query2 = mysqli_query($conn, "SELECT * FROM login where userid = '$iduser'");
-	while ($row = mysqli_fetch_object($query2)) {
-		$userid = $row->userid;
-		$namalengkap = $row->namalengkap;
-		$image = $row->image;
-		$email = $row->email;
-		$notelp = $row->notelp;
-		$alamat = $row->alamat;
-	}
+	// $query2 = mysqli_query($conn, "SELECT * FROM login where userid = '$userid'");
+	// while ($row = mysqli_fetch_object($query2)) {
+	// 	$userid = $row->userid;
+	// 	$namalengkap = $row->namalengkap;
+	// 	$image = $row->image;
+	// 	$email = $row->email;
+	// 	$notelp = $row->notelp;
+	// 	$alamat = $row->alamat;
+	// }
+	// var_dump($userid);
 	$message = "Data Berhasil Diperbarui!";
 }
 ?>
@@ -203,30 +209,29 @@ if (isset($_POST['perbarui'])) {
 		<div class="row h-50\">
 			<div class="col col-md-4">
 				<center>
-					<img class="rounded-circle overflow-hidden" src="images/sana.jpeg<?= $image ?>" alt="" style="width: 250px; height:250px">
+					<img class="rounded-circle overflow-hidden" src="images/<?= $_SESSION['image'] ?>" alt="" style="width: 250px; height:250px">
 				</center>
 			</div>
 			<div class="col col-md-8">
 				<div class="container-fluid">
 					<form method="post" enctype="multipart/form-data">
-						<input type="text" name="id" value="<?= $id ?>" style="display: none">
+						<input type="text" name="userid" value="<?= $_SESSION['id'] ?>" style="display: none">
 						<div class="my-2">
 							<input type="file" class="form-control" id="exampleFormControlInput1" name="file">
 						</div>
 						<div class="my-2">
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="namalengkap" placeholder="Nama Lengkap" value="<?= $namalengkap ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="namalengkap" placeholder="Nama Lengkap" value="<?= $_SESSION['name'] ?>">
 						</div>
 						<div class="my-2">
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" value="<?= $email ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" value="<?= $_SESSION['email'] ?>">
 						</div>
 						<div class="my-2">
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="notelp" placeholder="Nomor Telepon" value="<?= $notelp ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="notelp" placeholder="Nomor Telepon" value="<?= $_SESSION['notelp'] ?>">
 						</div>
 						<div class="my-2">
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" placeholder="Alamat" value="<?= $alamat ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" placeholder="Alamat" value="<?= $_SESSION['alamat'] ?>">
 						</div>
 						<input type="submit" name="perbarui" value="Perbarui" class="btn btn-primary">
-						<a href="" class="btn btn-warning">Refresh</a>
 				</div>
 				</form>
 			</div>
