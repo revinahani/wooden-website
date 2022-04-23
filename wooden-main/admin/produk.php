@@ -83,6 +83,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 	
     <!-- others css -->
     <link rel="stylesheet" href="assets/css/typography.css">
@@ -200,6 +201,7 @@
 												<th>Harga Awal</th>
 												<th>Tanggal</th>
 												<th>Aksi</th>
+													
 												
 											</tr></thead><tbody>
 											<?php 
@@ -218,6 +220,12 @@
 													<td><?php echo $p['deskripsi'] ?></td>
 													<td><?php echo $p['hargabefore'] ?></td>
 													<td><?php echo $p['tgldibuat'] ?></td>
+													<td>
+														<center>
+														<a href="update-produk.php?idproduk=<?php echo $p['idproduk']; ?>" class="btn btn-sm btn-warning">Edit</a>
+														<!-- <li><a href="update-produk.php"><i class="bi bi-pencil-square"></i></a></li> -->
+														</center>
+													</td>	
 
 												</tr>		
 												
@@ -254,6 +262,62 @@
 	
 	<!-- modal input -->
 			<div id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Tambah Produk</h4>
+						</div>
+						
+						<div class="modal-body">
+						<form action="produk.php" method="post" enctype="multipart/form-data" >
+								<div class="form-group">
+									<label>Nama Produk</label>
+									<input name="namaproduk" type="text" class="form-control" required autofocus>
+								</div>
+								<div class="form-group">
+									<label>Nama Kategori</label>
+									<select name="idkategori" class="form-control">
+									<option selected>Pilih Kategori</option>
+									<?php
+									$det=mysqli_query($conn,"select * from kategori order by namakategori ASC")or die(mysqli_error());
+									while($d=mysqli_fetch_array($det)){
+									?>
+										<option value="<?php echo $d['idkategori'] ?>"><?php echo $d['namakategori'] ?></option>
+										<?php
+								}
+								?>		
+									</select>
+									
+								</div>
+								<div class="form-group">
+									<label>Deskripsi</label>
+									<input name="deskripsi" type="text" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Harga Sebelum Diskon</label>
+									<input name="hargabefore" type="number" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Harga Setelah Diskon</label>
+									<input name="hargaafter" type="number" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Gambar</label>
+									<input name="uploadgambar" type="file" class="form-control">
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+								<input name="addproduct" type="submit" class="btn btn-primary" value="Tambah">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+	<!-- Update Data -->
+	<div id="myModal" class="modal fade">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">

@@ -172,6 +172,7 @@
 												<th>email</th>
 												<th>No. Telepon</th>
 												<th>Alamat</th>
+                                                <th>Aksi</th>
                                                 <!-- <th>No Telepon</th>
                                                 <th>Tanggal Masuk</th>
                                                 <th>Status Karyawan</th>
@@ -194,6 +195,12 @@
 													<td><?php echo $p['email'] ?></td>
 													<td><?php echo $p['notelp'] ?></td>
 													<td><?php echo $p['alamat'] ?></td>
+                                                    <td>
+														<center>
+														<a href="update-user.php?userid=<?php echo $p['userid']; ?>" class="btn btn-sm btn-warning">Edit</a>
+														<!-- <li><a href="update-produk.php"><i class="bi bi-pencil-square"></i></a></li> -->
+														</center>
+													</td>
                                             
 												</tr>		
 												
