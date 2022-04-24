@@ -217,18 +217,23 @@ if (isset($_POST['perbarui'])) {
 					<form method="post" enctype="multipart/form-data">
 						<input type="text" name="userid" value="<?= $_SESSION['id'] ?>" style="display: none">
 						<div class="my-2">
+							<label>Upload Foto Profil</label>
 							<input type="file" class="form-control" id="exampleFormControlInput1" name="file">
 						</div>
 						<div class="my-2">
+							<label>Nama</label>
 							<input type="text" class="form-control" id="exampleFormControlInput1" name="namalengkap" placeholder="Nama Lengkap" value="<?= $_SESSION['name'] ?>">
 						</div>
 						<div class="my-2">
+							<label>Email</label>
 							<input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" value="<?= $_SESSION['email'] ?>">
 						</div>
 						<div class="my-2">
+							<label>Nomor Telepon</label>
 							<input type="text" class="form-control" id="exampleFormControlInput1" name="notelp" placeholder="Nomor Telepon" value="<?= $_SESSION['notelp'] ?>">
 						</div>
 						<div class="my-2">
+							<label>Alamat</label>
 							<input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" placeholder="Alamat" value="<?= $_SESSION['alamat'] ?>">
 						</div>
 						<input type="submit" name="perbarui" value="Perbarui" class="btn btn-primary">

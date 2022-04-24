@@ -184,7 +184,7 @@
 											    <!-- Edit Data Customer -->
 										        </div>
 											<div class="card-body">
-												<form action="" method="POST" class="form-item">
+												<form action="" method="POST" class="form-item" enctype="multipart/form-data">
 													
                                                     <div class="form-group">
 														<label>Nama Produk</label>
