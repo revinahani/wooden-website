@@ -1,4 +1,5 @@
 <?php 
+    ob_start();
     session_start();
             
     include "../dbconnect.php";
@@ -10,18 +11,35 @@
     <?php
         if(isset($_POST['edit']))
         {
-            $namaproduk		=$_POST['namaproduk'];
-            $idkategori		=$_POST['idkategori'];
-            $deskripsi		=$_POST['deskripsi'];
-            $hargabefore	=$_POST['hargabefore'];
-            $hargaafter		=$_POST['hargaafter'];
+            $namaproduk		= $_POST['namaproduk'];
+            $idkategori		= $_POST['idkategori'];
+            $deskripsi		= $_POST['deskripsi'];
+            $hargabefore	= $_POST['hargabefore'];
+            $hargaafter		= $_POST['hargaafter'];
+            
+            $nama_file      = $_FILES['uploadgambar']['name'];
+            $ext            = pathinfo($nama_file, PATHINFO_EXTENSION);
+            $random         = crypt($nama_file, time());
+            $ukuran_file    = $_FILES['uploadgambar']['size'];
+            $tipe_file      = $_FILES['uploadgambar']['type'];
+            $tmp_file       = $_FILES['uploadgambar']['tmp_name'];
+            $path           = "../produk/".$random.'.'.$ext;
+            $pathdb         = "produk/".$random.'.'.$ext;
 
-            mysqli_query($conn, "UPDATE produk 
-            SET namaproduk='$namaproduk', idkategori='$idkategori', deskripsi='$deskripsi', hargabefore='$hargabefore', hargaafter='$hargaafter'
-            WHERE idproduk='$id'") or die(mysqli_error($conn));
 
-            echo "<div align='center'><h5> Silahkan Tunggu, Data Sedang DiUpdate.... </h5></div>";
-            echo "<meta http-equiv='refresh' content='1;url=http://localhost/wooden-website/wooden-main/pemilik/produk.php'>";
+		    if($tipe_file == "image/jpeg" || $tipe_file == "image/png"){
+		        if($ukuran_file <= 5000000){ 
+			        if(move_uploaded_file($tmp_file, $path)){
+
+                    mysqli_query($conn, "UPDATE produk 
+                    SET namaproduk='$namaproduk', idkategori='$idkategori', gambar='$pathdb', deskripsi='$deskripsi', hargabefore='$hargabefore', hargaafter='$hargaafter'
+                    WHERE idproduk='$id'") or die(mysqli_error($conn));
+                    
+                    echo "<div align='center'><h5> Silahkan Tunggu, Data Sedang Di Update.... </h5></div>";
+                    echo "<meta http-equiv='refresh' content='1;url=http://localhost/wooden-website/wooden-main/pemilik/produk.php'>";
+                    }
+                }
+            }
         }
         ?>
 

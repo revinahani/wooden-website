@@ -187,7 +187,7 @@
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
 									<h2>Daftar Produk</h2>
-									<button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Produk</button>
+									<!-- <button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Produk</button> -->
                                 </div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
@@ -200,7 +200,6 @@
 												<th>Deskripsi</th>
 												<th>Harga Awal</th>
 												<th>Tanggal</th>
-												<th>Aksi</th>
 													
 												
 											</tr></thead><tbody>
@@ -220,12 +219,6 @@
 													<td><?php echo $p['deskripsi'] ?></td>
 													<td><?php echo $p['hargabefore'] ?></td>
 													<td><?php echo $p['tgldibuat'] ?></td>
-													<td>
-														<center>
-														<a href="update-produk.php?idproduk=<?php echo $p['idproduk']; ?>" class="btn btn-sm btn-warning">Edit</a>
-														<!-- <li><a href="update-produk.php"><i class="bi bi-pencil-square"></i></a></li> -->
-														</center>
-													</td>	
 
 												</tr>		
 												

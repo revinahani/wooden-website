@@ -5,18 +5,19 @@
 		
 	if(isset($_POST['addKaryawan']))
 	{
-		$namaKaryawan = $_POST['namalengkap'];
+		$namalengkap = $_POST['namalengkap'];
         // $gambar = $_POST['gambar'];
         $email = $_POST['email'];
         $notelp = $_POST['notelp'];
         $alamat = $_POST['alamat'];
+        $role = $_POST['role'];
         // $tanggalMasukKaryawan = $_POST['tanggalMasukKaryawan'];
         // $statusKaryawan = $_POST['statusKaryawan'];
         // $usernameKaryawan = $_POST['usernameKaryawan'];
 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
 			  
-		$tambahKaryawan = mysqli_query($conn,"insert into login (namalengkap, email, notelp, alamat)
-        values('$namalengkap','$email','$notelp','$alamat')");
+		$tambahKaryawan = mysqli_query($conn,"insert into login (namalengkap, email, notelp, alamat, role, password)
+        values('$namalengkap','$email','$notelp', '$alamat', '$role', '$password')");
 		if ($tambahKaryawan){
 		echo " <div class='alert alert-success'>
 			Berhasil menambahkan staff baru.
@@ -260,6 +261,10 @@
                                 <div class="form-group">
 									<label>Alamat</label>
 									<input name="alamat" type="text" class="form-control" placeholder="Alamat" required autofocus>
+								</div>
+                                <div class="form-group">
+									<label>Role</label>
+									<input name="role" type="text" class="form-control" placeholder="isi dengan admin" required autofocus>
 								</div>
                                 <div class="form-group">
 									<label>Password</label>

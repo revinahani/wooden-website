@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2022 at 07:51 PM
+-- Generation Time: Apr 24, 2022 at 08:30 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -75,7 +75,8 @@ INSERT INTO `cart` (`idcart`, `orderid`, `userid`, `tglorder`, `status`) VALUES
 (17, '16Uc1BpS3kO0w', 4, '2022-04-16 13:19:10', 'Selesai'),
 (18, '16Dmy7X3aaOcU', 4, '2022-04-19 18:29:50', 'Selesai'),
 (19, '16EW.sM3M6bH.', 4, '2022-04-21 07:37:18', 'Selesai'),
-(20, '16XLam8PFKAPI', 4, '2022-04-21 16:29:38', 'Confirmed');
+(20, '16XLam8PFKAPI', 4, '2022-04-21 16:29:38', 'Selesai'),
+(21, '16slPlBT1qnhE', 4, '2022-04-23 15:59:45', 'Confirmed');
 
 -- --------------------------------------------------------
 
@@ -125,16 +126,11 @@ CREATE TABLE `detailorder` (
 
 INSERT INTO `detailorder` (`detailid`, `orderid`, `idproduk`, `qty`) VALUES
 (14, '15PzF03ejd8W2', 2, 1),
-(16, '16wU6mNgPzlvg', 1, 2),
-(17, '16.zWI9fH0rws', 1, 1),
-(18, '16XR5pWbGbY1w', 1, 2),
 (19, '164GSD/28EeFI', 3, 5),
-(20, '16Uc1BpS3kO0w', 1, 3),
 (21, '16Dmy7X3aaOcU', 2, 2),
-(23, '16EW.sM3M6bH.', 1, 2),
 (24, '16EW.sM3M6bH.', 4, 1),
 (31, '16XLam8PFKAPI', 4, 1),
-(32, '16XLam8PFKAPI', 1, 1);
+(38, '16slPlBT1qnhE', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -200,7 +196,8 @@ INSERT INTO `kategori` (`idkategori`, `namakategori`, `tgldibuat`) VALUES
 (1, 'Kursi', '2019-12-20 07:28:34'),
 (2, 'Meja', '2019-12-20 07:34:17'),
 (3, 'Set Kursi Meja', '2020-03-16 12:15:40'),
-(4, 'ayunan', '2022-04-15 10:09:24');
+(4, 'ayunan', '2022-04-15 10:09:24'),
+(5, 'Lemari', '2022-04-24 14:34:14');
 
 -- --------------------------------------------------------
 
@@ -223,7 +220,7 @@ CREATE TABLE `konfirmasi` (
 --
 
 INSERT INTO `konfirmasi` (`idkonfirmasi`, `orderid`, `userid`, `payment`, `namarekening`, `tglbayar`, `tglsubmit`) VALUES
-(7, '16XLam8PFKAPI', 4, 'Bank BCA', 'Auliassisssss', '2022-04-22', '2022-04-21 17:45:00');
+(8, '16slPlBT1qnhE', 4, 'Bank BCA', 'Auliassisssss', '2022-04-25', '2022-04-24 18:16:54');
 
 -- --------------------------------------------------------
 
@@ -249,10 +246,10 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`userid`, `namalengkap`, `image`, `email`, `password`, `notelp`, `alamat`, `tgljoin`, `role`, `lastlogin`) VALUES
-(1, 'admin1', 'sana.jpeg', 'admin', '$2y$10$GJVGd4ji3QE8ikTBzNyA0uLQhiGd6MirZeSJV1O6nUpjSVp1eaKzS', '01234567890', 'Indonesia', '2020-03-16 11:31:17', 'admin', NULL),
+(0, 'admin', 'sana.jpeg', 'admin', '$2y$10$GJVGd4ji3QE8ikTBzNyA0uLQhiGd6MirZeSJV1O6nUpjSVp1eaKzS', '01234567867', 'Ambulu, Jember', '2020-03-16 11:31:17', 'admin', NULL),
 (2, 'Guest', '', 'guest', '$2y$10$xXEMgj5pMT9EE0QAx3QW8uEn155Je.FHH5SuIATxVheOt0Z4rhK6K', '01234567890', 'Indonesia', '2020-03-16 11:30:40', 'Member', NULL),
-(3, 'Revina', '20200720_171621.jpg', 'dewa@gmail.com', '$2y$10$qFAbJKxmH.ay9xKYdhoHLO97Jau7evRLy5gYDuIUkSrGhdV2Ih/f.', '081217263545', 'Bukit Permai', '2022-04-16 11:19:48', 'pemilik', NULL),
-(4, 'Auliassisssss', 'aul.jpg', 'aulia@gmail.com', '$2y$10$SaRV7ula.p/P8ZeULfcQPuwkOc7iJ9Fbdmz4eC9e.3Gd5GfIUp85S', '082435678654', 'Surabaya', '2022-04-16 12:35:54', 'Member', NULL),
+(3, 'Dwi Budi Hardiks Dewantara', 'park2.jpg', 'dewa@gmail.com', '$2y$10$qFAbJKxmH.ay9xKYdhoHLO97Jau7evRLy5gYDuIUkSrGhdV2Ih/f.', '081217263545', 'Bukit Permai, Kebonsari, Jember', '2022-04-16 11:19:48', 'pemilik', NULL),
+(4, 'Auliassisssss', 'ryujin.jpg', 'aulia@gmail.com', '$2y$10$SaRV7ula.p/P8ZeULfcQPuwkOc7iJ9Fbdmz4eC9e.3Gd5GfIUp85S', '082435678654', 'Arjasa, Jember', '2022-04-16 12:35:54', 'Member', NULL),
 (7, 'Carenina', '', 'nina@gmail.com', '$2y$10$jSboHNjrnaylgnI9eVG/lejCJxB8fnw8X3NPiq.I8jv8wr9KN5uFy', '08976447656', 'jember', '2022-04-17 14:31:29', 'Member', NULL),
 (8, 'Almas Firdaus', '', 'almas@gmail.com', '$2y$10$8m5bcnYiJxd1LoUSeev6o.xf4tBB6k24JOrDberdry4WijytMIXJy', '0898786545', 'jember', '2022-04-21 13:42:22', 'Member', NULL);
 
@@ -333,10 +330,12 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`idproduk`, `idkategori`, `namaproduk`, `gambar`, `deskripsi`, `rate`, `hargabefore`, `hargaafter`, `tgldibuat`) VALUES
-(1, 1, 'Kursi Kotak Minimalis', 'produk/produk 1.jpg', 'Kursi ruang tamu ', 5, 2500000, 2100000, '2019-12-20 09:10:26'),
-(2, 3, 'Set Meja Kursi Teras', 'produk/produk 4.jpg', 'Meja kursi ruang tamu', 4, 789000, 649000, '2019-12-20 09:24:13'),
-(3, 3, 'Meja Kursi Teras', 'produk/produk 3.jpg', 'Meja bundar\r\n2 Kursi Kayu Jati', 5, 750000, 670000, '2020-03-16 12:16:53'),
-(4, 3, 'kursi meja ruang tamu', 'produk/164MUoUUq0nZY.jpg', 'Simple Elegant', 2, 0, 3200000, '2022-04-19 18:40:13');
+(2, 3, 'Set Meja Kursi ', 'produk/produk 4.jpg', 'Meja kursi satu set', 0, 789000, 649000, '2019-12-20 09:24:13'),
+(3, 3, 'Meja Kursi Teras', 'produk/produk 3.jpg', 'Meja bundar\r\n2 Kursi Kayu Jati', 0, 750000, 670000, '2020-03-16 12:16:53'),
+(4, 3, 'kursi meja ruang tamu', 'produk/164MUoUUq0nZY.jpg', 'Simple Elegant', 0, 3500000, 3200000, '2022-04-19 18:40:13'),
+(5, 4, 'Kursi ayunan', 'produk/16j5r0dzUCi7o.jpg', 'Kursi ayunan minimalis ', 0, 650000, 560000, '2022-04-23 22:10:45'),
+(6, 2, 'Meja Belajar Aesthetic', 'produk/16Y9KU4XQ4sNI.jpg', 'Meja Belajar (Tanpa Kursi) ', 0, 589000, 449000, '2022-04-24 14:31:54'),
+(7, 5, 'Lemari pakaian', 'produk/169XE6xl.XPRU.jpg', 'Lemari Pakaian ', 0, 1300000, 1250000, '2022-04-24 14:34:57');
 
 --
 -- Indexes for dumped tables
@@ -443,25 +442,25 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `detailorder`
 --
 ALTER TABLE `detailorder`
-  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `idkategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idkategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `idkonfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idkonfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -479,7 +478,7 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `idproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

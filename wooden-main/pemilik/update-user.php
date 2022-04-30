@@ -180,7 +180,7 @@
 
 													<div class="form-group">
 														<label>No Telepon</label>
-														<input name="notelp" value="<?php echo $data['notelp'] ?>" type="number" class="form-control">
+														<input name="notelp" value="<?php echo $data['notelp'] ?>" type="text" class="form-control">
 													</div>
 
 													<div class="form-group">
