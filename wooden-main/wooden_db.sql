@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2022 at 08:30 PM
+-- Generation Time: Apr 30, 2022 at 06:24 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -76,7 +76,9 @@ INSERT INTO `cart` (`idcart`, `orderid`, `userid`, `tglorder`, `status`) VALUES
 (18, '16Dmy7X3aaOcU', 4, '2022-04-19 18:29:50', 'Selesai'),
 (19, '16EW.sM3M6bH.', 4, '2022-04-21 07:37:18', 'Selesai'),
 (20, '16XLam8PFKAPI', 4, '2022-04-21 16:29:38', 'Selesai'),
-(21, '16slPlBT1qnhE', 4, '2022-04-23 15:59:45', 'Confirmed');
+(21, '16slPlBT1qnhE', 4, '2022-04-23 15:59:45', 'Confirmed'),
+(23, '16DYK49IFIgdM', 4, '2022-04-30 16:12:41', 'Cart'),
+(24, '16u1E9DDQQK1M', 14, '2022-04-30 16:14:30', 'Cart');
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,10 @@ INSERT INTO `detailorder` (`detailid`, `orderid`, `idproduk`, `qty`) VALUES
 (21, '16Dmy7X3aaOcU', 2, 2),
 (24, '16EW.sM3M6bH.', 4, 1),
 (31, '16XLam8PFKAPI', 4, 1),
-(38, '16slPlBT1qnhE', 6, 1);
+(38, '16slPlBT1qnhE', 6, 1),
+(39, '16DYK49IFIgdM', 2, 1),
+(40, '16DYK49IFIgdM', 6, 1),
+(41, '16u1E9DDQQK1M', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -197,7 +202,8 @@ INSERT INTO `kategori` (`idkategori`, `namakategori`, `tgldibuat`) VALUES
 (2, 'Meja', '2019-12-20 07:34:17'),
 (3, 'Set Kursi Meja', '2020-03-16 12:15:40'),
 (4, 'ayunan', '2022-04-15 10:09:24'),
-(5, 'Lemari', '2022-04-24 14:34:14');
+(5, 'Lemari', '2022-04-24 14:34:14'),
+(6, 'Meja Rias', '2022-04-30 16:18:34');
 
 -- --------------------------------------------------------
 
@@ -246,12 +252,14 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`userid`, `namalengkap`, `image`, `email`, `password`, `notelp`, `alamat`, `tgljoin`, `role`, `lastlogin`) VALUES
-(0, 'admin', 'sana.jpeg', 'admin', '$2y$10$GJVGd4ji3QE8ikTBzNyA0uLQhiGd6MirZeSJV1O6nUpjSVp1eaKzS', '01234567867', 'Ambulu, Jember', '2020-03-16 11:31:17', 'admin', NULL),
+(0, 'admin', 'sana.jpeg', 'admin@gmail.com', '$2y$10$GJVGd4ji3QE8ikTBzNyA0uLQhiGd6MirZeSJV1O6nUpjSVp1eaKzS', '01234567867', 'Ambulu, Jember', '2020-03-16 11:31:17', 'admin', NULL),
 (2, 'Guest', '', 'guest', '$2y$10$xXEMgj5pMT9EE0QAx3QW8uEn155Je.FHH5SuIATxVheOt0Z4rhK6K', '01234567890', 'Indonesia', '2020-03-16 11:30:40', 'Member', NULL),
 (3, 'Dwi Budi Hardiks Dewantara', 'park2.jpg', 'dewa@gmail.com', '$2y$10$qFAbJKxmH.ay9xKYdhoHLO97Jau7evRLy5gYDuIUkSrGhdV2Ih/f.', '081217263545', 'Bukit Permai, Kebonsari, Jember', '2022-04-16 11:19:48', 'pemilik', NULL),
 (4, 'Auliassisssss', 'ryujin.jpg', 'aulia@gmail.com', '$2y$10$SaRV7ula.p/P8ZeULfcQPuwkOc7iJ9Fbdmz4eC9e.3Gd5GfIUp85S', '082435678654', 'Arjasa, Jember', '2022-04-16 12:35:54', 'Member', NULL),
 (7, 'Carenina', '', 'nina@gmail.com', '$2y$10$jSboHNjrnaylgnI9eVG/lejCJxB8fnw8X3NPiq.I8jv8wr9KN5uFy', '08976447656', 'jember', '2022-04-17 14:31:29', 'Member', NULL),
-(8, 'Almas Firdaus', '', 'almas@gmail.com', '$2y$10$8m5bcnYiJxd1LoUSeev6o.xf4tBB6k24JOrDberdry4WijytMIXJy', '0898786545', 'jember', '2022-04-21 13:42:22', 'Member', NULL);
+(8, 'Almas Firdaus', '', 'almas@gmail.com', '$2y$10$8m5bcnYiJxd1LoUSeev6o.xf4tBB6k24JOrDberdry4WijytMIXJy', '0898786545', 'jember', '2022-04-21 13:42:22', 'Member', NULL),
+(13, 'jelang', '', 'jelang@gmail.com', '$2y$10$tsE5cvpRao4edB4uvm3HTukMu8bWfIj7RGLy0dT5pW2DO6eDIp0wS', '081217263547', 'jl. kalimantan no 63', '2022-04-30 14:02:38', 'admin', NULL),
+(14, 'Nafisah Hani Azzahra', '', 'nafisah@gmail.com', '$2y$10$Z0YoFIHeO77w7QMN5fLU6uqe2I5y2PG1SjmHPe7uyDFpbY065vFuG', '082435678659', 'Jalan Sumatra 56', '2022-04-30 16:14:13', 'Member', NULL);
 
 -- --------------------------------------------------------
 
@@ -330,8 +338,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`idproduk`, `idkategori`, `namaproduk`, `gambar`, `deskripsi`, `rate`, `hargabefore`, `hargaafter`, `tgldibuat`) VALUES
-(2, 3, 'Set Meja Kursi ', 'produk/produk 4.jpg', 'Meja kursi satu set', 0, 789000, 649000, '2019-12-20 09:24:13'),
-(3, 3, 'Meja Kursi Teras', 'produk/produk 3.jpg', 'Meja bundar\r\n2 Kursi Kayu Jati', 0, 750000, 670000, '2020-03-16 12:16:53'),
+(2, 3, 'Set Meja dan Kursi', 'produk/16vl4skANeGB6.jpeg', 'Meja kursi satu set  ', 0, 778000, 659000, '2019-12-20 09:24:13'),
+(3, 6, 'Meja Rias', 'produk/16LMFWfly6i9Y.jpg', 'Meja rias kayu ', 0, 790000, 640000, '2020-03-16 12:16:53'),
 (4, 3, 'kursi meja ruang tamu', 'produk/164MUoUUq0nZY.jpg', 'Simple Elegant', 0, 3500000, 3200000, '2022-04-19 18:40:13'),
 (5, 4, 'Kursi ayunan', 'produk/16j5r0dzUCi7o.jpg', 'Kursi ayunan minimalis ', 0, 650000, 560000, '2022-04-23 22:10:45'),
 (6, 2, 'Meja Belajar Aesthetic', 'produk/16Y9KU4XQ4sNI.jpg', 'Meja Belajar (Tanpa Kursi) ', 0, 589000, 449000, '2022-04-24 14:31:54'),
@@ -442,19 +450,19 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `detailorder`
 --
 ALTER TABLE `detailorder`
-  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `idkategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idkategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `konfirmasi`
@@ -466,7 +474,7 @@ ALTER TABLE `konfirmasi`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`

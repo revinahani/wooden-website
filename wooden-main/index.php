@@ -152,11 +152,24 @@ include 'dbconnect.php';
 											</div>
 										</ul>
 									</li>
-									<li><a href="cart.php">Keranjang Saya</a></li>
-									<li><a href="daftarorder.php">Daftar Order</a></li>
+									<li><a href="cart-keranjang.php">Keranjang Saya</a></li>
+									<li><a href="daftarorder-nya.php">Daftar Order</a></li>
 								</ul>
 								<ul class="nav navbar-nav" style="float:right">
-								<li><a href="profil.php"><i class="bi bi-person-circle"></i> Profil</a></li>
+									<?php
+									if(!isset($_SESSION['log'])){
+										echo '
+										<li><a href="index.php">Selamat Datang!</a></li>
+										';
+									} else {
+										echo '
+										<li><a href="profil.php"><i class="bi bi-person-circle"></i> Profil</a></li>
+										';
+									};
+											
+									?>
+								<!-- <ul class="nav navbar-nav" style="float:right">
+								<li><a href="profil.php"><i class="bi bi-person-circle"></i> Profil</a></li> -->
 								</ul>
 							</div>
 							</nav>
