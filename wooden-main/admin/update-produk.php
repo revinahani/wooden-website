@@ -104,7 +104,7 @@
 							<li>
                                 <a href="manageorder.php"><i class="ti-dashboard"></i><span>Kelola Pesanan</span></a>
                             </li>
-							<li class="active">
+							<!-- <li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout"></i><span>Kelola Toko
                                     </span></a>
                                 <ul class="collapse">
@@ -112,9 +112,10 @@
                                     <li class="active"><a href="produk.php">Produk</a></li>
 									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
-                            </li>
-							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
-							<li><a href="user.php"><span>Kelola Staff</span></a></li>
+                            </li> -->
+                            <li><a href="produk.php"><span>Kelola Produk</span></a></li>
+							<li><a href="customer.php"><span>Kelola Customer</span></a></li>
+							<li><a href="user.php"><span>Kelola Karyawan</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
                                 
@@ -227,8 +228,8 @@
 														<input name="uploadgambar" value="<?php echo $data['gambar'] ?>" type="file" class="form-control">
 													</div>
 												    
-                                                    <button type="submit" class="btn btn-primary" name="edit">EDIT</button>
-                                                    <button type="reset" class="btn btn-danger">BATAL</button>
+                                                    <button type="submit" class="btn btn-primary" name="edit">Edit</button>
+                                                    <a href="produk.php"><button type="button" class="btn btn-default" data-dismiss="modal">Batal</button></a>
 												
 												</form>
                                                 </div>

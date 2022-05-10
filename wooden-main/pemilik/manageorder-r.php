@@ -64,7 +64,7 @@
 							<li class="active">
                                 <a href="manageorder.php"><i class="ti-dashboard"></i><span>Kelola Pesanan</span></a>
                             </li>
-							<li>
+							<!-- <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout"></i><span>Kelola Toko
                                     </span></a>
                                 <ul class="collapse">
@@ -72,9 +72,10 @@
                                     <li><a href="produk.php">Produk</a></li>
 									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
-                            </li>
-							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
-							<li><a href="user.php"><span>Kelola Staff</span></a></li>
+                            </li> -->
+                            <li><a href="produk.php"><span>Kelola Produk</span></a></li>
+							<li><a href="customer.php"><span>Kelola Customer</span></a></li>
+							<li><a href="user.php"><span>Kelola Karyawan</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
                                 

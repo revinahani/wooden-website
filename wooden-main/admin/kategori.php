@@ -27,7 +27,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Kategori - Tokopekita</title>
+    <title>Kelola Kategori - Wooden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -78,7 +78,7 @@
 							<li>
                                 <a href="manageorder.php"><i class="ti-dashboard"></i><span>Kelola Pesanan</span></a>
                             </li>
-							<li class="active">
+							<!-- <li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout"></i><span>Kelola Toko
                                     </span></a>
                                 <ul class="collapse">
@@ -86,9 +86,10 @@
                                     <li><a href="produk.php">Produk</a></li>
 									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
-                            </li>
-							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
-							<li><a href="user.php"><span>Kelola Staff</span></a></li>
+                            </li> -->
+                            <li><a href="produk.php"><span>Kelola Produk</span></a></li>
+							<li><a href="customer.php"><span>Kelola Customer</span></a></li>
+							<li><a href="user.php"><span>Kelola Karyawan</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
                                 

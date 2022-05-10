@@ -53,7 +53,7 @@ include 'dbconnect.php';
 				if(!isset($_SESSION['log'])){
 					echo '
 					<li><a href="registered.php" style="color: black"> Daftar</a></li>
-					<li><a href="login.php" style="color: black">Masuk</a></li>
+					<li><a href="login.php" style="color: black">Login</a></li>
 					';
 				} else {
 						

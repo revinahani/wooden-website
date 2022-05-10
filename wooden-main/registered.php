@@ -19,7 +19,7 @@ if(isset($_POST['adduser']))
 		values('$nama','$email','$pass','$telp','$alamat')");
 		if ($tambahuser){
 		echo " <div class='alert alert-success'>
-			Berhasil mendaftar, silakan masuk.
+			Berhasil mendaftar, silakan login.
 		  </div>
 		<meta http-equiv='refresh' content='1; url= login.php'/>  ";
 		} else { echo "<div class='alert alert-warning'>

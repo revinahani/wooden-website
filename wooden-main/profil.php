@@ -236,7 +236,7 @@ if (isset($_POST['perbarui'])) {
 							<label>Alamat</label>
 							<input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" placeholder="Alamat" value="<?= $_SESSION['alamat'] ?>">
 						</div>
-						<input type="submit" name="perbarui" value="Perbarui" class="btn btn-primary">
+						<input type="submit" name="perbarui" value="Edit" class="btn btn-primary">
 				</div>
 				</form>
 			</div>

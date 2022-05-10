@@ -35,9 +35,10 @@ if (isset($_POST['login'])) {
 		$_SESSION['alamat'] = $cariuser['alamat'];
 		$_SESSION['log'] = "Logged";
 		header('location:index.php');
-	} else {
-		echo 'Username atau password salah';
-		header("location:login.php");
+	} else { echo "<div class='alert alert-warning'>
+		Gagal Login, silakan coba lagi.
+	  	</div>
+	 	<meta http-equiv='refresh' content='1; url= login.php'/> ";
 	}
 }
 // if (password_verify($password, $cariuser['password'])) {
@@ -151,7 +152,7 @@ if (isset($_POST['login'])) {
 			<div class="agile-login" style="text-align: right; float:right">
 				<ul>
 					<li><a href="registered.php"> Daftar</a></li>
-					<li><a href="login.php">Masuk</a></li>
+					<li><a href="login.php">Login</a></li>
 
 				</ul>
 			</div>
@@ -251,7 +252,7 @@ if (isset($_POST['login'])) {
 	<!-- login -->
 	<div class="login">
 		<div class="container">
-			<h2>Masuk</h2>
+			<h2>Login</h2>
 
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				<form method="post">
@@ -262,7 +263,7 @@ if (isset($_POST['login'])) {
 					</select> -->
 					<input type="text" name="email" placeholder="Email" required>
 					<input type="password" name="password" placeholder="Password" required>
-					<input type="submit" name="login" value="Masuk">
+					<input type="submit" name="login" value="Login">
 				</form>
 			</div>
 			<h4>Belum terdaftar?</h4>
