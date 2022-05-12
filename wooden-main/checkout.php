@@ -84,13 +84,13 @@ if(isset($_POST["checkout"])){
 					if($_SESSION['role']=='Member'){
 					echo '
 					<li style="color:white">Halo, '.$_SESSION["name"].'
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					} else {
 					echo '
 					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
 					
@@ -206,7 +206,6 @@ if(isset($_POST["checkout"])){
 							
 						
 							<th>Sub Total</th>
-							<th>Hapus</th>
 						</tr>
 					</thead>
 					
@@ -229,23 +228,6 @@ if(isset($_POST["checkout"])){
 						</td>
 				
 						<td class="invert">Rp<?php echo number_format($b['hargaafter']*$b['qty']) ?></td>
-						<td class="invert">
-							<div class="rem">
-							
-								<input type="submit" name="update" class="form-control" value="Update" \>
-								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
-							</form>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
 					</tr>
 					<?php
 						}
@@ -300,7 +282,7 @@ if(isset($_POST["checkout"])){
 			
 			<hr>
 			<center>
-			<h4>Total harga yang tertera di atas sudah termasuk ongkos kirim sebesar Rp100.000 wilayah Jember</h4>
+			<h4>Total harga yang tertera di atas sudah termasuk ongkos kirim wilayah Jember</h4>
 			<h4>Bila telah melakukan pembayaran, harap konfirmasikan pembayaran Anda.</h4>
 			<br>
 			<br>	
@@ -326,7 +308,7 @@ if(isset($_POST["checkout"])){
       
 		<br>
 		<form method="post">
-		<input type="submit" class="form-control btn btn-success" name="checkout" value="I Agree and Check Out" \>
+		<input type="submit" class="form-control btn btn-success" name="checkout" value="Setuju dan Check Out" \>
 		</form>
 		<br>
 	  

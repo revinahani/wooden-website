@@ -215,17 +215,17 @@
 
 													<div class="form-group">
 														<label>Harga Sebelum Diskon</label>
-														<input name="hargabefore" value="<?php echo $data['hargabefore'] ?>" type="number" class="form-control">
+														<input name="hargabefore" value="<?php echo $data['hargabefore'] ?>" type="number" class="form-control" required>
 													</div>
 
 													<div class="form-group">
 														<label>Harga Setelah Diskon</label>
-														<input name="hargaafter" value="<?php echo $data['hargaafter'] ?>" type="number" class="form-control">
+														<input name="hargaafter" value="<?php echo $data['hargaafter'] ?>" type="number" class="form-control" required>
 													</div>
 
 													<div class="form-group">
 														<label>Gambar</label>
-														<input name="uploadgambar" value="<?php echo $data['gambar'] ?>" type="file" class="form-control">
+														<input name="uploadgambar" value="<?php echo $data['gambar'] ?>" type="file" class="form-control" required>
 													</div>
 												    
                                                     <button type="submit" class="btn btn-primary" name="edit">Edit</button>

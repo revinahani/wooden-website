@@ -143,19 +143,19 @@ if (isset($_POST['perbarui'])) {
 						if ($_SESSION['role'] == 'Member') {
 							echo '
 					<li style="color:white">Halo, ' . $_SESSION["name"] . '
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 						} else if ($_SESSION['role'] == 'pemilik') {
 							echo '
 						<li style="color:white">Halo, ' . $_SESSION["name"] . '
 						<li><a href="pemilik">Admin Panel</a></li>
-						<li><a href="logout.php">Keluar?</a></li>
+						<li><a href="logout.php">Logout?</a></li>
 						';
 						} else if ($_SESSION['role'] == 'admin') {
 							echo '
 						<li style="color:white">Halo, ' . $_SESSION["name"] . '
 						<li><a href="admin">Admin Panel</a></li>
-						<li><a href="logout.php">Keluar?</a></li>
+						<li><a href="logout.php">Logout?</a></li>
 						';
 						};
 					}
@@ -218,23 +218,23 @@ if (isset($_POST['perbarui'])) {
 						<input type="text" name="userid" value="<?= $_SESSION['id'] ?>" style="display: none">
 						<div class="my-2">
 							<label>Upload Foto Profil</label>
-							<input type="file" class="form-control" id="exampleFormControlInput1" name="file">
+							<input type="file" class="form-control" id="exampleFormControlInput1" name="file" required>
 						</div>
 						<div class="my-2">
 							<label>Nama</label>
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="namalengkap" placeholder="Nama Lengkap" value="<?= $_SESSION['name'] ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="namalengkap" placeholder="Nama Lengkap" value="<?= $_SESSION['name'] ?>" required>
 						</div>
 						<div class="my-2">
 							<label>Email</label>
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" value="<?= $_SESSION['email'] ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="email" placeholder="Email" value="<?= $_SESSION['email'] ?>" required>
 						</div>
 						<div class="my-2">
 							<label>Nomor Telepon</label>
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="notelp" placeholder="Nomor Telepon" value="<?= $_SESSION['notelp'] ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="notelp" placeholder="Nomor Telepon" value="<?= $_SESSION['notelp'] ?>" required>
 						</div>
 						<div class="my-2">
 							<label>Alamat</label>
-							<input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" placeholder="Alamat" value="<?= $_SESSION['alamat'] ?>">
+							<input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" placeholder="Alamat" value="<?= $_SESSION['alamat'] ?>" required>
 						</div>
 						<input type="submit" name="perbarui" value="Edit" class="btn btn-primary">
 				</div>

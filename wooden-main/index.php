@@ -59,18 +59,18 @@ include 'dbconnect.php';
 						
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					} 
 					elseif($_SESSION['role']=='pemilik'){
 					echo '
 					<li><a href="pemilik">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					}else {
 					echo '
 					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
 						
@@ -152,8 +152,8 @@ include 'dbconnect.php';
 											</div>
 										</ul>
 									</li>
-									<li><a href="cart-keranjang.php">Keranjang Saya</a></li>
-									<li><a href="daftarorder-nya.php">Daftar Order</a></li>
+									<li><a href="cart.php">Keranjang Saya</a></li>
+									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
 								</ul>
 								<ul class="nav navbar-nav" style="float:right">
 									<?php

@@ -147,12 +147,12 @@ if(isset($_POST['addprod'])){
 					
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					} else {
 					echo '
 					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
 					
@@ -234,8 +234,8 @@ if(isset($_POST['addprod'])){
 											</div>
 										</ul>
 									</li>
-									<li><a href="cart-keranjang.php">Keranjang Saya</a></li>
-									<li><a href="konfirmasi-konfirm.php">Daftar Order</a></li>
+									<li><a href="cart.php">Keranjang Saya</a></li>
+									<li><a href="konfirmasi.php">Daftar Order</a></li>
 								</ul>
 							</div>
 							</nav>
@@ -289,7 +289,7 @@ if(isset($_POST['addprod'])){
 							<form action="#" method="post">
 								<fieldset>
 									<input type="hidden" name="idprod" value="<?php echo $idproduk ?>">
-									<input type="submit" name="addprod" value="Add to cart" class="button">
+									<input type="submit" name="addprod" value="Tambah keranjang" class="button">
 								</fieldset>
 							</form>
 						</div>

@@ -2,12 +2,84 @@
 session_start();
 include 'dbconnect.php';
 
-$idk = $_GET['idkategori'];
+if(isset($_POST['kirim']))
+	{
+		$updatestatus = mysqli_query($conn,"update cart set status='Pengiriman' where orderid='$orderids'");
+		$del =  mysqli_query($conn,"delete from konfirmasi where orderid='$orderids'");
+		
+		if($updatestatus&&$del){
+			echo " <div class='alert alert-success'>
+			<center>Pesanan dikirim.</center>
+		  </div>
+		<meta http-equiv='refresh' content='1; url= manageorder.php'/>  ";
+		} else {
+			echo "<div class='alert alert-warning'>
+			Gagal Submit, silakan coba lagi
+		  </div>
+		 <meta http-equiv='refresh' content='1; url= manageorder.php'/> ";
+		}
+		
+	};
+
+if(isset($_POST['selesai']))
+	{
+		$updatestatus = mysqli_query($conn,"update cart set status='Selesai' where orderid='$orderids'");
+		
+		if($updatestatus){
+			echo " <div class='alert alert-success'>
+			<center>Transaksi diselesaikan.</center>
+		  </div>
+		<meta http-equiv='refresh' content='1; url= manageorder.php'/>  ";
+		} else {
+			echo "<div class='alert alert-warning'>
+			Gagal Submit, silakan coba lagi
+		  </div>
+		 <meta http-equiv='refresh' content='1; url= manageorder.php'/> ";
+		}
+		
+	};
+
+if(!isset($_SESSION['log'])){
+	header('location:login.php');
+} else {
+	
+};
+
+$idorder = $_GET['id'];
+	
+	$uid = $_SESSION['id'];
+	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
+	$fetc = mysqli_fetch_array($caricart);
+	$orderidd = $fetc['orderid'];
+	$itungtrans = mysqli_query($conn,"select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
+	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
+	$itungtrans3 = $itungtrans2['jumlahtrans'];
+	
+if(isset($_POST["update"])){
+	$kode = $_POST['idproduknya'];
+	$jumlah = $_POST['jumlah'];
+	$q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
+	if($q1){
+		echo "Berhasil Update Cart
+		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+	} else {
+		echo "Gagal update cart
+		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+	}
+} else if(isset($_POST["hapus"])){
+	$kode = $_POST['idproduknya'];
+	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
+	if($q2){
+		echo "Berhasil Hapus";
+	} else {
+		echo "Gagal Hapus";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wooden - Kategori</title>
+<title>Wooden - Keranjang Saya</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -46,37 +118,37 @@ $idk = $_GET['idkategori'];
 			<div class="w3l_offers">
 				<p>DAPATKAN PENAWARAN MENARIK KHUSUS HARI INI, BELANJA SEKARANG!</p>
 			</div>
-			<div class="agile-login" style="text-align: right; float:right">
+			<div class="agile-login">
 				<ul>
 				<?php
 				if(!isset($_SESSION['log'])){
 					echo '
-					<li><a href="registered.php" style="color: black"> Daftar</a></li>
-					<li><a href="login.php" style="color: black">Masuk</a></li>
+					<li><a href="registered.php"> Daftar</a></li>
+					<li><a href="login.php">Masuk</a></li>
 					';
 				} else {
-						
+					
 					if($_SESSION['role']=='Member'){
 					echo '
+					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="logout.php">Logout?</a></li>
 					';
-					} 
-					elseif($_SESSION['role']=='pemilik'){
+					} else {
 					echo '
-					<li><a href="pemilik">Admin Panel</a></li>
-					<li><a href="logout.php">Logout?</a></li>
-					';
-					}else {
-					echo '
+					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="admin">Admin Panel</a></li>
 					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
-						
+					
 				}
 				?>
 					
 				</ul>
+			</div>
+			<div class="product_list_header">  
+					<a href="cart.php"><button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+					 </a>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -159,87 +231,74 @@ $idk = $_GET['idkategori'];
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+			<ol class="breadcrumb breadcrumb1">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Kategori</li>
+				<li class="active">Checkout</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!--- beverages --->
-	<div class="products">
+<!-- checkout -->
+	<div class="checkout">
 		<div class="container">
-			<div class="col-md-4 products-left">
-				<div class="categories">
-					<h2>Categories</h2>
-					<ul class="cate">
-						
-						
-						<?php 
-														$kat=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
-														while($p=mysqli_fetch_array($kat)){
-
-															?>
-														<li><a href="kategori.php?idkategori=<?php echo $p['idkategori'] ?>"><i class="fa fa-arrow-right" aria-hidden="true"></i><?php echo $p['namakategori'] ?></a></li>
-																				
-														<?php
-																	}
-														?>
+			<h2>Detail Order Barang Kamu :</h2>
+			<div class="checkout-right">
+				<table class="timetable_sub">
+					<thead>
+						<tr>
+                        <th>No</th>
+						<th>Produk</th>
+						<th>Jumlah</th>
+						<th>Harga</th>
+						<th>Total</th>
 							
-					</ul>
-				</div>																																												
-			</div>
-			<div class="col-md-8 products-right">
-				<div class="agile_top_brands_grids">
-				
-				
-				<?php 
-					$brgs=mysqli_query($conn,"SELECT * from produk where idkategori='$idk' order by idproduk ASC");
-					$x = mysqli_num_rows($brgs);
+						</tr></thead><tbody>
 					
-					if($x>0){
-					while($p=mysqli_fetch_array($brgs)){
-					?>
-						
-						<div class="col-md-4 top_brand_left">
-						<div class="hover14 column">
-							<div class="agile_top_brand_left_grid">
-								<div class="agile_top_brand_left_grid_pos">
-									<img src="images/offer.png" alt=" " class="img-responsive" />
-								</div>
-								<div class="agile_top_brand_left_grid1">
-									<figure>
-										<div class="snipcart-item block">
-											<div class="snipcart-thumb">
-												<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><img src="<?php echo $p['gambar']?>" width="200px" height="200px"></a>		
-												<p><?php echo $p['namaproduk'] ?></p>
-												<h4>Rp<?php echo number_format($p['hargaafter']) ?> <span>Rp<?php echo number_format($p['hargabefore']) ?></span></h4>
-											</div>
-											<div class="snipcart-details top_brand_home_details">
-												<fieldset>
-													<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><input type="submit" class="button" value="Lihat Produk" /></a>
-												</fieldset>
-											</div>
-										</div>
-									</figure>
-								</div>
-							</div>
-						</div>
-					</div>
-						<?php
-							}
-					} else {
-						echo "Data tidak ditemukan";
-					}
-						?>
-					
-						<div class="clearfix"> </div>
-				</div>
+                        <?php 
+                            $brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$idorder' and d.idproduk=p.idproduk order by d.idproduk ASC");
+                            $no=1;
+                            while($b=mysqli_fetch_array($brg)){
+                                $total = $p['qty']*$p['hargaafter'];
+                                                    
+                                $result = mysqli_query($conn,"SELECT SUM(d.qty*p.hargaafter) AS count FROM detailorder d, produk p where orderid='$orderids' and d.idproduk=p.idproduk order by d.idproduk ASC");
+                                $row = mysqli_fetch_assoc($result);
+                                $cekrow = mysqli_num_rows($result);
+                                $count = $row['count'];
+
+                        ?>
+                        <tr class="rem1"><form method="post">
+                            <td><?php echo $no++ ?></td>
+                            <td><?php echo $p['namaproduk'] ?></td>
+                            <td><?php echo $p['qty'] ?></td>
+                            <td>Rp<?php echo number_format($p['hargaafter']) ?></td>
+                            <td>Rp<?php echo number_format($total) ?></td>
+                            
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+								<th colspan="4" style="text-align:right">Total:</th>
+								<th>Rp<?php 
+												
+								$result1 = mysqli_query($conn,"SELECT SUM(d.qty*p.hargaafter) AS count FROM detailorder d, produk p where orderid='$orderids' and d.idproduk=p.idproduk order by d.idproduk ASC");
+								$cekrow = mysqli_num_rows($result1);
+								$row1 = mysqli_fetch_assoc($result1);
+								$count = $row1['count'];
+								if($cekrow > 0){
+									echo number_format($count);
+									} else {
+										echo 'No data';
+									}?></th>
+							</tr>
+						</tfoot>
+                        </table>
 			</div>
-			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!--- beverages --->
+<!-- //checkout -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
@@ -268,7 +327,7 @@ $idk = $_GET['idkategori'];
 		<div class="footer-copy">
 			
 			<div class="container">
-				<p>© Wooden's Furniture. All rights reserved</p>
+				<p>© 2020 Richard's Lab. All rights reserved</p>
 			</div>
 		</div>
 		

@@ -94,12 +94,12 @@ if(isset($_POST["update"])){
 					
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					} else {
 					echo '
 					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
 					
@@ -182,7 +182,7 @@ if(isset($_POST["update"])){
 										</ul>
 									</li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
-									<li><a href="daftarorder.php">Daftar Order</a></li>
+									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
 								</ul>
 							</div>
 							</nav>

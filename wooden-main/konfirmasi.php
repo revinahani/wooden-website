@@ -25,16 +25,16 @@ if(isset($_POST['confirm']))
 		$nama = $_POST['nama'];
 		$metode = $_POST['metode'];
 		$tanggal = $_POST['tanggal'];
+		$alamatpengiriman = $_POST['alamatpengiriman'];
 			  
-		$kon = mysqli_query($conn,"insert into konfirmasi (orderid, userid, payment, namarekening, tglbayar) 
-		values('$idorder','$userid','$metode','$nama','$tanggal')");
+		$kon = mysqli_query($conn,"insert into konfirmasi (orderid, userid, payment, namarekening, tglbayar, alamatpengiriman) 
+		values('$idorder','$userid','$metode','$nama','$tanggal','$alamatpengiriman')");
 		if ($kon){
 		
 		$up = mysqli_query($conn,"update cart set status='Confirmed' where orderid='$idorder'");
 		
 		echo " <div class='alert alert-success'>
 			Terima kasih telah melakukan konfirmasi, team kami akan melakukan verifikasi.
-			Informasi selanjutnya akan dikirim via Email
 		  </div>
 		<meta http-equiv='refresh' content='7; url= index.php'/>  ";
 		} else { echo "<div class='alert alert-warning'>
@@ -109,13 +109,13 @@ if(isset($_POST['confirm']))
 					if($_SESSION['role']=='Member'){
 					echo '
 					<li style="color:white">Halo, '.$_SESSION["name"].'
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					} else {
 					echo '
 					<li style="color:white">Halo, '.$_SESSION["name"].'
 					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
 					
@@ -229,6 +229,10 @@ if(isset($_POST['confirm']))
 				<h6>Informasi Pembayaran</h6>
 					
 					<input type="text" name="nama" placeholder="Nama Pemilik Rekening / Sumber Dana" required>
+					<br>
+				<h6>Informasi Alamat</h6>
+					
+					<input type="text" name="alamatpengiriman" placeholder="Alamat Pengiriman Barang" required>
 					<br>
 					<h6>Rekening Tujuan</h6>
 					<select name="metode" class="form-control">

@@ -7,7 +7,7 @@ if(!isset($_SESSION['log'])){
 } else {
 	
 };
-	
+
 	$uid = $_SESSION['id'];
 	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
 	while ($fetc = mysqli_fetch_array($caricart)) {
@@ -103,12 +103,12 @@ if (!empty($_SESSION['alertSuccess'])) {
 					
 					if($_SESSION['role']=='Member'){
 					echo '
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					} else {
 					echo '
 					<li><a href="admin">Admin Panel</a></li>
-					<li><a href="logout.php">Keluar?</a></li>
+					<li><a href="logout.php">Logout?</a></li>
 					';
 					};
 					
@@ -257,7 +257,7 @@ if (!empty($_SESSION['alertSuccess'])) {
 								<input type="submit" name="update" class="form-control" value="Update" \>
 								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
 							</form>
-							<button onclick="hapusBarang('<?= $b['idproduk'] ?>')">Hapus</button>
+							<!-- <button onclick="hapusBarang('<?= $b['idproduk'] ?>')">Hapus</button> -->
 							</div>
 							<script>$(document).ready(function(c) {
 								$('.close1').on('click', function(c){
@@ -295,7 +295,7 @@ if (!empty($_SESSION['alertSuccess'])) {
 						<?php 
 						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
 						$no=1;
-						$subtotal = 100000;
+						$subtotal = 0;
 						while($b=mysqli_fetch_array($brg)){
 						$hrg = $b['hargaafter'];
 						$qtyy = $b['qty'];
@@ -306,7 +306,7 @@ if (!empty($_SESSION['alertSuccess'])) {
 						<?php
 						}
 						?>
-						<li>Total (Ongkir loc. Jember)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
+						<li>Total <i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
 					</ul>
 				</div>
 				<div class="checkout-right-basket">

@@ -181,12 +181,12 @@
 
 													<div class="form-group">
 														<label>No Telepon</label>
-														<input name="notelp" value="<?php echo $data['notelp'] ?>" type="text" class="form-control">
+														<input name="notelp" value="<?php echo $data['notelp'] ?>" type="text" class="form-control" required>
 													</div>
 
 													<div class="form-group">
 														<label>Alamat</label>
-														<input name="alamat" value="<?php echo $data['alamat'] ?>" type="text" class="form-control">
+														<input name="alamat" value="<?php echo $data['alamat'] ?>" type="text" class="form-control" required>
 													</div>
 												    
                                                     <button type="submit" class="btn btn-primary" name="edit">Edit</button>
