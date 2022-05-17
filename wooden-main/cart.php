@@ -7,7 +7,11 @@ if(!isset($_SESSION['log'])){
 } else {
 	
 };
-
+	$orderidd = 0;
+	function run(){
+	global $myId;
+	echo $myId;
+	}
 	$uid = $_SESSION['id'];
 	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
 	while ($fetc = mysqli_fetch_array($caricart)) {

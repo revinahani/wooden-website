@@ -24,7 +24,12 @@ if (isset($_POST['login'])) {
 	$queryuser = mysqli_query($conn, "SELECT * FROM login WHERE email='$email'");
 	$cariuser = mysqli_fetch_assoc($queryuser);
 
-	if (password_verify($password, $cariuser['password'])) {
+    if ($cariuser == null) {
+        echo "<div class='alert alert-warning'>
+		Gagal Login, silakan coba lagi.
+	  	</div>
+	 	<meta http-equiv='refresh' content='1; url= login.php'/> ";
+    } else if (password_verify($password, $cariuser['password'])) {
 		$_SESSION['user'] = $cariuser;
 		$_SESSION['id'] = $cariuser['userid'];
 		$_SESSION['role'] = $cariuser['role'];

@@ -9,6 +9,7 @@ if(isset($_POST['addprod'])){
 		{	
 			header('location:login.php');
 		} else {
+			
 				$ui = $_SESSION['id'];
 				$cek = mysqli_query($conn,"select * from cart where userid='$ui' and status='Cart'");
 				$liat = mysqli_num_rows($cek);
