@@ -14,8 +14,17 @@ if(isset($_POST['addprod'])){
 				$cek = mysqli_query($conn,"select * from cart where userid='$ui' and status='Cart'");
 				$liat = mysqli_num_rows($cek);
 				$f = mysqli_fetch_array($cek);
-				$orid = $f['orderid'];
-				
+				if (isset($f['orderid'])) {
+					$orid = $f['orderid'];
+				}
+				// echo "<pre>";
+				// print_r($f);
+				// echo "</pre>";
+				// echo "----";
+				// echo "<pre>";
+				// print_r($orid);
+				// echo "</pre>";
+
 				//kalo ternyata udeh ada order id nya
 				if($liat>0){
 							
@@ -45,7 +54,7 @@ if(isset($_POST['addprod'])){
 									echo " <div class='alert alert-success'>
 								Barang sudah pernah dimasukkan ke keranjang, jumlah akan ditambahkan
 							  </div>
-							  <meta http-equiv='refresh' content='1; url= product.php?idproduk=".$idproduk."'/>";
+								<meta http-equiv='refresh' content='2; url= product.php?idproduk=".$idproduk."'/>";
 								} else {
 									echo "<div class='alert alert-warning'>
 								Gagal menambahkan ke keranjang
