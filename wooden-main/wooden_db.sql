@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2022 at 06:24 PM
+-- Generation Time: May 23, 2022 at 04:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -24,32 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bahan`
---
-
-CREATE TABLE `bahan` (
-  `idBahan` varchar(10) NOT NULL,
-  `bahan` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `barang`
---
-
-CREATE TABLE `barang` (
-  `idBarang` varchar(11) NOT NULL,
-  `idKategori` varchar(10) DEFAULT NULL,
-  `gambar` blob NOT NULL,
-  `berat` int(11) NOT NULL,
-  `idBahan` varchar(10) NOT NULL,
-  `custom` enum('Bisa','Tidak Bisa') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `cart`
 --
 
@@ -66,48 +40,12 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`idcart`, `orderid`, `userid`, `tglorder`, `status`) VALUES
-(11, '15Swf8Ye0Fm.M', 2, '2020-03-16 12:17:34', 'Cart'),
-(12, '15PzF03ejd8W2', 1, '2020-05-13 02:40:48', 'Selesai'),
-(13, '16wU6mNgPzlvg', 1, '2022-04-16 09:07:00', 'Selesai'),
-(14, '16.zWI9fH0rws', 3, '2022-04-16 11:23:09', 'Selesai'),
-(15, '16XR5pWbGbY1w', 3, '2022-04-16 11:38:17', 'Selesai'),
-(16, '164GSD/28EeFI', 4, '2022-04-16 12:38:16', 'Selesai'),
-(17, '16Uc1BpS3kO0w', 4, '2022-04-16 13:19:10', 'Selesai'),
-(18, '16Dmy7X3aaOcU', 4, '2022-04-19 18:29:50', 'Selesai'),
-(19, '16EW.sM3M6bH.', 4, '2022-04-21 07:37:18', 'Selesai'),
-(20, '16XLam8PFKAPI', 4, '2022-04-21 16:29:38', 'Selesai'),
-(21, '16slPlBT1qnhE', 4, '2022-04-23 15:59:45', 'Confirmed'),
-(23, '16DYK49IFIgdM', 4, '2022-04-30 16:12:41', 'Cart'),
-(24, '16u1E9DDQQK1M', 14, '2022-04-30 16:14:30', 'Cart');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customer`
---
-
-CREATE TABLE `customer` (
-  `idCustomer` varchar(10) NOT NULL,
-  `gambar` blob NOT NULL,
-  `namaCustomer` varchar(30) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `tanggalLahir` date NOT NULL,
-  `jenisKelamin` enum('Laki-Laki','Perempuan') NOT NULL,
-  `telepon` varchar(15) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `jalan` varchar(30) NOT NULL,
-  `idKabupaten` varchar(10) NOT NULL,
-  `role` varchar(10) NOT NULL DEFAULT 'customer'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`idCustomer`, `gambar`, `namaCustomer`, `username`, `password`, `tanggalLahir`, `jenisKelamin`, `telepon`, `email`, `jalan`, `idKabupaten`, `role`) VALUES
-('1', 0x556e7469746c65642064657369676e2e706e67, 'Revina Hani Rahmadilla', 'revinarahmadilla', '$2y$10$6uOV72MZMYno5qyNhDFzeex', '2001-10-01', '', '081234546567', 'revinahani30@gmail.com', 'Jl. S. Parman', 'Jember', 'customer'),
-('2', 0x6e796f6261206564697420332e6a7067, 'Revina Rahmadilla', 'revina10', '$2y$10$s4S4M.jwoEkYeC/S8D0w4eR', '2001-10-02', '', '081236786876', 'revinahani9@gmail.com', 'Jl. S. Parman GG', 'Jember', 'customer');
+(51, '16S6RVz1Xs0aU', 4, '2022-05-21 16:18:49', 'Selesai'),
+(52, '16wcKOUyBAIb6', 4, '2022-05-21 16:37:38', 'Selesai'),
+(53, '16fy8FVMpzBQE', 4, '2022-05-21 16:43:02', 'Pengiriman'),
+(54, '16LxxOkqvsrf6', 4, '2022-05-21 17:02:03', 'Cart'),
+(55, '16TZYEjmjsYCw', 8, '2022-05-22 11:51:59', 'Pengiriman'),
+(56, '16AiYPVXMsL5k', 8, '2022-05-22 11:52:33', 'Cart');
 
 -- --------------------------------------------------------
 
@@ -127,59 +65,44 @@ CREATE TABLE `detailorder` (
 --
 
 INSERT INTO `detailorder` (`detailid`, `orderid`, `idproduk`, `qty`) VALUES
-(14, '15PzF03ejd8W2', 2, 1),
-(19, '164GSD/28EeFI', 3, 5),
-(21, '16Dmy7X3aaOcU', 2, 2),
-(24, '16EW.sM3M6bH.', 4, 1),
-(31, '16XLam8PFKAPI', 4, 1),
-(38, '16slPlBT1qnhE', 6, 1),
-(39, '16DYK49IFIgdM', 2, 1),
-(40, '16DYK49IFIgdM', 6, 1),
-(41, '16u1E9DDQQK1M', 5, 1);
+(72, '16S6RVz1Xs0aU', 2, 2),
+(73, '16wcKOUyBAIb6', 2, 1),
+(74, '16fy8FVMpzBQE', 2, 1),
+(75, '16LxxOkqvsrf6', 2, 1),
+(76, '16TZYEjmjsYCw', 5, 1),
+(77, '16AiYPVXMsL5k', 2, 1),
+(78, '16AiYPVXMsL5k', 4, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_barang`
+-- Table structure for table `item_rating`
 --
 
-CREATE TABLE `detail_barang` (
-  `idBarang` varchar(10) NOT NULL,
-  `idBahan` varchar(10) NOT NULL,
-  `idKategori` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `namaBarang` varchar(30) NOT NULL,
-  `bahan` enum('Jati','Mahoni','Sengon') NOT NULL,
-  `stock` int(11) NOT NULL,
-  `harga` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `karyawan_adminitrasi`
---
-
-CREATE TABLE `karyawan_adminitrasi` (
-  `idKaryawan` varchar(10) NOT NULL,
-  `gambar` blob NOT NULL,
-  `namaKaryawan` varchar(30) NOT NULL,
-  `tanggalLahirKaryawan` date NOT NULL,
-  `idAsal` varchar(10) NOT NULL,
-  `teleponKaryawan` varchar(15) NOT NULL,
-  `tanggalMasukKaryawan` date NOT NULL,
-  `statusKaryawan` enum('Aktif','Cuti','Pensiun') NOT NULL,
-  `keterangan` varchar(80) NOT NULL,
-  `email` varchar(10) NOT NULL,
-  `password` varchar(10) NOT NULL,
-  `role` varchar(10) NOT NULL DEFAULT 'admin'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `item_rating` (
+  `ratingId` int(11) NOT NULL,
+  `idproduk` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `ratingNumber` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `comments` text COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 = Block, 0 = Unblock'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `karyawan_adminitrasi`
+-- Dumping data for table `item_rating`
 --
 
-INSERT INTO `karyawan_adminitrasi` (`idKaryawan`, `gambar`, `namaKaryawan`, `tanggalLahirKaryawan`, `idAsal`, `teleponKaryawan`, `tanggalMasukKaryawan`, `statusKaryawan`, `keterangan`, `email`, `password`, `role`) VALUES
-('', 0x47726166696b2041727573204c696e65203220567320506572636f6261616e202853656b756e646572292e706e67, 'Jelang Fikri', '2022-04-15', 'Jakarta', '082345678654', '2022-04-15', 'Aktif', '', 'jelang', '$2y$10$jGv', 'admin');
+INSERT INTO `item_rating` (`ratingId`, `idproduk`, `userid`, `ratingNumber`, `title`, `comments`, `created`, `modified`, `status`) VALUES
+(14, 12345678, 1, 2, 'its awesome', 'It\'s awesome!!!', '2018-08-19 09:13:01', '2018-08-19 09:13:01', 1),
+(15, 12345678, 2, 5, 'Nice product', 'Really quality product!', '2018-08-19 09:13:37', '2018-08-19 09:13:37', 1),
+(16, 12345678, 3, 1, 'best buy', 'its\'s best but item.', '2018-08-19 09:14:19', '2018-08-19 09:14:19', 1),
+(17, 12345678, 4, 1, 'super awesome ', 'i think its supper products', '2018-08-19 09:18:00', '2018-08-19 09:18:00', 1),
+(22, 12345679, 5, 1, 'adada', 'daDad', '2019-01-20 17:00:58', '2019-01-20 17:00:58', 1),
+(23, 12345678, 5, 5, 'Nice product', 'this is nice!', '2019-01-20 17:01:37', '2019-01-20 17:01:37', 1),
+(24, 12345679, 3, 1, 'really nice', 'Good!', '2019-01-20 21:06:48', '2019-01-20 21:06:48', 1);
 
 -- --------------------------------------------------------
 
@@ -218,15 +141,18 @@ CREATE TABLE `konfirmasi` (
   `payment` varchar(10) NOT NULL,
   `namarekening` varchar(25) NOT NULL,
   `tglbayar` date NOT NULL,
-  `tglsubmit` timestamp NOT NULL DEFAULT current_timestamp()
+  `tglsubmit` timestamp NOT NULL DEFAULT current_timestamp(),
+  `alamatpengiriman` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `konfirmasi`
 --
 
-INSERT INTO `konfirmasi` (`idkonfirmasi`, `orderid`, `userid`, `payment`, `namarekening`, `tglbayar`, `tglsubmit`) VALUES
-(8, '16slPlBT1qnhE', 4, 'Bank BCA', 'Auliassisssss', '2022-04-25', '2022-04-24 18:16:54');
+INSERT INTO `konfirmasi` (`idkonfirmasi`, `orderid`, `userid`, `payment`, `namarekening`, `tglbayar`, `tglsubmit`, `alamatpengiriman`) VALUES
+(11, '16S6RVz1Xs0aU', 4, 'Bank Mandi', 'auliasis dwi', '2022-05-21', '2022-05-21 16:20:58', 'Jl. Kalimantan no 189 RT 04'),
+(12, '16fy8FVMpzBQE', 4, 'DANA', 'Almas Firdaus', '2022-05-22', '2022-05-21 17:07:10', 'Jl. Kalimantan no 189 RT 04'),
+(13, '16TZYEjmjsYCw', 8, 'Bank BCA', 'Almas Firdaus', '2022-05-22', '2022-05-22 11:53:31', 'Jl. Sumatra 109');
 
 -- --------------------------------------------------------
 
@@ -252,14 +178,18 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`userid`, `namalengkap`, `image`, `email`, `password`, `notelp`, `alamat`, `tgljoin`, `role`, `lastlogin`) VALUES
-(0, 'admin', 'sana.jpeg', 'admin@gmail.com', '$2y$10$GJVGd4ji3QE8ikTBzNyA0uLQhiGd6MirZeSJV1O6nUpjSVp1eaKzS', '01234567867', 'Ambulu, Jember', '2020-03-16 11:31:17', 'admin', NULL),
+(0, 'admin', 'twice.jpg', 'admin@gmail.com', '$2y$10$GJVGd4ji3QE8ikTBzNyA0uLQhiGd6MirZeSJV1O6nUpjSVp1eaKzS', '081217263547', 'Ambulu, Jember', '2020-03-16 11:31:17', 'admin', NULL),
 (2, 'Guest', '', 'guest', '$2y$10$xXEMgj5pMT9EE0QAx3QW8uEn155Je.FHH5SuIATxVheOt0Z4rhK6K', '01234567890', 'Indonesia', '2020-03-16 11:30:40', 'Member', NULL),
 (3, 'Dwi Budi Hardiks Dewantara', 'park2.jpg', 'dewa@gmail.com', '$2y$10$qFAbJKxmH.ay9xKYdhoHLO97Jau7evRLy5gYDuIUkSrGhdV2Ih/f.', '081217263545', 'Bukit Permai, Kebonsari, Jember', '2022-04-16 11:19:48', 'pemilik', NULL),
-(4, 'Auliassisssss', 'ryujin.jpg', 'aulia@gmail.com', '$2y$10$SaRV7ula.p/P8ZeULfcQPuwkOc7iJ9Fbdmz4eC9e.3Gd5GfIUp85S', '082435678654', 'Arjasa, Jember', '2022-04-16 12:35:54', 'Member', NULL),
+(4, 'Auliasis Dwi Putri', 'ryujin.jpg', 'aulia@gmail.com', '$2y$10$SaRV7ula.p/P8ZeULfcQPuwkOc7iJ9Fbdmz4eC9e.3Gd5GfIUp85S', '0824356786587', 'Kaliwates, Jember', '2022-04-16 12:35:54', 'Member', NULL),
 (7, 'Carenina', '', 'nina@gmail.com', '$2y$10$jSboHNjrnaylgnI9eVG/lejCJxB8fnw8X3NPiq.I8jv8wr9KN5uFy', '08976447656', 'jember', '2022-04-17 14:31:29', 'Member', NULL),
 (8, 'Almas Firdaus', '', 'almas@gmail.com', '$2y$10$8m5bcnYiJxd1LoUSeev6o.xf4tBB6k24JOrDberdry4WijytMIXJy', '0898786545', 'jember', '2022-04-21 13:42:22', 'Member', NULL),
-(13, 'jelang', '', 'jelang@gmail.com', '$2y$10$tsE5cvpRao4edB4uvm3HTukMu8bWfIj7RGLy0dT5pW2DO6eDIp0wS', '081217263547', 'jl. kalimantan no 63', '2022-04-30 14:02:38', 'admin', NULL),
-(14, 'Nafisah Hani Azzahra', '', 'nafisah@gmail.com', '$2y$10$Z0YoFIHeO77w7QMN5fLU6uqe2I5y2PG1SjmHPe7uyDFpbY065vFuG', '082435678659', 'Jalan Sumatra 56', '2022-04-30 16:14:13', 'Member', NULL);
+(13, 'Jelang Fikri', '', 'jelang@gmail.com', '$2y$10$tsE5cvpRao4edB4uvm3HTukMu8bWfIj7RGLy0dT5pW2DO6eDIp0wS', '081217263547', 'jl. kalimantan no 63', '2022-04-30 14:02:38', 'admin', NULL),
+(14, 'Nafisah Hani Azzahra', '', 'nafisah@gmail.com', '$2y$10$Z0YoFIHeO77w7QMN5fLU6uqe2I5y2PG1SjmHPe7uyDFpbY065vFuG', '082435678659', 'Jalan Sumatra 56', '2022-04-30 16:14:13', 'Member', NULL),
+(15, 'Bachiar Diaz Dzulfikar', 'habibieee.jpeg', 'diaz@gmail.com', '$2y$10$UJU7C/n3cb4nxMRkAO3k8uQx.uFx3HuPLaWxnWxPGRujjKMqSJaee', '0812897878yuy', 'Jl. Jawa 676', '2022-05-07 03:42:23', 'Member', NULL),
+(16, 'Salsabila Ramadhani R', 'twice_sana_style_.jpg', 'salsa@gmail.com', '$2y$10$Fs2zb5ZLzAwAeg.TFJsSnO2vecHXaGd4FfPMU38GhEc5sDU5GIvUS', '08128567767', 'Jl. Sriwijaya 02', '2022-05-07 04:06:31', 'Member', NULL),
+(17, 'Aulia dwi putri', '', 'lia@gmail.com', '$2y$10$sQRLnMKuFfQ.TaJFZbC/geL0RWbl507UwuKG.qg5LHpI5vhBPviKe', '081214363540', 'Wuluhan, jember, Jawa Timur', '2022-05-07 04:16:24', 'admin', NULL),
+(18, 'Putri Maharani', '', 'rani@gmail.com', '$2y$10$DFQzIm1bV99VVUDBlm24pOr0aMkla5G8UgDoMpScelbhtXHJVhMEq', '081253545345', 'Sumbersari, Jember', '2022-05-10 14:16:20', 'Member', NULL);
 
 -- --------------------------------------------------------
 
@@ -287,37 +217,6 @@ INSERT INTO `pembayaran` (`no`, `metode`, `norek`, `logo`, `an`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pemilik usaha`
---
-
-CREATE TABLE `pemilik usaha` (
-  `idPemilikUsaha` varchar(10) NOT NULL,
-  `gambar` blob NOT NULL,
-  `namaUsaha` varchar(30) NOT NULL,
-  `jenisUsaha` varchar(30) NOT NULL,
-  `tahunBerdiri` year(4) NOT NULL,
-  `keterangan` varchar(100) NOT NULL,
-  `teleponPerusahaan` varchar(15) NOT NULL,
-  `namaPemilikUsaha` varchar(30) NOT NULL,
-  `tempatLahir` varchar(30) NOT NULL,
-  `tanggalLahir` date NOT NULL,
-  `jalan` varchar(30) NOT NULL,
-  `idKabupaten` varchar(10) NOT NULL,
-  `email` varchar(10) NOT NULL,
-  `password` varchar(10) NOT NULL,
-  `role` varchar(10) NOT NULL DEFAULT 'pemilik'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pemilik usaha`
---
-
-INSERT INTO `pemilik usaha` (`idPemilikUsaha`, `gambar`, `namaUsaha`, `jenisUsaha`, `tahunBerdiri`, `keterangan`, `teleponPerusahaan`, `namaPemilikUsaha`, `tempatLahir`, `tanggalLahir`, `jalan`, `idKabupaten`, `email`, `password`, `role`) VALUES
-('1', '', 'Wooden Furniture', 'Meubel', 0000, '-', '08123456786', 'Hartono', 'Jember', '1972-04-05', 'Rambipuji', 'Jember', 'hartono@gm', 'pemilik', 'pemilik');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `produk`
 --
 
@@ -338,30 +237,32 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`idproduk`, `idkategori`, `namaproduk`, `gambar`, `deskripsi`, `rate`, `hargabefore`, `hargaafter`, `tgldibuat`) VALUES
-(2, 3, 'Set Meja dan Kursi', 'produk/16vl4skANeGB6.jpeg', 'Meja kursi satu set  ', 0, 778000, 659000, '2019-12-20 09:24:13'),
-(3, 6, 'Meja Rias', 'produk/16LMFWfly6i9Y.jpg', 'Meja rias kayu ', 0, 790000, 640000, '2020-03-16 12:16:53'),
+(2, 3, 'Set Meja dan Kursi', 'produk/16LMFWfly6i9Y.jpg', 'Meja kursi satu set  ', 0, 778000, 658000, '2019-12-20 09:24:13'),
+(3, 6, 'Meja Rias Kayu ', 'produk/16oVRKPvDJJ2I.jpg', 'Meja rias kayu cantik', 0, 790000, 560000, '2020-03-16 12:16:53'),
 (4, 3, 'kursi meja ruang tamu', 'produk/164MUoUUq0nZY.jpg', 'Simple Elegant', 0, 3500000, 3200000, '2022-04-19 18:40:13'),
 (5, 4, 'Kursi ayunan', 'produk/16j5r0dzUCi7o.jpg', 'Kursi ayunan minimalis ', 0, 650000, 560000, '2022-04-23 22:10:45'),
 (6, 2, 'Meja Belajar Aesthetic', 'produk/16Y9KU4XQ4sNI.jpg', 'Meja Belajar (Tanpa Kursi) ', 0, 589000, 449000, '2022-04-24 14:31:54'),
-(7, 5, 'Lemari pakaian', 'produk/169XE6xl.XPRU.jpg', 'Lemari Pakaian ', 0, 1300000, 1250000, '2022-04-24 14:34:57');
+(7, 5, 'Lemari pakaian', 'produk/169XE6xl.XPRU.jpg', 'Lemari Pakaian ', 0, 1300000, 1250000, '2022-04-24 14:34:57'),
+(8, 6, 'Meja rias cantik sekali', 'produk/16LMFWfly6i9Y.jpg', 'Meja rias ', 0, 970000, 710000, '2022-05-07 04:12:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `reviewid` int(11) NOT NULL,
+  `page_id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `rating` tinyint(1) NOT NULL,
+  `submit_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `bahan`
---
-ALTER TABLE `bahan`
-  ADD PRIMARY KEY (`idBahan`);
-
---
--- Indexes for table `barang`
---
-ALTER TABLE `barang`
-  ADD PRIMARY KEY (`idBarang`),
-  ADD UNIQUE KEY `kategori` (`idKategori`),
-  ADD KEY `idBahan` (`idBahan`);
 
 --
 -- Indexes for table `cart`
@@ -372,13 +273,6 @@ ALTER TABLE `cart`
   ADD KEY `orderid_2` (`orderid`);
 
 --
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`idCustomer`),
-  ADD KEY `idKabupaten` (`idKabupaten`);
-
---
 -- Indexes for table `detailorder`
 --
 ALTER TABLE `detailorder`
@@ -387,21 +281,11 @@ ALTER TABLE `detailorder`
   ADD KEY `idproduk` (`idproduk`);
 
 --
--- Indexes for table `detail_barang`
+-- Indexes for table `item_rating`
 --
-ALTER TABLE `detail_barang`
-  ADD PRIMARY KEY (`idBarang`),
-  ADD UNIQUE KEY `idKategori` (`idKategori`),
-  ADD KEY `idBahan` (`idBahan`);
-
---
--- Indexes for table `karyawan_adminitrasi`
---
-ALTER TABLE `karyawan_adminitrasi`
-  ADD PRIMARY KEY (`idKaryawan`),
-  ADD KEY `idAsal` (`idAsal`);
-ALTER TABLE `karyawan_adminitrasi` ADD FULLTEXT KEY `username` (`email`);
-ALTER TABLE `karyawan_adminitrasi` ADD FULLTEXT KEY `password` (`password`);
+ALTER TABLE `item_rating`
+  ADD PRIMARY KEY (`ratingId`),
+  ADD UNIQUE KEY `idproduk` (`idproduk`,`userid`);
 
 --
 -- Indexes for table `kategori`
@@ -429,18 +313,18 @@ ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`no`);
 
 --
--- Indexes for table `pemilik usaha`
---
-ALTER TABLE `pemilik usaha`
-  ADD PRIMARY KEY (`idPemilikUsaha`),
-  ADD KEY `idKabupaten` (`idKabupaten`);
-
---
 -- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`idproduk`),
   ADD KEY `idkategori` (`idkategori`);
+
+--
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`reviewid`),
+  ADD UNIQUE KEY `userid` (`userid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -450,13 +334,19 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idcart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `detailorder`
 --
 ALTER TABLE `detailorder`
-  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `detailid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+
+--
+-- AUTO_INCREMENT for table `item_rating`
+--
+ALTER TABLE `item_rating`
+  MODIFY `ratingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -468,13 +358,13 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `idkonfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idkonfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -486,7 +376,13 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `idproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `reviewid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

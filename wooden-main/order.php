@@ -362,7 +362,7 @@ if (isset($_POST["update"])) {
 					</ul>
 				</div>
 				<div class="checkout-right-basket">
-					<a href="ulasan.php">Beri Ulasan</a>
+					<a href="review.php">Review Produk</a>
 					<!-- <a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a> -->
 				</div>
 				<div class="clearfix"> </div>
