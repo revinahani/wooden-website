@@ -195,6 +195,7 @@ if (isset($_POST["update"])) {
 						</li>
 						<li><a href="cart.php">Keranjang Saya</a></li>
 						<li><a href="daftarorder.php">Daftar Pesanan</a></li>
+						<li><a href="review.php">Ulasan</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -291,7 +292,7 @@ if (isset($_POST["update"])) {
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>Order Id</th>
+							<th>Id Pesanan</th>
 							<th>Bank Pembayaran</th>
 							<th>Nama Rekening</th>
 							<th>Tanggal Bayar</th>
@@ -362,7 +363,7 @@ if (isset($_POST["update"])) {
 					</ul>
 				</div>
 				<div class="checkout-right-basket">
-					<a href="review.php">Review Produk</a>
+					<a href="index.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
 					<!-- <a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a> -->
 				</div>
 				<div class="clearfix"> </div>

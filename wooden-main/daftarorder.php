@@ -183,6 +183,7 @@ if(isset($_POST["update"])){
 									</li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
 									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
+									<li><a href="review.php">Ulasan</a></li>
 								</ul>
 							</div>
 							</nav>
@@ -209,7 +210,7 @@ if(isset($_POST["update"])){
 					<thead>
 						<tr>
 							<th>No.</th>	
-							<th>Kode Order</th>
+							<th>Id Pesanan</th>
 							<th>Tanggal Order</th>
 							<th>Total</th>
 							<th>Status</th>

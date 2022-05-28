@@ -4,32 +4,6 @@ session_start();
 
 include 'dbconnect.php';
 
-// echo "<pre>";
-// print_r($_SESSION['user']);
-// echo "</pre>";
-// die;
-// $userid = $_SESSION['user']['userid'];
-
-// $userid = '';
-// $namalengkap = '';
-// $image = '';
-// $email = '';
-// $notelp = '';
-// $alamat = '';
-// // $data_table = $_GET['table'];
-// // $data_id = $_SESSION['id'];
-// $query = mysqli_query($conn, "SELECT * FROM login where userid = '$userid'");
-// // echo "<pre>";
-// // print_r($query);
-// // echo "</pre>";
-// while ($row = mysqli_fetch_object($query)) {
-// 	$userid = $row->userid;
-// 	$namalengkap = $row->namalengkap;
-// 	$image = $row->image;
-// 	$email = $row->email;
-// 	$notelp = $row->notelp;
-// 	$alamat = $row->alamat;
-// }
 if (isset($_POST['perbarui'])) {
 	$userid = $_POST['userid'];
 	$namalengkap = $_POST['namalengkap'];
@@ -48,17 +22,7 @@ if (isset($_POST['perbarui'])) {
 	$_SESSION['email'] = $_POST['email'];
 	$_SESSION['notelp'] = $_POST['notelp'];
 	$_SESSION['alamat'] = $_POST['alamat'];
-	// $query2 = mysqli_query($conn, "SELECT * FROM $data_table where userid = '$data_id'");
-	// $query2 = mysqli_query($conn, "SELECT * FROM login where userid = '$userid'");
-	// while ($row = mysqli_fetch_object($query2)) {
-	// 	$userid = $row->userid;
-	// 	$namalengkap = $row->namalengkap;
-	// 	$image = $row->image;
-	// 	$email = $row->email;
-	// 	$notelp = $row->notelp;
-	// 	$alamat = $row->alamat;
-	// }
-	// var_dump($userid);
+
 	$message = "Data Berhasil Diperbarui!";
 }
 ?>

@@ -149,6 +149,7 @@ $idk = $_GET['idkategori'];
 									</li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
 									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
+									<li><a href="review.php">Ulasan</a></li>
 								</ul>
 							</div>
 							</nav>

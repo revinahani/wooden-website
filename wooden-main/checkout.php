@@ -173,7 +173,8 @@ if(isset($_POST["checkout"])){
 										</ul>
 									</li>
 									<li><a href="cart.php">Keranjang Saya</a></li>
-									<li><a href="daftarorder.php">Daftar Order</a></li>
+									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
+									<li><a href="review.php">Ulasan</a></li>
 								</ul>
 							</div>
 							</nav>
@@ -272,7 +273,7 @@ if(isset($_POST["checkout"])){
 				<br>
 				<div class="checkout-left-basket" style="width:100%;margin-top:20px;">
 					<!-- <div class="checkout-left-basket"> -->
-					<h4>Kode Order Anda</h4>
+					<h4>Id Pesanan Anda</h4>
 					<center><h3><?= $orderidd ?></h3></center>
 				</div>
 				</div>
