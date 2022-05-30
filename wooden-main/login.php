@@ -10,12 +10,6 @@ include 'dbconnect.php';
 date_default_timezone_set("Asia/Bangkok");
 $timenow = date("j-F-Y-h:i:s A");
 
-// $q = mysql_query("select * from customer where email='$email' and password='$password'");
-// $r = mysql_fetch_array ($q);
-// $q2 = mysql_query("select * from karyawan_adminitrasi where email='$email' and password='$password'");
-// $ro = mysql_fetch_array ($q2);
-// $q3 = mysql_query("select * from pemilik usaha where email='$email' and password='$password'");
-// $row = mysql_fetch_array ($q3);
 
 if (isset($_POST['login'])) {
 	$email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -46,59 +40,6 @@ if (isset($_POST['login'])) {
 	 	<meta http-equiv='refresh' content='1; url= login.php'/> ";
 	}
 }
-// if (password_verify($password, $cariuser['password'])) {
-// 	$_SESSION['idCustomer'] = $cariuser['idCustomer'];
-// 	$_SESSION['gambar'] = $cariuser['gambar'];
-// 	$_SESSION['namaCustomer'] = $cariuser['namaCustomer'];
-// 	$_SESSION['username'] = $cariuser['username'];
-// 	$_SESSION['password'] = $cariuser['password'];
-// 	$_SESSION['tanggalLahir'] = $cariuser['tanggalLahir'];
-// 	$_SESSION['jenisKelamin'] = $cariuser['jenisKelamin'];
-// 	$_SESSION['telepon'] = $cariuser['telepon'];
-// 	$_SESSION['email'] = $cariuser['email'];
-// 	$_SESSION['jalan'] = $cariuser['jalan'];
-// 	$_SESSION['idKabupaten'] = $cariuser['idKabupaten'];
-// 	$_SESSION['role'] = 'customer';
-// 	header("location:login.php");
-// }
-// elseif (password_verify($password, $cariuser['password']) ) {
-// 	$_SESSION['idKaryawan'] = $cariuser['idKaryawan'];
-// 	$_SESSION['gambar'] = $cariuser['gambar'];
-// 	$_SESSION['namaKaryawan'] = $cariuser['namaKaryawan'];
-// 	$_SESSION['tanggalLahirKaryawan'] = $cariuser['tanggalLahirKaryawan'];
-// 	$_SESSION['idAsal'] = $cariuser['idAsal'];
-// 	$_SESSION['teleponKaryawan'] = $cariuser['teleponKaryawan'];
-// 	$_SESSION['tanggalMasukKaryawan'] = $cariuser['tanggalMasukKaryawan'];
-// 	$_SESSION['statusKaryawan'] = $cariuser['statusKaryawan'];
-// 	$_SESSION['keterangan'] = $cariuser['keterangan'];
-// 	$_SESSION['email'] = $cariuser['email'];
-// 	$_SESSION['password'] = $cariuser['password'];
-// 	$_SESSION['role'] = 'admin';
-// 	header("location:login.php");
-// }
-// elseif (password_verify($password, $cariuser['password']) ) {
-// 	$_SESSION['idPemilikUsaha'] = $cariuser['idPemilikUsaha'];
-// 	$_SESSION['gambar'] = $cariuser['gambar'];
-// 	$_SESSION['namaUsaha'] = $cariuser['namaUsaha'];
-// 	$_SESSION['jenisUsaha'] = $cariuser['jenisUsaha'];
-// 	$_SESSION['tahunBerdiri'] = $cariuser['tahunBerdiri'];
-// 	$_SESSION['keterangan'] = $cariuser['keterangan'];
-// 	$_SESSION['teleponPerusahaan'] = $cariuser['teleponPerusahaan'];
-// 	$_SESSION['namaPemilikUsaha'] = $cariuser['namaPemilikUsaha'];
-// 	$_SESSION['tempatLahir'] = $cariuser['tempatLahir'];
-// 	$_SESSION['tanggalLahir'] = $cariuser['tanggalLahir'];
-// 	$_SESSION['jalan'] = $cariuser['jalan'];
-// 	$_SESSION['idKabupaten'] = $cariuser['idKabupaten'];
-// 	$_SESSION['email'] = $cariuser['email'];
-// 	$_SESSION['pasword'] = $cariuser['password'];
-// 	$_SESSION['role'] = 'pemilik';
-// 	header("location:login.php");
-
-// } else {
-// 	echo 'Username atau password salah';
-// 	header("location:login.php");
-// }
-// }
 
 ?>
 
@@ -248,8 +189,8 @@ if (isset($_POST['login'])) {
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Halaman Login</li>
+				<li><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</li>
+				<!-- <li class="active">Halaman Login</li> -->
 			</ol>
 		</div>
 	</div>

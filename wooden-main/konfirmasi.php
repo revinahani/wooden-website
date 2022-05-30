@@ -197,9 +197,32 @@ if(isset($_POST['confirm']))
 											</div>
 										</ul>
 									</li>
+									<?php
+									if (!isset($_SESSION['log'])) {
+										echo '
+									<li><a href="registered.php" style="color: black"> Daftar</a></li>
+									<li><a href="login.php" style="color: black">Login</a></li>
+									';
+									} else {
+
+										if ($_SESSION['role'] == 'Member') {
+											echo '
 									<li><a href="cart.php">Keranjang Saya</a></li>
 									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
 									<li><a href="review.php">Ulasan</a></li>
+									';
+										} elseif ($_SESSION['role'] == 'pemilik') {
+											echo '
+									';
+										} else {
+											echo '
+									';
+										};
+									}
+									?>
+									<!-- <li><a href="cart.php">Keranjang Saya</a></li>
+									<li><a href="daftarorder.php">Daftar Pesanan</a></li>
+									<li><a href="review.php">Ulasan</a></li> -->
 								</ul>
 							</div>
 							</nav>
@@ -211,8 +234,8 @@ if(isset($_POST['confirm']))
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Konfirmasi</li>
+				<li><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Konfirmasi</li>
+				<!-- <li class="active">Konfirmasi</li> -->
 			</ol>
 		</div>
 	</div>
